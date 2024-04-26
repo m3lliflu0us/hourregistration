@@ -1,0 +1,337 @@
+:root {
+    font-family: "Manrope", sans-serif;
+    --gilde-primary: #13355b;
+    --gilde-primary-hover: #23415f;
+    --gilde-secondary: #ca2b69;
+    --gilde-secondary-hover: #b3255d;
+    --gilde-tertiary-hover: #b3255e12;
+    --white-primary: #ffffff;
+    --white-secondary: #eeeeee;
+    --txt-primary: #ffffff;
+    --txt-secondary: #222222;
+    --txt-tertiary: #1f1f1f;
+    --txt: #00365e;
+    --shadow-color: #0000000e;
+    --transition-primary: ease-in-out 0.1s;
+    --shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+    color: var(--txt-tertiary);
+    font-family: "Manrope", sans-serif, arial;
+}
+
+*::before {
+    box-sizing: inherit;
+}
+
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--white-secondary);
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+}
+
+.box-wrapper {
+    background-color: var(--white-primary);
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    border-radius: 28px;
+    min-height: 402px;
+    width: 1040px;
+    padding: 108px 36px 36px 36px;
+    box-shadow: var(--shadow);
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+    width: 50%;
+}
+
+.logo {
+    display: flex;
+    margin-top: calc((var(--wf-brsz, 80px))*-1);
+}
+
+.logo svg {
+    height: 75px;
+    width: min-content;
+}
+
+.inf {
+    margin: 22px 0 0 0;
+}
+
+.inf span {
+    color: var(--txt-secondary);
+    font-weight: 450;
+    font-size: 38px;
+}
+
+.ins {
+    margin: 16px 0 0 0;
+}
+
+.ins span {
+    font-size: 18px;
+    min-width: 450px;
+    width: 450px;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+    width: 50%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 22px 0 0 0;
+    padding: 0 0 0 24px;
+}
+
+.password input:focus,
+.email input:focus,
+.firstname input:focus,
+.lastname input:focus,
+.password-repeat input:focus {
+    outline: none;
+    border: 2px solid var(--gilde-secondary);
+    margin: 1px 1px 0 0px;
+}
+
+.email input,
+.password input,
+.firstname input,
+.lastname input,
+.password-repeat input {
+    width: 100%;
+    height: 52px;
+    padding: 13px 15px;
+    font-size: 16px;
+    margin: 1px 1px 0 1px;
+    border-radius: 4px;
+    color: var(--txt-tertiary);
+    background-color: #ffffff;
+    outline: none;
+    border: 1px solid var(--txt-tertiary);
+}
+
+.firstname,
+.lastname,
+.email,
+.password,
+.password-repeat {
+    position: relative;
+}
+
+.lastname,
+.margin,
+.password,
+.password-repeat {
+    margin: 24px 0 0 0;
+}
+
+.firstname label,
+.lastname label,
+.email label,
+.password label,
+.password-repeat label {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    margin: 5.5px 0 0 0;
+    padding: 0.625rem 0;
+    color: var(--txt-tertiary);
+    transition: var(--transition-primary);
+    cursor: text;
+    pointer-events: none;
+
+}
+
+.firstname input:focus~label,
+.firstname input:not([value=""])~label {
+    top: -0.8rem;
+    left: 10px;
+    color: var(--gilde-secondary);
+    font-size: 0.75rem;
+    background-color: #ffffff;
+    height: 10px;
+    padding: 0 5px;
+    cursor: default;
+}
+
+.lastname input:focus~label,
+.lastname input:not([value=""])~label {
+    top: -0.8rem;
+    left: 10px;
+    color: var(--gilde-secondary);
+    font-size: 0.75rem;
+    background-color: #ffffff;
+    height: 10px;
+    padding: 0 5px;
+    cursor: default;
+}
+
+.email input:focus~label,
+.email input:not([value=""])~label {
+    top: -0.8rem;
+    left: 10px;
+    color: var(--gilde-secondary);
+    font-size: 0.75rem;
+    background-color: #ffffff;
+    height: 10px;
+    padding: 0 5px;
+    cursor: default;
+}
+
+.password input:focus~label,
+.password input:not([value=""])~label {
+    top: -0.8rem;
+    left: 10px;
+    color: var(--gilde-secondary);
+    font-size: 0.75rem;
+    background-color: #ffffff;
+    height: 10px;
+    padding: 0 5px;
+    cursor: default;
+}
+
+.password-repeat input:focus~label,
+.password-repeat input:not([value=""])~label {
+    top: -0.8rem;
+    left: 10px;
+    color: var(--gilde-secondary);
+    font-size: 0.75rem;
+    background-color: #ffffff;
+    height: 10px;
+    padding: 0 5px;
+    cursor: default;
+}
+
+.firstname input:not([value=""])~label,
+.lastname input:not([value=""])~label,
+.email input:not([value=""])~label,
+.password input:not([value=""])~label,
+.password-repeat input:not([value=""])~label {
+    transition: 0.025 ease;
+}
+
+.firstname input:not(:focus)~label,
+.lastname input:not(:focus)~label,
+.email input:not(:focus)~label,
+.password input:not(:focus)~label,
+.password-repeat input:not(:focus)~label {
+    color: var(--txt-tertiary);
+}
+
+.error-container {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 10px 0;
+}
+
+/* .error {
+    border: 2px solid red !important;
+    color: red !important;
+
+} */
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    height: 48px;
+}
+
+
+.checkbox-container input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0 0 0 35px;
+    max-width: 50%;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 21.6px;
+    width: 21.6px;
+    padding: 0 0 2.5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.08s ease-in-out;
+    border-radius: 2.5px;
+    border: black solid 1px;
+    margin: 0px 0 0 0;
+}
+
+.checkbox-container input:checked~.checkmark {
+    background-color: var(--gilde-secondary);
+}
+
+.checkbox-container input:checked~.checkmark:after {
+    content: "";
+    width: 7px;
+    height: 12px;
+    border: solid var(--txt-primary);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.remember span {
+    color: var(--txt-tertiary);
+}
+
+.bottom {
+    margin: auto 0 0 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 18px;
+}
+
+.submit input[type="submit"] {
+    border: none;
+    outline: none;
+    border-radius: 32px;
+    font-weight: 600;
+    font-size: 16px;
+    height: 48px;
+    width: 110px;
+    color: var(--txt-primary);
+    background-color: var(--gilde-secondary);
+    transition: var(--transition-primary);
+}
+
+.submit:hover input[type="submit"] {
+    background-color: var(--gilde-secondary-hover);
+    box-shadow: 0 1.8px 2.2px 1.8px var(--shadow-color);
+}
