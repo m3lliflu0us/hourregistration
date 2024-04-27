@@ -77,15 +77,7 @@
 
                         </label>
 
-                    <div class="bottom">
-                        <div class="forgot">
-                            <a href="">
-                                <span>
-                                    Wachtwoord vergeten?
-                                </span>
-                            </a>
-                        </div>
-
+                    <div class="bottom">    
                         <div class="submit">
                             <input type="submit" name="submit" value="Log in">
                         </div>

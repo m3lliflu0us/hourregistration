@@ -24,7 +24,7 @@ html, body {
 
 main {
     display: grid;
-    grid-template-columns: 10% 90%;
+    grid-template-columns: min-content auto;
     padding: 2rem 2rem 2rem 0;
     height: calc(100dvh - 4rem);
 }

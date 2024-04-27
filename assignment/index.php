@@ -65,7 +65,7 @@ echo '<div class="assignment-item">';
 echo '<span class="assignment-title">' . htmlspecialchars($row['assignmentName']) . '</span>';
 echo '<div class="bottom">';
 echo '<div class="bottom-left">';
-echo '<span class="client-id">Klant ID: ' . htmlspecialchars($row['clientId']) . '</span>'; // Display the actual clientId
+echo '<span class="client-id">Klant ID: ' . htmlspecialchars($row['clientId']) . '</span>';
 echo '<span class="assignment-id">Opdracht ID: ' . htmlspecialchars($row['assignmentId']) . '</span>';
 echo '</div>';
 echo '<form action="assignment.php" method="post">';

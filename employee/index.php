@@ -41,15 +41,15 @@ include("../db/dbh.inc.php");
 
                                 </div>
                             </div>
-                            <div class="assignmentInput">
+                            <div class="assignmentInput inputMargin">
                                 <input type="text" name="assignmentName" value="" onkeyup="this.setAttribute('value', this.value);">
                                 <label for="assignmentName">Opdracht Naam</label>
                             </div>
-                            <div class="assignmentInput">
+                            <div class="assignmentInput inputMargin">
                                 <input type="text" name="assignmentDescription" value="" onkeyup="this.setAttribute('value', this.value);">
                                 <label for="assignmentDescription">Opdracht uitleg</label>
                             </div>
-                            <div class="clientId">
+                            <div class="clientId inputMargin">
                                 <label for="clientId">clientId</label>
 
                                 <select name="clientId">
@@ -61,8 +61,10 @@ include("../db/dbh.inc.php");
                                     ?>
                                 </select>
                             </div>
-                            <label for="deadline">Deadline:</label>
-                            <input type="date" id="deadline" name="deadline">
+                            <div class="deadline">
+                                <label for="deadline">Deadline:</label>
+                                <input type="date" id="deadline" name="deadline">
+                            </div>
 
                             <div class="create">
                                 <input type="submit" name="createassignment" value="Creëer">
@@ -82,7 +84,7 @@ include("../db/dbh.inc.php");
                                 </span>
                             </div>
                         </div>
-                        <div class="right">
+                        <div class="bottom">
                             <form action="../userincludes/signup.inc.php" method="POST">
                                 <div class="firstname">
                                     <input type="text" name="firstname" value="" onkeyup="this.setAttribute('value', this.value);">

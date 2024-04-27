@@ -1,5 +1,5 @@
 <?php
 
-define("BASE_URL","http://localhost/urenregistratie/");
+define("BASE_URL","http://localhost/hourregistration/");
 
-define("IMG_URL","http://localhost/urenregistratie/img/");
+define("IMG_URL","http://localhost/hourregistration/img/");
