@@ -38,7 +38,6 @@ include("../db/dbh.inc.php");
                                 </span>
                                 <div class="inf-title">
                                     Voer de gegevens in om een account te maken
-
                                 </div>
                             </div>
                             <div class="assignmentInput inputMargin">
