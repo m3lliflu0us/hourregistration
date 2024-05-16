@@ -1,112 +1,21 @@
-:root {
-    font-family: "Manrope", sans-serif;
-    --gilde-primary: #13355b;
-    --gilde-primary-hover: #23415f;
-    --gilde-secondary: #ca2b69;
-    --gilde-secondary-hover: #b3255d;
-    --gilde-tertiary-hover: #b3255e12;
-    --white-primary: #ffffff;
-    --white-secondary: #eeeeee;
-    --txt-primary: #ffffff;
-    --txt-secondary: #222222;
-    --txt-tertiary: #1f1f1f;
-    --txt: #00365e;
-    --shadow-color: #0000000e;
-    --transition-primary: ease-in-out 0.1s;
-    --shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
-}
-
-.employee-container {
+.dashboard-window {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 2rem;
-    height: 100%;
-    width: 100%;
+    max-height: calc(100vh - 4rem);
+    height: calc(100vh - 4rem);
+    overflow-y: auto;
     padding: 1rem;
+    gap: 2rem;
 }
 
-.inf {
-    margin: 22px 0 0 0;
+.createassignment-wrapper {
+    background-color: red;
 }
 
-.inf span {
-    color: var(--txt-secondary);
-    font-weight: 450;
-    font-size: 38px;
+.createemployee-wrapper {
+    background-color: blue;
 }
 
-.ins {
-    margin: 16px 0 0 0;
-}
-
-.assignmentInput {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-
-}
-
-.assignmentInput input:focus {
-    outline: none;
-    border: 2px solid var(--gilde-secondary);
-    margin: 1px 1px 0 0px;
-}
-
-.assignmentInput input {
-    width: 100%;
-    height: 52px;
-    padding: 13px 15px;
-    font-size: 16px;
-    border-radius: 4px;
-    color: var(--txt-tertiary);
-    background-color: #ffffff;
-    outline: none;
-    border: 1px solid var(--txt-tertiary);
-}
-
-.assignmentInput {
-    position: relative;
-}
-
-.assignmentInput label {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    margin: 5.5px 0 0 0;
-    padding: 0.625rem 0;
-    color: var(--txt-tertiary);
-    transition: var(--transition-primary);
-    cursor: text;
-    pointer-events: none;
-}
-
-.assignmentInput input:focus~label,
-.assignmentInput input:not([value=""])~label {
-    top: -0.8rem;
-    left: 10px;
-    color: var(--gilde-secondary);
-    font-size: 0.75rem;
-    background-color: #ffffff;
-    height: 10px;
-    padding: 0 5px;
-    cursor: default;
-}
-
-.assignmentInput input:not([value=""])~label {
-    transition: 0.025 ease;
-}
-
-.assignmentInput input:not(:focus)~label {
-    color: var(--txt-tertiary);
-}
-
-.create-assignment-wrapper form {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.marginInput {
-    margin: 0 0 24px 0;
+.employeelist-wrapper {
+    background-color: yellow;
 }
