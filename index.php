@@ -28,13 +28,35 @@ include("./userincludes/userfunctions.inc.php");
         google.charts.load('current', {
             'packages': ['corechart']
         });
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawPieChart);
+        google.charts.setOnLoadCallback(drawColumnChart);
 
-        function drawChart() {
+        function drawPieChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Role', 'Number of Users'],
+                <?php
+                $sql = "SELECT userRole, COUNT(*) as number FROM user GROUP BY userRole";
+                $result = mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "['" . $row['userRole'] . "', " . $row['number'] . "],";
+                }
+                ?>
+            ]);
+
+            var options = {
+                title: 'User Roles Distribution'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawColumnChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Role', 'Hours Worked'],
                 <?php
-                $sql = "SELECT user.userRole, SUM(activity.totalTime) as totalHours FROM user INNER JOIN activity ON user.userId = activity.userId GROUP BY user.userRole";
+                $sql = "SELECT user.userRole, COALESCE(SUM(activity.totalTime), 0) as totalHours FROM user LEFT JOIN activity ON user.userId = activity.userId GROUP BY user.userRole";
                 $result = mysqli_query($conn, $sql);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "['" . $row['userRole'] . "', " . $row['totalHours'] . "],";
@@ -66,7 +88,8 @@ include("./userincludes/userfunctions.inc.php");
 
         <div class="dashboard-wrapper">
             <div class="dashboard-window">
-            <div id="columnchart" style="width: 900px; height: 500px;"></div>
+                <div id="piechart" style="width: 900px; height: 500px;"></div>
+                <div id="columnchart" style="width: 900px; height: 500px;"></div>
             </div>
         </div>
     </main>
