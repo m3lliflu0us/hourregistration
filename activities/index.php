@@ -10,6 +10,7 @@ $currentPage = 'activities';
 
 include("../config.php");
 include("../userincludes/userfunctions.inc.php");
+include("../db/dbh.inc.php");
 ?>
 
 <!DOCTYPE html>
