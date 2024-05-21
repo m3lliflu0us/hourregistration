@@ -13,7 +13,7 @@ include("../userincludes/userfunctions.inc.php");
 include("../db/dbh.inc.php");
 
 // Query om de benodigde gegevens op te halen
-$sql = "SELECT user.userFirstname, user.userLastname, assignment.assignmentName, assignment.assignmentDescription, assignment.assignmentId, activity.totalTime 
+$sql = "SELECT user.userId, user.userFirstname, user.userLastname, assignment.assignmentName, assignment.assignmentDescription, activity.totalTime 
         FROM user 
         JOIN activity ON user.userId = activity.userId 
         JOIN assignment ON activity.assignmentId = assignment.assignmentId";
@@ -74,9 +74,8 @@ function myFunction() {
                     $totalTime = $row["totalTime"] == 0 ? "00:00:00" : gmdate("H:i:s", $row["totalTime"]);
                     $firstName = ucfirst(strtolower($row["userFirstname"]));
                     $lastName = ucfirst(strtolower($row["userLastname"]));
-                    echo "<tr><td>" . $firstName . " " . $lastName . "</td><td>" . $row["assignmentName"]. "</td><td>" . $row["assignmentDescription"]. "</td><td>" . $row["assignmentId"]. "</td><td>" . $totalTime . "</td></tr>";
+                    echo "<tr><td>" . $firstName . " " . $lastName . "</td><td>" . $row["assignmentName"]. "</td><td>" . $row["assignmentDescription"]. "</td><td>" . $row["userId"]. "</td><td>" . $totalTime . "</td></tr>";
                 }
-                
                 echo "</table>"; // Close the table
               }
               
