@@ -1,8 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px; /* Add padding to the body */
-}
-
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--gilde-secondary) var(--white-primary);
@@ -23,15 +18,7 @@ body {
     border: 3px solid var(--white-primary);
 }
 
-
-.dashboard-wrapper {
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px; /* Add padding to the wrapper */
-}
-
-.dashboard-window {
-    background-color: #f8f9fa;
+.activities-wrapper {
     border-radius: 5px;
     padding: 20px;
     margin-top: 20px;

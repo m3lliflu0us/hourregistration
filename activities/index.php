@@ -2,8 +2,8 @@
 session_start();
 
 if (!isset($_SESSION["userId"])) {
-    header("location: ../user/login.php");
-    exit();
+  header("location: ../user/login.php");
+  exit();
 }
 
 $currentPage = 'activities';
@@ -25,66 +25,68 @@ $result = $conn->query($sql);
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" lang="en" content="width=device-width, initial-scale=1.0">
-    <title>Werkzaamheden | Gilde DevOps</title>
-    <link rel="stylesheet" href="activities.css">
-    <link rel="stylesheet" href="../assets/layout.css">
-    <link rel="stylesheet" href="../assets/navbar.css">
-    <script>
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
+  <meta charset="UTF-8">
+  <meta name="viewport" lang="en" content="width=device-width, initial-scale=1.0">
+  <title>Werkzaamheden | Gilde DevOps</title>
+  <link rel="stylesheet" href="activities.css">
+  <link rel="stylesheet" href="../assets/layout.css">
+  <link rel="stylesheet" href="../assets/navbar.css">
+  <script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
 
-  for (i = 0; i < tr.length; i++) {
-    tdName = tr[i].getElementsByTagName("td")[0];
-    tdAssignment = tr[i].getElementsByTagName("td")[1];
-    if (tdName || tdAssignment) {
-      txtValueName = tdName.textContent || tdName.innerText;
-      txtValueAssignment = tdAssignment.textContent || tdAssignment.innerText;
-      if (txtValueName.toUpperCase().indexOf(filter) > -1 || txtValueAssignment.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+      for (i = 0; i < tr.length; i++) {
+        tdName = tr[i].getElementsByTagName("td")[0];
+        tdAssignment = tr[i].getElementsByTagName("td")[1];
+        if (tdName || tdAssignment) {
+          txtValueName = tdName.textContent || tdName.innerText;
+          txtValueAssignment = tdAssignment.textContent || tdAssignment.innerText;
+          if (txtValueName.toUpperCase().indexOf(filter) > -1 || txtValueAssignment.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
       }
-    }       
-  }
-}
-</script>
+    }
+  </script>
 </head>
 
 <body>
-    <main>
-        <?php include("../assets/navbar.php") ?>
+  <main>
+    <?php include("../assets/navbar.php") ?>
 
-        <div class="dashboard-wrapper">
-            <div class="dashboard-window">
-                <?php
-               if ($result->num_rows > 0) {
-                // Maak een zoekbalk
-                echo "<input class='search-bar' type='text' id='myInput' onkeyup='myFunction()' placeholder='Zoek naar namen..'>";
-                echo "<table class='data-table' id='myTable'>";
-                echo "<tr class='header'><th>Naam</th><th>Opdracht</th><th>Opdracht Omschrijving</th><th>Opdracht ID</th><th>Totale tijd</th></tr>";
-                
-                // Output data van elke rij
-                while($row = $result->fetch_assoc()) {
-                    $totalTime = $row["totalTime"] == 0 ? "00:00:00" : gmdate("H:i:s", $row["totalTime"]);
-                    $firstName = ucfirst(strtolower($row["userFirstname"]));
-                    $lastName = ucfirst(strtolower($row["userLastname"]));
-                    echo "<tr><td>" . $firstName . " " . $lastName . "</td><td>" . $row["assignmentName"]. "</td><td>" . $row["assignmentDescription"]. "</td><td>" . $row["assignmentId"]. "</td><td>" . $totalTime . "</td></tr>";
-                }
-                
-                echo "</table>"; // Close the table
-              }
-              
-                ?>
-            </div>
+    <div class="dashboard-wrapper">
+      <div class="dashboard-window">
+        <div class="activities-wrapper">
+          <?php
+          if ($result->num_rows > 0) {
+            // Maak een zoekbalk
+            echo "<input class='search-bar' type='text' id='myInput' onkeyup='myFunction()' placeholder='Zoek naar namen..'>";
+            echo "<table class='data-table' id='myTable'>";
+            echo "<tr class='header'><th>Naam</th><th>Opdracht</th><th>Opdracht Omschrijving</th><th>Opdracht ID</th><th>Totale tijd</th></tr>";
+
+            // Output data van elke rij
+            while ($row = $result->fetch_assoc()) {
+              $totalTime = $row["totalTime"] == 0 ? "00:00:00" : gmdate("H:i:s", $row["totalTime"]);
+              $firstName = ucfirst(strtolower($row["userFirstname"]));
+              $lastName = ucfirst(strtolower($row["userLastname"]));
+              echo "<tr><td>" . $firstName . " " . $lastName . "</td><td>" . $row["assignmentName"] . "</td><td>" . $row["assignmentDescription"] . "</td><td>" . $row["assignmentId"] . "</td><td>" . $totalTime . "</td></tr>";
+            }
+
+            echo "</table>"; // Close the table
+          }
+
+          ?>
         </div>
-        
-    </main>
+      </div>
+    </div>
+
+  </main>
 </body>
 
 </html>
