@@ -13,7 +13,7 @@ include("../userincludes/userfunctions.inc.php");
 include("../db/dbh.inc.php");
 
 // Query om de benodigde gegevens op te halen
-$sql = "SELECT user.userFirstname, user.userLastname, assignment.assignmentName, assignment.assignmentDescription, assignment.assignmentId, activity.totalTime 
+$sql = "SELECT user.userId, user.userFirstname, user.userLastname, assignment.assignmentName, assignment.assignmentDescription, activity.totalTime 
         FROM user 
         JOIN activity ON user.userId = activity.userId 
         JOIN assignment ON activity.assignmentId = assignment.assignmentId";
@@ -67,7 +67,7 @@ function myFunction() {
                 // Maak een zoekbalk
                 echo "<input class='search-bar' type='text' id='myInput' onkeyup='myFunction()' placeholder='Zoek naar namen..'>";
                 echo "<table class='data-table' id='myTable'>";
-                echo "<tr class='header'><th>Naam</th><th>Opdracht</th><th>Opdracht Omschrijving</th><th>Opdracht ID</th><th>Totale tijd</th></tr>";
+                echo "<tr class='header'><th>Naam</th><th>Opdracht</th><th>Opdracht Omschrijving</th><th>User ID</th><th>Totale tijd</th></tr>";
                 
                 // Output data van elke rij
                 while($row = $result->fetch_assoc()) {
@@ -78,11 +78,7 @@ function myFunction() {
                     $totalTimeFormatted = gmdate("H:i:s", $totalTime);
                     $firstName = ucfirst(strtolower($row["userFirstname"]));
                     $lastName = ucfirst(strtolower($row["userLastname"]));
-<<<<<<< Updated upstream
-                    echo "<tr><td>" . $firstName . " " . $lastName . "</td><td>" . $row["assignmentName"]. "</td><td>" . $row["assignmentDescription"]. "</td><td>" . $row["assignmentId"]. "</td><td>" . $totalTime . "</td></tr>";
-=======
                     echo "<tr><td>" . $firstName . " " . $lastName . "</td><td>" . $row["assignmentName"]. "</td><td>" . $row["assignmentDescription"]. "</td><td>" . $row["userId"]. "</td><td>" . $totalTimeFormatted . "</td></tr>";
->>>>>>> Stashed changes
                 }
                 
                 echo "</table>"; // Close the table
