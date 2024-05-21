@@ -35,26 +35,29 @@ $result = $conn->query($sql);
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <script>
     function myFunction() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myTable");
-      tr = table.getElementsByTagName("tr");
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
 
-      for (i = 0; i < tr.length; i++) {
-        tdName = tr[i].getElementsByTagName("td")[0];
-        tdAssignment = tr[i].getElementsByTagName("td")[1];
-        if (tdName || tdAssignment) {
-          txtValueName = tdName.textContent || tdName.innerText;
-          txtValueAssignment = tdAssignment.textContent || tdAssignment.innerText;
-          if (txtValueName.toUpperCase().indexOf(filter) > -1 || txtValueAssignment.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
+  for (i = 0; i < tr.length; i++) {
+    tdName = tr[i].getElementsByTagName("td")[0];
+    tdAssignment = tr[i].getElementsByTagName("td")[1];
+    tdUserId = tr[i].getElementsByTagName("td")[3];
+    if (tdName || tdAssignment || tdUserId) {
+      txtValueName = tdName.textContent || tdName.innerText;
+      txtValueAssignment = tdAssignment.textContent || tdAssignment.innerText;
+      txtValueUserId = tdUserId.textContent || tdUserId.innerText;
+      if (txtValueName.toUpperCase().indexOf(filter) > -1 || txtValueAssignment.toUpperCase().indexOf(filter) > -1 || txtValueUserId.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
       }
-    }
+    }       
+  }
+}
+
   </script>
 </head>
 
