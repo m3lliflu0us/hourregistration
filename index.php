@@ -88,8 +88,10 @@ include("./userincludes/userfunctions.inc.php");
 
         <div class="dashboard-wrapper">
             <div class="dashboard-window">
-                <div id="piechart" style="width: 900px; height: 500px;"></div>
-                <div id="columnchart" style="width: 900px; height: 500px;"></div>
+                <div class="dashboard-content">
+                    <div id="piechart" style="width: 900px; height: 500px;"></div>
+                    <div id="columnchart" style="width: 900px; height: 500px;"></div>
+                </div>
             </div>
         </div>
     </main>
