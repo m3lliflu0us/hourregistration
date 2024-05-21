@@ -9,8 +9,9 @@ if (isset($_POST['createassignment'])) {
     $assignmentName = $_POST['assignmentName'];
     $companyName = $_POST['companyName'];
     $deadline = $_POST['deadline'];
+    $assignmentDescription = $_POST['assignmentDescription']; // Added this line
 
-    if (empty($assignmentName) || empty($companyName)) {
+    if (empty($assignmentName) || empty($companyName) || empty($assignmentDescription)) { // Modified this line
         header("location: ../index.php?error=emptyfields");
         exit();
     }
@@ -32,13 +33,13 @@ if (isset($_POST['createassignment'])) {
         }
     }
 
-    $sql = "INSERT INTO assignment (clientId, assignmentName) VALUES (?, ?)";
+    $sql = "INSERT INTO assignment (clientId, assignmentName, assignmentDescription) VALUES (?, ?, ?)"; // Modified this line
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../employee/employee.php?error=sqlerror");
         exit();
     } else {
-        mysqli_stmt_bind_param($stmt, "is", $clientId, $assignmentName);
+        mysqli_stmt_bind_param($stmt, "iss", $clientId, $assignmentName, $assignmentDescription); // Modified this line
         mysqli_stmt_execute($stmt);
         $assignmentId = mysqli_insert_id($conn);
 
