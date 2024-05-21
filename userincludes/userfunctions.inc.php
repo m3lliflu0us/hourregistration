@@ -60,7 +60,7 @@ function emailExists($conn, $email)
     $sql = "SELECT * FROM user WHERE userEmail = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: ../user/signup.php?error=somethingwentwrong");
+        header("Location: ../employee/index.php?error=somethingwentwrong");
         exit();
     }
 
@@ -84,7 +84,7 @@ function createUser($conn, $firstname, $lastname, $email, $pwd, $role)
     $sql = "INSERT INTO user (userFirstname, userLastname, userEmail, userPwd, userRole) VALUES (?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: ../user/signup.php?error=somethingwentwrong");
+        header("Location: ../employee/index.php?error=somethingwentwrong");
         exit();
     }
 
@@ -93,7 +93,7 @@ function createUser($conn, $firstname, $lastname, $email, $pwd, $role)
     mysqli_stmt_bind_param($stmt, "sssss", $firstname, $lastname, $email, $hashedPwd, $role);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("Location: ../user/login.php?error=none");
+    header("Location: ../employee/index.php");
     exit();
 }
 

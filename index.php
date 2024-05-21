@@ -6,6 +6,8 @@ if (!isset($_SESSION["userId"])) {
     exit();
 }
 
+$currentPage = 'dashboard';
+
 include("config.php");
 include("./db/dbh.inc.php");
 include("./userincludes/userfunctions.inc.php");
@@ -20,6 +22,8 @@ include("./userincludes/userfunctions.inc.php");
     <title>Dashboard | Gilde DevOps</title>
     <link rel="stylesheet" href="./dashboard/dashboard.css">
     <link rel="stylesheet" href="./assets/layout.css">
+<link rel="stylesheet" href="./assets/navbar.css">
+    
 </head>
 
 <body>

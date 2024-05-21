@@ -6,6 +6,8 @@ if (!isset($_SESSION["userId"])) {
     exit();
 }
 
+$currentPage = 'activities';
+
 include("../config.php");
 include("../userincludes/userfunctions.inc.php");
 ?>
@@ -16,9 +18,11 @@ include("../userincludes/userfunctions.inc.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" lang="en" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Gilde DevOps</title>
+    <title>Werkzaamheden | Gilde DevOps</title>
     <link rel="stylesheet" href="activities.css">
     <link rel="stylesheet" href="../assets/layout.css">
+    <link rel="stylesheet" href="../assets/navbar.css">
+
 </head>
 
 <body>

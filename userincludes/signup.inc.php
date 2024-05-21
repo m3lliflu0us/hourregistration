@@ -4,14 +4,14 @@ if (isset($_POST["submit"])) {
     $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
     $email = $_POST["email"];
+    $role = $_POST["role"];
     $pwd = $_POST["pwd"];
     $pwdRepeat = $_POST["pwdRepeat"];
-    $role = $_POST["role"];
 
     $validOptions = array('administrator', 'SD', 'ITSD', 'hybrid');
 
     if (!in_array($role, $validOptions)) {
-        header("Location: ../user/signup.php?error=invalidrole");
+        header("Location: ../employee/index.php?error=invalidrole");
         exit();
     }
 
@@ -19,32 +19,32 @@ if (isset($_POST["submit"])) {
     require_once 'userfunctions.inc.php';
 
     if (emptyInputSignup($firstname, $lastname, $email, $pwd, $pwdRepeat) !== false) {
-        header("Location: ../user/signup.php?error=emptyfields");
+        header("Location: ../employee/?error=emptyfields");
         exit();
     }
     if (invalidFirstname($firstname) !== false) {
-        header("Location: ../user/signup.php?error=invalidfirstname");
+        header("Location: ../employee/?error=invalidfirstname");
         exit();
     }
     if (invalidLastname($lastname) !== false) {
-        header("Location: ../user/signup.php?error=invalidlastname");
+        header("Location: ../employee/?error=invalidlastname");
         exit();
     }
     if (invalidEmail($email) !== false) {
-        header("Location: ../user/signup.php?error=invalidemail");
+        header("Location: ../employee/?error=invalidemail");
         exit();
     }
     if (pwdMatch($pwd, $pwdRepeat) !== false) {
-        header("Location: ../user/signup.php?error=nopasswordmatch");
+        header("Location: ../employee/?error=nopasswordmatch");
         exit();
     }
 
     if (emailExists($conn, $email) !== false) {
-        header("Location: ../user/login.php?error=emailexists");
+        header("Location: ../employee/?error=emailexists");
         exit();
     }
 
     createUser($conn, $firstname, $lastname, $email, $pwd, $role);
 } else {
-    header("Location: ../user/signup.php");
+    header("Location: ../employee/");
 }

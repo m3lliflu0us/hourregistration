@@ -6,6 +6,9 @@
         exit();
     }
 
+    $currentPage = 'client';
+
+    include("../db/dbh.inc.php");
     include("../config.php");
     include("../userincludes/userfunctions.inc.php");
     ?>
@@ -16,9 +19,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" lang="en" content="width=device-width, initial-scale=1.0">
-        <title>Dashboard | Gilde DevOps</title>
+        <title>Klanten | Gilde DevOps</title>
         <link rel="stylesheet" href="client.css">
         <link rel="stylesheet" href="../assets/layout.css">
+        <link rel="stylesheet" href="../assets/navbar.css">
+        <link rel="stylesheet" href="clientc.css">
+
     </head>
 
     <body>
@@ -27,32 +33,55 @@
 
             <div class="dashboard-wrapper">
                 <div class="dashboard-window">
-                    <div class="client-wrapper">
-                        <div class="client-registration-wrapper">
-                            <form action="client.php" method="POST">
-                                <label for="clientFirstname">Klant voornaam</label>
-                                <input type="text" id="clientName" name="clientFirstname">
+                    <div class="client-registration-wrapper">
+                        <form action="client.php" method="POST">
+                            <label for="clientFirstname">Klant voornaam</label>
+                            <input type="text" id="clientName" name="clientFirstname">
 
-                                <label for="clientLastname">Klant achternaam</label>
-                                <input type="text" id="clientName" name="clientLastname">
+                            <label for="clientLastname">Klant achternaam</label>
+                            <input type="text" id="clientName" name="clientLastname">
 
-                                <label for="ClientEmail">Klant E-mail</label>
-                                <input type="email" id="clientEmail" name="clientEmail">
+                            <label for="ClientEmail">Klant E-mail</label>
+                            <input type="email" id="clientEmail" name="clientEmail">
 
-                                <label for="clientPhoneNumber">Telefoonnummer</label>
-                                <input type="text" id="clientPhoneNumber" name="clientPhoneNumber">
+                            <label for="clientPhoneNumber">Telefoonnummer</label>
+                            <input type="text" id="clientPhoneNumber" name="clientPhoneNumber">
 
-                                <label for="companyName">Bedrijfsnaam</label>
-                                <input type="text" id="companyName" name="companyName">
+                            <label for="companyName">Bedrijfsnaam</label>
+                            <input type="text" id="companyName" name="companyName">
 
-                                <label for="companyAddress">Adress(bedrijf)</label>
-                                <input type="text" id="companyAddress" name="companyAddress">
+                            <label for="companyAddress">Adress(bedrijf)</label>
+                            <input type="text" id="companyAddress" name="companyAddress">
 
-                                <input type="submit" value="Register Client">
-                            </form>
-                        </div>
-
+                            <input type="submit" value="Register Client">
+                        </form>
                     </div>
+
+                    <div class="border">
+                    </div>
+
+                    <div class="client-list-wrapper">
+                        <?php
+                        $sql = "SELECT clientFirstname, clientLastname, clientEmail, clientPhoneNumber, companyName, companyAddress FROM client";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<div class='client-list-item'>";
+                                echo "First Name: " . $row["clientFirstname"] . "<br>";
+                                echo "Last Name: " . $row["clientLastname"] . "<br>";
+                                echo "Email: " . $row["clientEmail"] . "<br>";
+                                echo "Phone Number: " . $row["clientPhoneNumber"] . "<br>";
+                                echo "Company Name: " . $row["companyName"] . "<br>";
+                                echo "Company Address: " . $row["companyAddress"] . "<br>";
+                                echo "</div>";
+                            }
+                        } else {
+                            echo "0 results";
+                        }
+                        ?>
+                    </div>
+
                 </div>
             </div>
         </main>

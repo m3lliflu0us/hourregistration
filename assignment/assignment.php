@@ -7,12 +7,29 @@ session_start();
 
 if (isset($_POST['createassignment'])) {
     $assignmentName = $_POST['assignmentName'];
-    $clientId = $_POST['clientId'];
-    $deadline = $_POST['deadline']; // Get the deadline from the form
+    $companyName = $_POST['companyName'];
+    $deadline = $_POST['deadline'];
 
-    if (empty($assignmentName) || empty($clientId) || empty($deadline)) {
+    if (empty($assignmentName) || empty($companyName)) {
         header("location: ../index.php?error=emptyfields");
         exit();
+    }
+
+    $sql = "SELECT clientId FROM client WHERE companyName = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../employee/employee.php?error=sqlerror");
+        exit();
+    } else {
+        mysqli_stmt_bind_param($stmt, "s", $companyName);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        if ($row = mysqli_fetch_assoc($result)) {
+            $clientId = $row['clientId'];
+        } else {
+            header("location: ../employee/employee.php?error=companynotfound");
+            exit();
+        }
     }
 
     $sql = "INSERT INTO assignment (clientId, assignmentName) VALUES (?, ?)";
@@ -43,6 +60,7 @@ if (isset($_POST['createassignment'])) {
         header("location: ../employee/?success=assignmentcreated");
     }
 }
+
 
 
 
