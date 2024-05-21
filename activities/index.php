@@ -63,10 +63,8 @@ $result = $conn->query($sql);
                 <?php
                 if ($result->num_rows > 0) {
                   // Maak een zoekbalk
-                  echo "<input type='text' id='myInput' onkeyup='myFunction()' placeholder='Zoek naar namen..'>";
-
-                  // Maak een tabel om de resultaten weer te geven
-                  echo "<table id='myTable'>";
+                  echo "<input class='search-bar' type='text' id='myInput' onkeyup='myFunction()' placeholder='Zoek naar namen..'>";
+                  echo "<table class='data-table' id='myTable'>";
                   echo "<tr class='header'><th>Naam</th><th>Opdracht</th><th>Totale tijd</th></tr>";
                   
                   // Output data van elke rij
