@@ -1,16 +1,16 @@
 <?php
-    session_start();
+session_start();
 
-    if (!isset($_SESSION["userId"])) {
-        header("location: ../user/login.php");
-        exit();
-    }
+if (!isset($_SESSION["userId"])) {
+    header("location: ../user/login.php");
+    exit();
+}
 
-    $currentPage = 'client';
+$currentPage = 'client';
 
-    include("../db/dbh.inc.php");
-    include("../config.php");
-    include("../userincludes/userfunctions.inc.php");
+include("../db/dbh.inc.php");
+include("../config.php");
+include("../userincludes/userfunctions.inc.php");
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" lang="en" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klanten | Gilde DevOps</title>
     <link rel="stylesheet" href="client.css">
     <link rel="stylesheet" href="../assets/layout.css">
@@ -38,11 +38,14 @@ $(document).ready(function(){
                 responseType: 'blob' // to handle a binary stream
             },
             success: function(response){
-                var blob = new Blob([response]);
+                var blob = new Blob([response], { type: 'application/pdf' });
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
-                link.download = "invoice.pdf";
+                link.download = "invoice_" + clientId + ".pdf";
                 link.click();
+            },
+            error: function() {
+                alert('Error generating invoice');
             }
         });
     });
@@ -57,12 +60,12 @@ $(document).ready(function(){
                 <div class="client-registration-wrapper">
                     <form action="client.php" method="POST">
                         <label for="clientFirstname">Klant voornaam</label>
-                        <input type="text" id="clientName" name="clientFirstname">
+                        <input type="text" id="clientFirstname" name="clientFirstname">
 
                         <label for="clientLastname">Klant achternaam</label>
-                        <input type="text" id="clientName" name="clientLastname">
+                        <input type="text" id="clientLastname" name="clientLastname">
 
-                        <label for="ClientEmail">Klant E-mail</label>
+                        <label for="clientEmail">Klant E-mail</label>
                         <input type="email" id="clientEmail" name="clientEmail">
 
                         <label for="clientPhoneNumber">Telefoonnummer</label>
@@ -78,8 +81,7 @@ $(document).ready(function(){
                     </form>
                 </div>
 
-                <div class="border">
-                </div>
+                <div class="border"></div>
 
                 <div class="client-list-wrapper">
                     <?php
