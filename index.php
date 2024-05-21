@@ -118,17 +118,83 @@ include("./userincludes/userfunctions.inc.php");
                         activitychart
                     </div>
                     <div class="totalHours-wrapper">
-                        total hours worked
+                        <?php
+                        $userId = $_SESSION['userId'];
+
+                        $sql = "SELECT user.userFirstname, user.userLastname, SUM(activity.totalTime) as totalTime FROM user JOIN activity ON user.userId = activity.userId WHERE user.userId = $userId GROUP BY user.userId";
+                        $result = $conn->query($sql);
+
+                        echo '<div class="total-worked-wrapper">';
+                        echo '<div><span>Total Worked Time</span></div>';
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            $lastnameParts = explode(' ', $row["userLastname"]);
+                            $lastnameInitial = ucfirst(substr(end($lastnameParts), 0, 1));
+                            $totalTime = $row["totalTime"];
+                            $totalTime = ($totalTime == 0) ? '0 seconds' : $totalTime . ' seconds';
+                            echo '<span>' . $row["userFirstname"] . ' ' . $lastnameInitial . ': ' . $totalTime . '</span>';
+                        } else {
+                            echo "No results";
+                        }
+                        echo '</div>';
+                        ?>
                     </div>
                     <div class="piechart-wrapper">
                         <div id="piechart" style="width: 100%; height: 100%;"></div>
                     </div>
                     <div class="workingNow-wrapper">
-                        working now
+                        <?php
+                        $sql = "SELECT user.userFirstname, user.userLastname FROM user JOIN activity ON user.userId = activity.userId WHERE activity.clockedIn = 1";
+                        $result = $conn->query($sql);
+
+                        echo '<div class="workingNow-list">';
+                        echo '<div><span>Working Now</span></div>';
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $lastnameParts = explode(' ', $row["userLastname"]);
+                                $lastnameInitial = ucfirst(substr(end($lastnameParts), 0, 1));
+                                echo '<span>' . $row["userFirstname"] . ' ' . $lastnameInitial . '</span>';
+                            }
+                        } else {
+                            echo "No one is working now";
+                        }
+                        echo '</div>';
+
+                        echo '<div class="border"></div>';
+
+                        $sql = "SELECT COUNT(*) as count FROM user JOIN activity ON user.userId = activity.userId WHERE activity.clockedIn = 1";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+
+                        echo '<div class="workingNow-count">';
+                        echo '<div><span>Total Working Now</span></div>';
+                        echo '<span>' . $row["count"] . '</span>';
+                        echo '</div>';
+
+                        ?>
                     </div>
-                    <div class="leaderboard-wrapper">
-                        leaderboard
-                    </div>
+                    <?php
+                    $sql = "SELECT user.userFirstname, user.userLastname, SUM(activity.totalTime) as totalTime FROM user JOIN activity ON user.userId = activity.userId GROUP BY user.userId";
+                    $result = $conn->query($sql);
+
+                    echo '<div class="leaderboard-wrapper">';
+                    echo '<div><span>Leaderboard</span></div>';
+                    if ($result->num_rows > 0) {
+                        $counter = 1;
+                        while ($row = $result->fetch_assoc()) {
+                            $lastnameParts = explode(' ', $row["userLastname"]);
+                            $lastnameInitial = ucfirst(substr(end($lastnameParts), 0, 1));
+                            $totalTime = $row["totalTime"];
+                            $totalTime = ($totalTime == 0) ? '0 seconds' : $totalTime . ' seconds';
+                            echo '<span>' . $counter . '. ' . $row["userFirstname"] . ' ' . $lastnameInitial . ': ' . $totalTime . '</span>';
+                            $counter++;
+                        }
+                    } else {
+                        echo "No results";
+                    }
+                    echo '</div>';
+
+                    ?>
                 </div>
             </div>
         </div>

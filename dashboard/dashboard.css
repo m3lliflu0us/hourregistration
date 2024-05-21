@@ -66,28 +66,54 @@
 
 .columnchart-wrapper {
     grid-area: columnchart-wrapper;
+    border: 1px solid black;
+
 }
 
 .activitychart-wrapper {
     grid-area: activitychart-wrapper;
+    border: 1px solid black;
+
 }
 
 .totalHours-wrapper {
     grid-area: totalHours-wrapper;
+    border: 1px solid black;
+
 }
 
 .piechart-wrapper {
     grid-area: piechart-wrapper;
+    border: 1px solid black;
+
 }
 
 .workingNow-wrapper {
     grid-area: workingNow-wrapper;
+    display: flex;
+    border: 1px solid black;
+}
+
+.workingNow-list {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.border {
+    background-color: gray;
+    height: 100%;
+    width: 1px;
+}
+
+.workingNow-count {
+    width: 50%;
 }
 
 .leaderboard-wrapper {
     grid-area: leaderboard-wrapper;
-}
-
-.dashboard-content div {
+    display: flex;
+    flex-direction: column;
     border: 1px solid black;
 }
