@@ -71,10 +71,18 @@ function myFunction() {
                 
                 // Output data van elke rij
                 while($row = $result->fetch_assoc()) {
-                    $totalTime = $row["totalTime"] == 0 ? "00:00:00" : gmdate("H:i:s", $row["totalTime"]);
+                    $totalTime = $row["totalTime"];
+                    if ($totalTime == 0) {
+                        continue; // Skip this row
+                    }
+                    $totalTimeFormatted = gmdate("H:i:s", $totalTime);
                     $firstName = ucfirst(strtolower($row["userFirstname"]));
                     $lastName = ucfirst(strtolower($row["userLastname"]));
+<<<<<<< Updated upstream
                     echo "<tr><td>" . $firstName . " " . $lastName . "</td><td>" . $row["assignmentName"]. "</td><td>" . $row["assignmentDescription"]. "</td><td>" . $row["assignmentId"]. "</td><td>" . $totalTime . "</td></tr>";
+=======
+                    echo "<tr><td>" . $firstName . " " . $lastName . "</td><td>" . $row["assignmentName"]. "</td><td>" . $row["assignmentDescription"]. "</td><td>" . $row["userId"]. "</td><td>" . $totalTimeFormatted . "</td></tr>";
+>>>>>>> Stashed changes
                 }
                 
                 echo "</table>"; // Close the table
