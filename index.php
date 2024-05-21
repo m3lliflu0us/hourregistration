@@ -23,6 +23,9 @@ include("./userincludes/userfunctions.inc.php");
     <link rel="stylesheet" href="./dashboard/dashboard.css">
     <link rel="stylesheet" href="./assets/layout.css">
     <link rel="stylesheet" href="./assets/navbar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {
@@ -89,8 +92,43 @@ include("./userincludes/userfunctions.inc.php");
         <div class="dashboard-wrapper">
             <div class="dashboard-window">
                 <div class="dashboard-content">
-                    <div id="piechart" style="width: 900px; height: 500px;"></div>
-                    <div id="columnchart" style="width: 900px; height: 500px;"></div>
+                    <div class="title-wrapper">
+                        <?php
+                        date_default_timezone_set('Europe/Amsterdam');
+                        $hour = date('H');
+                        $greeting = '';
+
+                        if ($hour >= 0 && $hour < 12) {
+                            $greeting = 'Goedemorgen';
+                        } elseif ($hour >= 12 && $hour < 18) {
+                            $greeting = 'Goedemiddag';
+                        } else {
+                            $greeting = 'Goedeavond';
+                        }
+                        ?>
+
+                        <span>
+                            <?= $greeting . " " . $_SESSION["userFirstname"]; ?>
+                        </span>
+                    </div>
+                    <div class="columnchart-wrapper">
+                        <div id="columnchart" style="width: 100%; height: 100%;"></div>
+                    </div>
+                    <div class="activitychart-wrapper">
+                        activitychart
+                    </div>
+                    <div class="totalHours-wrapper">
+                        total hours worked
+                    </div>
+                    <div class="piechart-wrapper">
+                        <div id="piechart" style="width: 100%; height: 100%;"></div>
+                    </div>
+                    <div class="workingNow-wrapper">
+                        working now
+                    </div>
+                    <div class="leaderboard-wrapper">
+                        leaderboard
+                    </div>
                 </div>
             </div>
         </div>

@@ -24,7 +24,9 @@ include("../db/dbh.inc.php")
     <link rel="stylesheet" href="employee.css">
     <link rel="stylesheet" href="../assets/layout.css">
     <link rel="stylesheet" href="../assets/navbar.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
 
 <body>
