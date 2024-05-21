@@ -28,31 +28,30 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" lang="en" content="width=device-width, initial-scale=1.0">
     <title>Werkzaamheden | Gilde DevOps</title>
-<link rel="stylesheet" href="activities.css">
+    <link rel="stylesheet" href="activities.css">
     <link rel="stylesheet" href="../assets/layout.css">
     <link rel="stylesheet" href="../assets/navbar.css">
     <script>
     function myFunction() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
 
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td");
-            if (td) {
-            txtValue = td[0].textContent || td[0].innerText;
-            txtValue += td[1].textContent || td[1].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-            }       
-        }
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
     }
-</script>
+    </script>
 </head>
 
 <body>
@@ -79,7 +78,7 @@ $result = $conn->query($sql);
                 ?>
             </div>
         </div>
-        <div class="bruh"></div>
+        
     </main>
 </body>
 
