@@ -49,7 +49,7 @@
 
 .data-table th, .data-table td {
     text-align: left;
-    padding: 12px; /* Add padding to the table cells */
+    padding: 12px;
 }
 
 .data-table tr:nth-child(even) {
