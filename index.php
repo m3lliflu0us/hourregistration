@@ -20,6 +20,19 @@ $data = [];
 while ($row = $result->fetch_assoc()) {
 $data[$row['date']] = $row['count'];
 }
+
+$sql = "SELECT user.userFirstname, assignment.assignmentName, SUM(activity.totalTime) as totalTime
+FROM activity
+JOIN user ON activity.userId = user.userId
+JOIN assignment ON activity.assignmentId = assignment.assignmentId
+GROUP BY activity.userId, activity.assignmentId";
+$stmt = $pdo->query($sql);
+$results = $stmt->fetchAll();
+
+$data = [];
+foreach ($results as $row) {
+$data[] = [$row['userFirstname'], $row['assignmentName'], (int)$row['totalTime']];
+}
 ?>
 
 <!DOCTYPE html>
@@ -100,6 +113,31 @@ title: 'Total Time Worked'
 var chart = new google.visualization.ColumnChart(document.getElementById('columnchart'));
 chart.draw(data, options);
 }
+
+google.charts.setOnLoadCallback(drawChart);
+
+// Callback that creates and populates a data table,
+// instantiates the bar chart, passes in the data and
+// draws it.
+function drawChart() {
+// Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'User');
+data.addColumn('string', 'Assignment');
+data.addColumn('number', 'Total Time');
+data.addRows(<?php echo json_encode($data, JSON_NUMERIC_CHECK); ?>);
+
+// Set chart options
+var options = {
+'title': 'Activity Chart',
+'width': 600,
+'height': 300
+};
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+chart.draw(data, options);
+}
 </script>
 </head>
 
@@ -134,58 +172,7 @@ $greeting = 'Goedeavond';
 <div id="columnchart" style="width: 100%; height: 100%;"></div>
 </div>
 <div class="activitychart-wrapper">
-<div id="chart" style="height: 100%; width: 100%;"></div>
-
-<script>
-var data = <?php echo json_encode($data); ?>;
-var colors = ['#eeeeee', '#d6e685', '#8cc665', '#44a340', '#1e6823'];
-
-// Calculate the number of rows and columns
-var numCols = Math.ceil(Math.sqrt(Object.keys(data).length));
-var numRows = Math.ceil(Object.keys(data).length / numCols);
-
-// Calculate the SVG element's width and height
-var svgWidth = numCols * 12; // 10px for rect width and 2px for margin
-var svgHeight = numRows * 12; // 10px for rect height and 2px for margin
-
-var svg = d3.select('#chart')
-.append('svg')
-.attr('width', svgWidth)
-.attr('height', svgHeight);
-
-var x = 0;
-var y = 0;
-for (var date in data) {
-var count = data[date];
-var color;
-if (count >= 6) {
-color = colors[4];
-} else if (count >= 4) {
-color = colors[3];
-} else if (count >= 2) {
-color = colors[2];
-} else if (count == 1) {
-color = colors[1];
-} else {
-color = colors[0];
-}
-
-svg.append('rect')
-.attr('x', x)
-.attr('y', y)
-.attr('width', 10)
-.attr('height', 10)
-.style('fill', color);
-
-x += 12;
-if (x >= svgWidth) {
-x = 0;
-y += 12;
-}
-}
-console.log(data);
-
-</script>
+<div id="chart_div"></div>
 </div>
 <div class="totalHours-wrapper">
 <?php
