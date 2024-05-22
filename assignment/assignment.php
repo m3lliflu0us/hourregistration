@@ -11,7 +11,7 @@ if (isset($_POST['createassignment'])) {
     $deadline = $_POST['deadline'];
     $assignmentDescription = $_POST['assignmentDescription'];
     if (empty($assignmentName) || empty($companyName) || empty($assignmentDescription)) {
-        header("location: ../index.php?error=emptyfields");
+        header("location: ../employee/index.php?error=emptyfields");
         exit();
     }
 

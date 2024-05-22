@@ -70,9 +70,9 @@ $result = $conn->query($sql);
         <div class="activities-wrapper">
           <?php
           if ($result->num_rows > 0) {
-            echo "<input class='search-bar' type='text' id='myInput' onkeyup='myFunction()' placeholder='Zoek naar namen..'>";
+            echo "<input class='search-bar' type='text' id='myInput' onkeyup='myFunction()' placeholder='Zoek naar opdrachtnaam of ID'>";
             echo "<table class='data-table' id='myTable'>";
-            echo "<tr class='header'><th>Naam</th><th>Opdracht</th><th>Opdracht Omschrijving</th><th>User ID</th><th>Totale tijd</th></tr>";
+            echo "<tr class='header'><th>Naam</th><th>Opdrachtnaam</th><th>Opdracht Omschrijving</th><th>Gebruiker ID</th><th>Totale tijd</th></tr>";
 
             while ($row = $result->fetch_assoc()) {
               $totalTime = $row["totalTime"];

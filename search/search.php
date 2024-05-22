@@ -15,6 +15,4 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 while ($row = $result->fetch_assoc()) {
-    // Output each row here...
 }
-?>

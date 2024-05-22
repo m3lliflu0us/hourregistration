@@ -91,18 +91,18 @@ $(document).ready(function(){
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             echo "<div class='client-list-item'>";
-                            echo "First Name: " . $row["clientFirstname"] . "<br>";
-                            echo "Last Name: " . $row["clientLastname"] . "<br>";
-                            echo "Email: " . $row["clientEmail"] . "<br>";
-                            echo "Phone Number: " . $row["clientPhoneNumber"] . "<br>";
-                            echo "Company Name: " . $row["companyName"] . "<br>";
-                            echo "Company Address: " . $row["companyAddress"] . "<br>";
-                            echo "Assignment: " . $row["assignmentName"] . "<br>";
+                            echo "Voornaam: " . $row["clientFirstname"] . "<br>";
+                            echo "Achternaam: " . $row["clientLastname"] . "<br>";
+                            echo "E-mailadres: " . $row["clientEmail"] . "<br>";
+                            echo "Telefoonnummer: " . $row["clientPhoneNumber"] . "<br>";
+                            echo "Bedrijfsnaam: " . $row["companyName"] . "<br>";
+                            echo "Adress(bedrijf): " . $row["companyAddress"] . "<br>";
+                            echo "Opdrachtnaam: " . $row["assignmentName"] . "<br>";
                             echo "<button class='generate-invoice' data-client-id='". $row['clientId'] ."'>Factuur genereren</button>";
                             echo "</div>";
                         }
                     } else {
-                        echo "0 results";
+                        echo "Geen resultaten";
                     }
                     ?>
                 </div>

@@ -73,6 +73,8 @@
 .activitychart-wrapper {
     grid-area: activitychart-wrapper;
     border: 1px solid black;
+    height: 100%;
+    width: 100%;
 
 }
 
