@@ -30,10 +30,11 @@ include("../userincludes/userfunctions.inc.php");
 $(document).ready(function(){
     $(".generate-invoice").click(function(){
         var clientId = $(this).data('client-id');
+        var assignmentId = $(this).data('assignment-id'); // Get assignmentId
         $.ajax({
             url: 'generate_invoice.php',
             type: 'post',
-            data: {clientId: clientId},
+            data: {clientId: clientId, assignmentId: assignmentId}, // Include assignmentId in data
             xhrFields: {
                 responseType: 'blob' // to handle a binary stream
             },
@@ -41,7 +42,7 @@ $(document).ready(function(){
                 var blob = new Blob([response], { type: 'application/pdf' });
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
-                link.download = "invoice_" + clientId + ".pdf";
+                link.download = "invoice_" + clientId + "_" + assignmentId + ".pdf"; // Include assignmentId in filename
                 link.click();
             },
             error: function() {
@@ -85,7 +86,7 @@ $(document).ready(function(){
 
                 <div class="client-list-wrapper">
                     <?php
-                    $sql = "SELECT client.clientFirstname, client.clientLastname, client.clientEmail, client.clientPhoneNumber, client.clientId, client.companyName, client.companyAddress, assignment.assignmentName FROM client LEFT JOIN assignment ON client.clientId = assignment.clientId";
+                    $sql = "SELECT client.clientFirstname, client.clientLastname, client.clientEmail, client.clientPhoneNumber, client.clientId, client.companyName, client.companyAddress, assignment.assignmentName, assignment.assignmentId FROM client LEFT JOIN assignment ON client.clientId = assignment.clientId";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
@@ -98,7 +99,7 @@ $(document).ready(function(){
                             echo "Bedrijfsnaam: " . $row["companyName"] . "<br>";
                             echo "Adress(bedrijf): " . $row["companyAddress"] . "<br>";
                             echo "Opdrachtnaam: " . $row["assignmentName"] . "<br>";
-                            echo "<button class='generate-invoice' data-client-id='". $row['clientId'] ."'>Factuur genereren</button>";
+                            echo "<button class='generate-invoice' data-client-id='". $row['clientId'] ."' data-assignment-id='". $row['assignmentId'] ."'>Factuur genereren</button>";
                             echo "</div>";
                         }
                     } else {

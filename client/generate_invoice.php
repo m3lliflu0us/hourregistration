@@ -4,16 +4,15 @@ session_start();
 if (!isset($_SESSION["userId"])) {
     header("location: ../user/login.php");
     exit();
-  }
-  
+}
+
 $currentPage = 'invoice';
 
-
 include("../db/dbh.inc.php");
-
 require('../fpdf186/fpdf.php');
 
-
+// Get assignmentId from POST data
+$assignmentId = $_POST['assignmentId'];
 
 // Query to get data
 $query = "SELECT a.activityId, a.totalTime, u.userFirstname, u.userLastname, c.clientFirstname, c.clientLastname, c.companyName, c.companyAddress, asgn.assignmentName
@@ -21,7 +20,7 @@ $query = "SELECT a.activityId, a.totalTime, u.userFirstname, u.userLastname, c.c
           JOIN user u ON a.userId = u.userId
           JOIN assignment asgn ON a.assignmentId = asgn.assignmentId
           JOIN client c ON asgn.clientId = c.clientId
-          WHERE a.clockedIn = 0";
+          WHERE a.clockedIn = 0 AND a.assignmentId = $assignmentId"; // Filter by assignmentId
 
 $result = $conn->query($query);
 
@@ -39,6 +38,7 @@ $pdf->Cell(40, 10, 'Total Time', 1);
 $pdf->Cell(40, 10, 'User Name', 1);
 $pdf->Cell(40, 10, 'Client Name', 1);
 $pdf->Cell(40, 10, 'Company Name', 1);
+$pdf->Cell(40, 10, 'Assignment Name', 1); // Add a new column for Assignment Name
 $pdf->Ln();
 
 // Data
@@ -48,6 +48,7 @@ while ($row = $result->fetch_assoc()) {
     $pdf->Cell(40, 10, $row['userFirstname'] . ' ' . $row['userLastname'], 1);
     $pdf->Cell(40, 10, $row['clientFirstname'] . ' ' . $row['clientLastname'], 1);
     $pdf->Cell(40, 10, $row['companyName'], 1);
+    $pdf->Cell(40, 10, $row['assignmentName'], 1); // Add the assignment name to the data
     $pdf->Ln();
 }
 
