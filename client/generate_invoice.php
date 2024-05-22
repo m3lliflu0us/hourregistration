@@ -8,11 +8,10 @@ if (!isset($_SESSION["userId"])) {
   
 $currentPage = 'invoice';
 
-include("../config.php");
-include("../userincludes/userfunctions.inc.php");
+
 include("../db/dbh.inc.php");
 
-require('fpdf186/fpdf.php');
+require('../fpdf186/fpdf.php');
 
 
 
@@ -24,7 +23,7 @@ $query = "SELECT a.activityId, a.totalTime, u.userFirstname, u.userLastname, c.c
           JOIN client c ON asgn.clientId = c.clientId
           WHERE a.clockedIn = 0";
 
-$result = $mysqli->query($query);
+$result = $conn->query($query);
 
 $pdf = new FPDF();
 $pdf->AddPage();
