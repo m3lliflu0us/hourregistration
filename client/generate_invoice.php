@@ -42,8 +42,7 @@ $pdf->SetXY(120, 5);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(160, 8, '1/1', 0, 0, 'R');
 
-// Invoice details (hardcoded for this example)
-$num_fact = "FACTUUR 2024-0001"; // Replace with dynamic data if available
+$num_fact = "FACTUUR 2024-0001"; 
 $pdf->SetLineWidth(0.1);
 $pdf->SetFillColor(192);
 $pdf->Rect(120, 15, 85, 8, "DF");
@@ -51,13 +50,12 @@ $pdf->SetXY(120, 15);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(85, 8, $num_fact, 0, 0, 'C');
 
-$date_fact = date('d/m/Y'); // Use current date for invoice date
+$date_fact = date('d/m/Y'); 
 $pdf->SetFont('Arial', '', 11);
 $pdf->SetXY(122, 30);
 $pdf->Cell(60, 8, "Roermond, Limburg " . $date_fact, 0, 0, '');
 
-// Observations (hardcoded for this example)
-$observations = "No observations"; // Replace with dynamic data if available
+$observations = "No observations"; 
 $pdf->SetFont('Arial', 'BU', 10);
 $pdf->SetXY(5, 75);
 $pdf->Cell($pdf->GetStringWidth("Observations"), 0, "Observations", 0, "L");
@@ -65,13 +63,12 @@ $pdf->SetFont('Arial', '', 10);
 $pdf->SetXY(5, 78);
 $pdf->MultiCell(190, 4, $observations, 0, "L");
 
-// Client details
 if ($row = $result->fetch_assoc()) {
     $client_name = $row['clientFirstname'] . ' ' . $row['clientLastname'];
     $company_name = $row['companyName'];
     $company_address = $row['companyAddress'];
 } else {
-    $client_name = $company_name = $company_address = "N/A"; // Default values if no data
+    $client_name = $company_name = $company_address = "N/A";
 }
 
 $pdf->SetFont('Arial', 'B', 11);
@@ -116,10 +113,10 @@ $pdf->SetXY(185, 96);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(22, 8, "Totaal Bedrag", 0, 0, 'C');
 
-// Articles data
+
 $pdf->SetFont('Arial', '', 8);
 $y = 97;
-$result->data_seek(0); // Reset the result pointer to the beginning
+$result->data_seek(0); 
 while ($row = $result->fetch_assoc()) {
     $activityId = $row['activityId'];
     $totalTime = $row['totalTime'];
@@ -128,91 +125,25 @@ while ($row = $result->fetch_assoc()) {
     $companyName = $row['companyName'];
     $assignmentName = $row['assignmentName'];
     
-    // Convert totalTime from seconds to hours and round to the nearest half hour
     $totalHours = round($totalTime / 3600 / 0.5) * 0.5;
     $TotalMoney = $totalHours * 2;
     $TotalMoneyWithBTW = $TotalMoney * 1.21;
 
-    $totalHT = $TotalMoney;
-    $totalTVA = $TotalMoneyWithBTW - $TotalMoney;
-    $totalTTC = $TotalMoneyWithBTW;
 
     $pdf->SetXY(7, $y + 9);
     $pdf->Cell(140, 5, $assignmentName, 0, 0, 'L');
     $pdf->SetXY(145, $y + 9);
     $pdf->Cell(13, 5, $totalHours, 0, 0, 'R');
     $pdf->SetXY(158, $y + 9);
-    $pdf->Cell(18, 5, $TotalMoney, 0, 0, 'R'); // Replace with actual unit price if available
+    $pdf->Cell(18, 5, $TotalMoney, 0, 0, 'R'); 
     $pdf->SetXY(177, $y + 9);
-    $pdf->Cell(10, 5, "21%", 0, 0, 'R'); // Replace with actual VAT rate if available
+    $pdf->Cell(10, 5, "21%", 0, 0, 'R'); 
     $pdf->SetXY(187, $y + 9);
-    $pdf->Cell(18, 5, $TotalMoneyWithBTW, 0, 0, 'R'); // Replace with actual total price if available
+    $pdf->Cell(18, 5, $TotalMoneyWithBTW, 0, 0, 'R'); 
 
     $pdf->Line(5, $y + 14, 205, $y + 14);
     $y += 6;
 }
-
-
-
-// Totals (example values, replace with actual calculations if available)
-$totalHT = 0; // Replace with actual HT total
-$totalTVA = 0; // Replace with actual TVA total
-$totalTTC = 0; // Replace with actual TTC total
-
-$pdf->SetLineWidth(0.1);
-$pdf->Rect(130, 221, 75, 24, "D");
-$pdf->Line(147, 221, 147, 245);
-$pdf->Line(164, 221, 164, 245);
-$pdf->Line(181, 221, 181, 245);
-$pdf->Line(130, 227, 205, 227);
-$pdf->Line(130, 233, 205, 233);
-$pdf->Line(130, 239, 205, 239);
-
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->SetXY(181, 221);
-$pdf->Cell(24, 6, "BTW", 0, 0, 'C');
-$pdf->SetFont('Arial', '', 8);
-$pdf->SetXY(105, 221);
-$pdf->Cell(25, 6, "BTW VAT", 0, 0, 'R');
-$pdf->SetXY(105, 227);
-$pdf->Cell(25, 6, "Totaal Bedrag", 0, 0, 'R');
-$pdf->SetXY(105, 233);
-$pdf->Cell(25, 6, "Total BTW", 0, 0, 'R');
-$pdf->SetXY(105, 239);
-$pdf->Cell(25, 6, "incl. BTW", 0, 0, 'R');
-
-$pdf->SetXY(130, 221);
-$pdf->Cell(17, 6, "21 %", 0, 0, 'C'); 
-$pdf->SetXY(130, 227);
-$pdf->Cell(17, 6, number_format($totalHT, 2, ',', ' '), 0, 0, 'R');
-$pdf->SetXY(130, 233);
-$pdf->Cell(17, 6, number_format($totalTVA, 2, ',', ' '), 0, 0, 'R');
-$pdf->SetXY(130, 239);
-$pdf->Cell(17, 6, number_format($totalTTC, 2, ',', ' '), 0, 0, 'R');
-
-$pdf->SetXY(147, 227);
-$pdf->Cell(17, 6, "", 0, 0, 'R');
-$pdf->SetXY(147, 233);
-$pdf->Cell(17, 6, "", 0, 0, 'R');
-$pdf->SetXY(147, 239);
-$pdf->Cell(17, 6, "", 0, 0, 'R');
-
-$pdf->SetXY(164, 227);
-$pdf->Cell(17, 6, "", 0, 0, 'R');
-$pdf->SetXY(164, 233);
-$pdf->Cell(17, 6, "", 0, 0, 'R');
-$pdf->SetXY(164, 239);
-$pdf->Cell(17, 6, "", 0, 0, 'R');
-
-$pdf->SetXY(181, 227);
-$pdf->Cell(24, 6, number_format($totalHT, 2, ',', ' '), 0, 0, 'R');
-$pdf->SetXY(181, 233);
-$pdf->Cell(24, 6, number_format($totalTVA, 2, ',', ' '), 0, 0, 'R');
-$pdf->SetXY(181, 239);
-$pdf->Cell(24, 6, number_format($totalTTC, 2, ',', ' '), 0, 0, 'R');
-
-$pdf->SetFont('Arial', '', 8);
-$pdf->SetXY(5, 221);
 
 $pdf->Output();
 ?>
