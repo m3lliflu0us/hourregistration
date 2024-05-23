@@ -50,6 +50,7 @@ echo "['" . $row['userRole'] . "', " . $row['number'] . "],";
 var options = {
 title: 'Gebruiker recht distributie',
 colors: ['#ca2b69', '#b82bca', '#692bca', '#ca692b', ],
+backgroundColor: '#eee',
 };
 
 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -79,7 +80,8 @@ minValue: 0
 vAxis: {
 title: 'Total Time Worked'
 },
-colors: ['#ca2b69']
+colors: ['#ca2b69'],
+backgroundColor: '#eee',
 
 };
 
@@ -112,7 +114,8 @@ function drawDotChart() {
         },
         colors: ['#ca2b69'],
         legend: 'none',
-        pointSize: 5
+        pointSize: 5,
+        backgroundColor: '#eee'
     };
 
     var chart = new google.visualization.ScatterChart(document.getElementById('dotchart'));
@@ -167,19 +170,18 @@ $sql = "SELECT SUM(activity.totalTime) as totalTime FROM user JOIN activity ON u
 $result = $conn->query($sql);
 
 echo '<div class="total-worked-wrapper">';
-echo '<div><span>Totaal gewerkte tijd</span></div>';
+echo '<div class="totalHours-title"><span>Totaal gewerkte tijd</span></div>';
 if ($result->num_rows > 0) {
 $row = $result->fetch_assoc();
 $totalTime = $row["totalTime"];
 $totalTime = ($totalTime == 0) ? '0 seconds' : gmdate("H:i:s", $totalTime);
-echo '<span>' . $totalTime . '</span>';
+echo '<div class="totalHours-text"><span>' . $totalTime . '</span></div>';
 } else {
-echo "Geen resultaten";
+echo "<div class='totalHours-text'><span>Geen resultaten</span></div>";
 }
 echo '</div>';
 ?>
 </div>
-
 
 <div class="piechart-wrapper">
 <div id="piechart" style="width: 100%; height: 100%;"></div>
@@ -191,15 +193,16 @@ $sql = "SELECT user.userFirstname, user.userLastname FROM user JOIN activity ON 
 $result = $conn->query($sql);
 
 echo '<div class="workingNow-list">';
-echo '<div><span>Ingeklokt</span></div>';
+echo '<div class="workingNow-title"><span>Ingeklokt</span></div>';
 if ($result->num_rows > 0) {
 while ($row = $result->fetch_assoc()) {
 $lastnameParts = explode(' ', $row["userLastname"]);
 $lastnameInitial = ucfirst(substr(end($lastnameParts), 0, 1));
-echo '<span>' . $row["userFirstname"] . ' ' . $lastnameInitial . '</span>';
+echo '<div class="workingNow-text"><span>' . $row["userFirstname"] . ' ' . $lastnameInitial . '</span></div>';
 }
 } else {
-echo "Geen werknemers ingeklokt";
+echo "<div class='workingNow-text'><span>Geen werknemers ingeklokt</span></div>";
+
 }
 echo '</div>';
 
@@ -210,8 +213,8 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 echo '<div class="workingNow-count">';
-echo '<div><span>Werknemers ingeklokt</span></div>';
-echo '<div><span>' . $row["count"] . '</span></div>';
+echo '<div class="workingNow-title"><span>Werknemers ingeklokt</span></div>';
+echo '<div class="workingNow-text"><span>' . $row["count"] . '</span></div>';
 echo '</div>';
 ?>
 </div>
@@ -221,7 +224,7 @@ $sql = "SELECT user.userFirstname, user.userLastname, SUM(activity.totalTime) as
 $result = $conn->query($sql);
 
 echo '<div class="leaderboard-wrapper">';
-echo '<div><span>Leaderboard</span></div>';
+echo '<div class="leaderboard-title"><span>Leaderboard</span></div>';
 if ($result->num_rows > 0) {
 $counter = 1;
 while ($row = $result->fetch_assoc()) {
@@ -229,11 +232,11 @@ $lastnameParts = explode(' ', $row["userLastname"]);
 $lastnameInitial = ucfirst(substr(end($lastnameParts), 0, 1));
 $totalTime = $row["totalTime"];
 $totalTime = ($totalTime == 0) ? '00:00:00' : gmdate("H:i:s", $totalTime);
-echo '<span>' . $counter . '. ' . $row["userFirstname"] . ' ' . $lastnameInitial . ': ' . $totalTime . '</span>';
+echo '<div class="leaderboard-text"><span>' . $counter . '. ' . $row["userFirstname"] . ' ' . $lastnameInitial . ': ' . $totalTime . '</span></div>';
 $counter++;
 }
 } else {
-echo "Geen resultaten";
+echo "<div class='leaderboard-text'><span>Geen resultaten</span></div>";
 }
 echo '</div>';
 ?>
