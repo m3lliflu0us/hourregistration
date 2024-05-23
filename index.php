@@ -11,28 +11,6 @@ $currentPage = 'dashboard';
 include("config.php");
 include("./db/dbh.inc.php");
 include("./userincludes/userfunctions.inc.php");
-
-// Get data from database
-$result = $conn->query("SELECT DATE(clockedBegin) as date, COUNT(*) as count FROM activity WHERE YEAR(clockedBegin) = YEAR(CURDATE()) AND clockedIn = 1 GROUP BY date");
-
-// Prepare data for the chart
-$data = [];
-while ($row = $result->fetch_assoc()) {
-$data[$row['date']] = $row['count'];
-}
-
-$sql = "SELECT user.userFirstname, assignment.assignmentName, SUM(activity.totalTime) as totalTime
-FROM activity
-JOIN user ON activity.userId = user.userId
-JOIN assignment ON activity.assignmentId = assignment.assignmentId
-GROUP BY activity.userId, activity.assignmentId";
-$stmt = $pdo->query($sql);
-$results = $stmt->fetchAll();
-
-$data = [];
-foreach ($results as $row) {
-$data[] = [$row['userFirstname'], $row['assignmentName'], (int)$row['totalTime']];
-}
 ?>
 
 <!DOCTYPE html>
@@ -48,15 +26,6 @@ $data[] = [$row['userFirstname'], $row['assignmentName'], (int)$row['totalTime']
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<style>
-.day {
-width: 10px;
-height: 10px;
-margin-right: 1px;
-margin-bottom: 1px;
-}
-</style>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 google.charts.load('current', {
@@ -64,6 +33,7 @@ google.charts.load('current', {
 });
 google.charts.setOnLoadCallback(drawPieChart);
 google.charts.setOnLoadCallback(drawColumnChart);
+google.charts.setOnLoadCallback(drawDotChart);
 
 function drawPieChart() {
 var data = google.visualization.arrayToDataTable([
@@ -78,7 +48,8 @@ echo "['" . $row['userRole'] . "', " . $row['number'] . "],";
 ]);
 
 var options = {
-title: 'Gebruiker recht distributie'
+title: 'Gebruiker recht distributie',
+colors: ['#ca2b69', '#b82bca', '#692bca', '#ca692b', ],
 };
 
 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -107,37 +78,47 @@ minValue: 0
 },
 vAxis: {
 title: 'Total Time Worked'
-}
+},
+colors: ['#ca2b69']
+
 };
 
 var chart = new google.visualization.ColumnChart(document.getElementById('columnchart'));
 chart.draw(data, options);
 }
 
-google.charts.setOnLoadCallback(drawChart);
+function drawDotChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'User');
+    data.addColumn('number', 'Total Time Worked');
 
-// Callback that creates and populates a data table,
-// instantiates the bar chart, passes in the data and
-// draws it.
-function drawChart() {
-// Create the data table.
-var data = new google.visualization.DataTable();
-data.addColumn('string', 'User');
-data.addColumn('string', 'Assignment');
-data.addColumn('number', 'Total Time');
-data.addRows(<?php echo json_encode($data, JSON_NUMERIC_CHECK); ?>);
+    <?php
+    $sql = "SELECT userFirstname, SUM(totalTime) as totalTime FROM user JOIN activity ON user.userId = activity.userId GROUP BY user.userId";
+    $result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $totalTime = is_null($row['totalTime']) ? 0 : $row['totalTime'];
+        echo "data.addRow(['" . $row['userFirstname'] . "', " . $totalTime . "]);";
+    }
+    ?>
 
-// Set chart options
-var options = {
-'title': 'Activity Chart',
-'width': 600,
-'height': 300
-};
+    var options = {
+        title: 'Total Time Worked per User',
+        hAxis: {
+            title: 'User',
+            minValue: 0
+        },
+        vAxis: {
+            title: 'Total Time Worked'
+        },
+        colors: ['#ca2b69'],
+        legend: 'none',
+        pointSize: 5
+    };
 
-// Instantiate and draw our chart, passing in some options.
-var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-chart.draw(data, options);
+    var chart = new google.visualization.ScatterChart(document.getElementById('dotchart'));
+    chart.draw(data, options);
 }
+    
 </script>
 </head>
 
@@ -147,7 +128,9 @@ chart.draw(data, options);
 
 <div class="dashboard-wrapper">
 <div class="dashboard-window">
+
 <div class="dashboard-content">
+
 <div class="title-wrapper">
 <?php
 date_default_timezone_set('Europe/Amsterdam');
@@ -161,19 +144,21 @@ $greeting = 'Goedemiddag';
 } else {
 $greeting = 'Goedeavond';
 }
-
 ?>
-
 <span>
 <?= $greeting . " " . $_SESSION["userFirstname"]; ?>
 </span>
 </div>
+
 <div class="columnchart-wrapper">
-<div id="columnchart" style="width: 100%; height: 100%;"></div>
+<div id="columnchart" style="width: 100%; height: 100%; fill: #ca2b69;"></div>
 </div>
-<div class="activitychart-wrapper">
-<div id="chart_div"></div>
+
+<div class="dotchart-wrapper">
+<div id="dotchart" style="width: 100%; height: 100%;"></div>
 </div>
+
+
 <div class="totalHours-wrapper">
 <?php
 $userId = $_SESSION['userId'];
@@ -199,6 +184,7 @@ echo '</div>';
 <div class="piechart-wrapper">
 <div id="piechart" style="width: 100%; height: 100%;"></div>
 </div>
+
 <div class="workingNow-wrapper">
 <?php
 $sql = "SELECT user.userFirstname, user.userLastname FROM user JOIN activity ON user.userId = activity.userId WHERE activity.clockedIn = 1";
@@ -225,11 +211,11 @@ $row = $result->fetch_assoc();
 
 echo '<div class="workingNow-count">';
 echo '<div><span>Werknemers ingeklokt</span></div>';
-echo '<span>' . $row["count"] . '</span>';
+echo '<div><span>' . $row["count"] . '</span></div>';
 echo '</div>';
-
 ?>
 </div>
+
 <?php
 $sql = "SELECT user.userFirstname, user.userLastname, SUM(activity.totalTime) as totalTime FROM user JOIN activity ON user.userId = activity.userId GROUP BY user.userId";
 $result = $conn->query($sql);
@@ -252,6 +238,7 @@ echo "Geen resultaten";
 echo '</div>';
 ?>
 </div>
+
 </div>
 </div>
 </main>
