@@ -133,6 +133,10 @@ while ($row = $result->fetch_assoc()) {
     $TotalMoney = $totalHours * 2;
     $TotalMoneyWithBTW = $TotalMoney * 1.21;
 
+    $totalHT = $TotalMoney;
+    $totalTVA = $TotalMoneyWithBTW - $TotalMoney;
+    $totalTTC = $TotalMoneyWithBTW;
+
     $pdf->SetXY(7, $y + 9);
     $pdf->Cell(140, 5, $assignmentName, 0, 0, 'L');
     $pdf->SetXY(145, $y + 9);
@@ -151,9 +155,9 @@ while ($row = $result->fetch_assoc()) {
 
 
 // Totals (example values, replace with actual calculations if available)
-$totalHT = 1000; // Replace with actual HT total
-$totalTVA = 200; // Replace with actual TVA total
-$totalTTC = 1200; // Replace with actual TTC total
+$totalHT = 0; // Replace with actual HT total
+$totalTVA = 0; // Replace with actual TVA total
+$totalTTC = 0; // Replace with actual TTC total
 
 $pdf->SetLineWidth(0.1);
 $pdf->Rect(130, 221, 75, 24, "D");
