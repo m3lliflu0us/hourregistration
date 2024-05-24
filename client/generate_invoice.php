@@ -15,16 +15,20 @@ require('../fpdf186/fpdf.php');
 $assignmentId = $_POST['assignmentId'];
 
 // Query to get data
-$query = "SELECT a.activityId, a.totalTime, u.userFirstname, u.userLastname, c.clientFirstname, c.clientLastname, c.companyName, c.companyAddress, asgn.assignmentName
+$query = "
+SELECT a.activityId, a.totalTime, u.userFirstname, u.userLastname, c.clientFirstname, c.clientLastname, c.companyName, c.companyAddress, asgn.assignmentName,
+    (SELECT SUM(a.totalTime)
+          FROM activity a
+          WHERE a.clockedIn = 0 AND a.assignmentId = 59
+    ) AS total
           FROM activity a
           JOIN user u ON a.userId = u.userId
           JOIN assignment asgn ON a.assignmentId = asgn.assignmentId
           JOIN client c ON asgn.clientId = c.clientId
-          WHERE a.clockedIn = 0 AND a.assignmentId = $assignmentId"; // Filter by assignmentId
+          WHERE a.clockedIn = 0 AND a.assignmentId = 59;"; 
 
 $result = $conn->query($query);
 
-// Instantiate the PDF object
 $pdf = new FPDF('P', 'mm', 'A4');
 $pdf->SetAutoPageBreak(False);
 $pdf->SetMargins(0, 0, 0);
@@ -97,23 +101,24 @@ $pdf->Line(187, 95, 187, 213);
 $pdf->SetDrawColor(0, 0, 0); // Set the border color to black
 $pdf->Line(5, 103, 205, 103);
 
+
 $pdf->SetXY(1, 96);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(140, 8, "Formulering", 0, 0, 'C');
-$pdf->SetXY(145, 96);
+$pdf->Cell(30, 8, "Omschrijving", 0, 0, 'C');
+$pdf->SetXY(105, 96);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(13, 8, "Aantal", 0, 0, 'C');
-$pdf->SetXY(156, 96);
+$pdf->SetXY(135, 96);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(22, 8, "Excl. BTW", 0, 0, 'C');
+$pdf->Cell(17, 8, "Stukprijs", 0, 0, 'C');
 $pdf->SetXY(177, 96);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(10, 8, "VAT", 0, 0, 'C');
-$pdf->SetXY(185, 96);
+$pdf->Cell(10, 8, "Totaal", 0, 0, 'C');
+$pdf->SetXY(190, 96);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(22, 8, "Totaal Bedrag", 0, 0, 'C');
+$pdf->Cell(22, 8, "Btw", 0, 0, 'C');
 
-
+$totaal = 0;
 $pdf->SetFont('Arial', '', 8);
 $y = 97;
 $result->data_seek(0); 
@@ -126,24 +131,46 @@ while ($row = $result->fetch_assoc()) {
     $assignmentName = $row['assignmentName'];
     
     $totalHours = round($totalTime / 3600 / 0.5) * 0.5;
-    $TotalMoney = $totalHours * 2;
-    $TotalMoneyWithBTW = $TotalMoney * 1.21;
+    $TotalMoney = $totalHours * 12.5;
+    $totaal += $TotalMoney;
+    $TotalMoneyWithBTW = $totaal * 1.21;
+    $btw = $TotalMoneyWithBTW - $totaal;
 
+    // Format monetary values
+    $formattedTotalMoney = number_format($TotalMoney, 2, ',', '.');
+    $formattedTotalMoneyWithBTW = number_format($TotalMoneyWithBTW, 2, ',', '.');
 
     $pdf->SetXY(7, $y + 9);
     $pdf->Cell(140, 5, $assignmentName, 0, 0, 'L');
-    $pdf->SetXY(145, $y + 9);
+    $pdf->SetXY(105, $y + 9);
     $pdf->Cell(13, 5, $totalHours, 0, 0, 'R');
-    $pdf->SetXY(158, $y + 9);
-    $pdf->Cell(18, 5, $TotalMoney, 0, 0, 'R'); 
+    $pdf->SetXY(132, $y + 9);
+    $pdf->Cell(18, 5, "12,50", 0, 0, 'R'); 
+    $pdf->SetXY(140, $y + 12);
+    $pdf->Cell(25, -1, "$", 0, 0, 'R'); 
     $pdf->SetXY(177, $y + 9);
-    $pdf->Cell(10, 5, "21%", 0, 0, 'R'); 
+    $pdf->Cell(10, 5, $formattedTotalMoney, 0, 0, 'R'); 
     $pdf->SetXY(187, $y + 9);
-    $pdf->Cell(18, 5, $TotalMoneyWithBTW, 0, 0, 'R'); 
+    $pdf->Cell(18, 5, "21%", 0, 0, 'R'); 
 
     $pdf->Line(5, $y + 14, 205, $y + 14);
     $y += 6;
 }
+
+// Format and display the total amount
+$formattedTotaal = number_format($totaal, 2, ',', '.');
+$formattedTotalMoneyWithBTW = number_format($totaal * 1.21, 2, ',', '.');
+$formattedBTW = number_format($btw, 2, ',', '.');
+
+$pdf->SetXY(177, $y + 9);
+$pdf->Cell(10, 5, $formattedTotaal, 0, 0, 'R'); 
+$pdf->SetXY(140, $y + 9);
+$pdf->Cell(25, 5, "$", 0, 0, 'R'); 
+
+$pdf->SetXY(177, $y + 9);
+$pdf->Cell(10, 15, $formattedBTW, 0, 0, 'R'); 
+$pdf->SetXY(140, $y + 9);
+$pdf->Cell(25, 15, "$", 0, 0, 'R'); 
 
 $pdf->Output();
 ?>
