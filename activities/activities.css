@@ -1,6 +1,7 @@
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--gilde-secondary) var(--white-primary);
+    font-family: "Manrope", sans-serif;
   }
   
   *::-webkit-scrollbar {
@@ -26,24 +27,16 @@
       height: calc(100vh - 6rem);
       overflow-y: auto;
   }
-  
-  .search-bar {
-      width: 100%;
-      font-size: 16px;
-      padding: 12px 20px 12px 18px;
-      border: 1px solid #ddd;
-      margin-bottom: 12px;
-  }
-  
+
   .data-table {
       border-collapse: collapse;
       width: 100%;
-      border: 1px solid #ddd;
+      border: 1px solid #f0f4f8;
       font-size: 18px;
   }
   
   .data-table th {
-      background-color: #b3255d;
+      background-color: #ca2b69;
       color: white;
   }
   
@@ -53,9 +46,71 @@
   }
   
   .data-table tr:nth-child(even) {
-      background-color: #f2f2f2;
+      background-color: #f0f4f8;
   }
   
   .data-table tr:hover {
-      background-color: #ddd;
+      background-color: #f0f4f8;
   }
+
+  .search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 1rem 0;
+}
+
+.search input:focus {
+    outline: none;
+    border: 2px solid var(--gilde-secondary);
+    margin: 1px 1px 0 0px;
+}
+
+.search input {
+    width: 100%;
+    height: 52px;
+    padding: 13px 15px;
+    font-size: 16px;
+    border-radius: 4px;
+    color: var(--txt-tertiary);
+    background-color: #ffffff;
+    outline: none;
+    border: 1px solid var(--txt-tertiary);
+}
+
+.search {
+    position: relative;
+}
+
+.search label {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    margin: 5.5px 0 0 0;
+    padding: 0.625rem 0;
+    color: var(--txt-tertiary);
+    transition: var(--transition-primary);
+    cursor: text;
+    pointer-events: none;
+}
+
+.search input:focus~label,
+.search input:not([value=""])~label {
+    top: -0.8rem;
+    left: 10px;
+    color: var(--gilde-secondary);
+    font-size: 0.75rem;
+    background-color: #ffffff;
+    height: 10px;
+    padding: 0 5px;
+    cursor: default;
+}
+
+.search input:not([value=""])~label {
+    transition: 0.025 ease;
+}
+
+.search input:not(:focus)~label {
+    color: var(--txt-tertiary);
+}

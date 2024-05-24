@@ -50,7 +50,7 @@ echo "['" . $row['userRole'] . "', " . $row['number'] . "],";
 var options = {
 title: 'Gebruiker recht distributie',
 colors: ['#ca2b69', '#b82bca', '#692bca', '#ca692b', ],
-backgroundColor: '#eee',
+backgroundColor: '#f0f4f8',
 };
 
 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -60,7 +60,7 @@ chart.draw(data, options);
 
 function drawColumnChart() {
 var data = google.visualization.arrayToDataTable([
-['User', 'Total Time Worked'],
+['Werknemer', 'Totale tijd gewerkt'],
 <?php
 $sql = "SELECT userFirstname, SUM(totalTime) as totalTime FROM user JOIN activity ON user.userId = activity.userId GROUP BY user.userId";
 $result = mysqli_query($conn, $sql);
@@ -72,16 +72,16 @@ echo "['" . $row['userFirstname'] . "', " . $totalTime . "],";
 ]);
 
 var options = {
-title: 'Total Time Worked per User',
+title: 'Totale tijd gewerkt per werknemer',
 hAxis: {
-title: 'User',
+title: 'Werknemer',
 minValue: 0
 },
 vAxis: {
-title: 'Total Time Worked'
+title: 'Totale tijd gewerkt'
 },
 colors: ['#ca2b69'],
-backgroundColor: '#eee',
+backgroundColor: '#f0f4f8',
 
 };
 
@@ -92,7 +92,7 @@ chart.draw(data, options);
 function drawDotChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'User');
-    data.addColumn('number', 'Total Time Worked');
+    data.addColumn('number', 'Totale tijd gewerkt');
 
     <?php
     $sql = "SELECT userFirstname, SUM(totalTime) as totalTime FROM user JOIN activity ON user.userId = activity.userId GROUP BY user.userId";
@@ -104,18 +104,18 @@ function drawDotChart() {
     ?>
 
     var options = {
-        title: 'Total Time Worked per User',
+        title: 'Totale tijd gewerkt per werknemer',
         hAxis: {
-            title: 'User',
+            title: 'Werknemer',
             minValue: 0
         },
         vAxis: {
-            title: 'Total Time Worked'
+            title: 'Totale tijd gewerkt'
         },
         colors: ['#ca2b69'],
         legend: 'none',
         pointSize: 5,
-        backgroundColor: '#eee'
+        backgroundColor: '#f0f4f8'
     };
 
     var chart = new google.visualization.ScatterChart(document.getElementById('dotchart'));

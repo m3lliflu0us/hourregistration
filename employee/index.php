@@ -36,15 +36,15 @@ include("../db/dbh.inc.php")
         <div class="dashboard-wrapper">
             <div class="dashboard-window">
                 <div class="employee-container">
+                    <div class="employeetitle-wrapper">
+                        Medewerkers
+                    </div>
                     <div class="createassignment-wrapper">
                         <form action="../assignment/assignment.php" method="post">
                             <div class="info-main">
                                 <span>
                                     Creëer een opdracht
                                 </span>
-                                <div class="info-extra">
-                                    Voer de gegevens in om een account te maken
-                                </div>
                             </div>
                             <div class="assignmentName">
                                 <input type="text" name="assignmentName" value="" onkeyup="this.setAttribute('value', this.value);">
@@ -77,19 +77,11 @@ include("../db/dbh.inc.php")
                         </form>
                     </div>
 
-                    <div class="border">
-
-                    </div>
                     <div class="createemployee-wrapper">
                         <form action="../userincludes/signup.inc.php" method="POST">
                             <div class="info-main">
                                 <span>
                                     Een account maken
-                                </span>
-                            </div>
-                            <div class="info-extra">
-                                <span>
-                                    Voer de gegevens in om een opdracht te maken
                                 </span>
                             </div>
                             <div class="fName">
@@ -133,7 +125,7 @@ include("../db/dbh.inc.php")
                                         echo '<img style="height: 16px; margin: 0 5px 0 0;" src="../img/error.svg">';
                                         echo "<span style='color: #b3261e; font-size: 12px'>Please fill in all fields</span>";
                                         echo "<script>document.querySelector('.firstname input').classList.add('error');
-                                document.querySelector('.firstname label').classList.add('error');</script>";
+document.querySelector('.firstname label').classList.add('error');</script>";
                                     } else if ($_GET["error"] == "invalidfirstname") {
                                         echo '<img style="height: 16px; margin: 0 5px 0 0;" src="../img/error.svg">';
                                         echo "<p style='color: #b3261e;font-size: 12px' >Invalid firstname, please try again</p>";
@@ -161,12 +153,10 @@ include("../db/dbh.inc.php")
                             </label>
 
                             <div class="Create">
-                                <input type="submit" name="submit" value="Creëer">
+                                <input type="submit" name="submit" value="Registreer">
                             </div>
                         </form>
                     </div>
-
-                    <div class="border"></div>
 
                     <div class="employeelist-wrapper">
                         <?php
@@ -184,11 +174,8 @@ include("../db/dbh.inc.php")
                         $conn->close();
                         ?>
 
-                        <div class="info-main">
+                        <div class="info-main list">
                             <span>Alle werknemers</span>
-                        </div>
-                        <div class="info-extra">
-                            <span>hier kunt u alle werknemers zien</span>
                         </div>
 
                         <?php foreach ($users as $user) : ?>
@@ -205,7 +192,6 @@ include("../db/dbh.inc.php")
 
                 </div>
             </div>
-        </div>
         </div>
     </main>
 </body>

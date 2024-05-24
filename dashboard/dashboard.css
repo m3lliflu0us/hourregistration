@@ -46,7 +46,7 @@
         width: 100%;
         display: grid;
         grid-template-columns: 0.9fr 1.3fr 0.8fr;
-        grid-template-rows: 0.4fr 1.3fr 1.1fr 1.2fr;
+        grid-template-rows: 90px 1.3fr 1.1fr 1.2fr;
         grid-auto-columns: 1fr;
         gap: 1% 1%;
         grid-auto-flow: row;
@@ -63,32 +63,53 @@
         display: flex;
         align-items: center;
         font-weight: 600;
-
     }
 
     .columnchart-wrapper {
         grid-area: columnchart-wrapper;
-        background-color: #eee;
+        background-color: #f0f4f8;
         border-radius: 1rem;
         padding: 1rem;
-        /* nah */
+        box-shadow:
+        1px 0.2px 2.2px rgba(0, 0, 0, 0.04),
+        2.4px 0.5px 5.3px rgba(0, 0, 0, 0.029),
+        4.5px 1px 10px rgba(0, 0, 0, 0.024),
+        8px 1.8px 17.9px rgba(0, 0, 0, 0.02),
+        15px 3.3px 33.4px rgba(0, 0, 0, 0.016),
+        36px 8px 80px rgba(0, 0, 0, 0.011)
+      ;
     }
 
     .dotchart-wrapper {
         grid-area: activitychart-wrapper;
         height: 100%;
         width: 100%;
-        background-color: #eee;
+        background-color: #f0f4f8;
         border-radius: 1rem;
         padding: 1rem;
+        box-shadow:
+        1px 0.2px 2.2px rgba(0, 0, 0, 0.04),
+        2.4px 0.5px 5.3px rgba(0, 0, 0, 0.029),
+        4.5px 1px 10px rgba(0, 0, 0, 0.024),
+        8px 1.8px 17.9px rgba(0, 0, 0, 0.02),
+        15px 3.3px 33.4px rgba(0, 0, 0, 0.016),
+        36px 8px 80px rgba(0, 0, 0, 0.011)
+      ;
     }
 
     .totalHours-wrapper {
         grid-area: totalHours-wrapper;
-        background-color: #eee;
+        background-color: #f0f4f8;
         border-radius: 1rem;
         padding: 1rem;
-
+        box-shadow:
+        1px 0.2px 2.2px rgba(0, 0, 0, 0.04),
+        2.4px 0.5px 5.3px rgba(0, 0, 0, 0.029),
+        4.5px 1px 10px rgba(0, 0, 0, 0.024),
+        8px 1.8px 17.9px rgba(0, 0, 0, 0.02),
+        15px 3.3px 33.4px rgba(0, 0, 0, 0.016),
+        36px 8px 80px rgba(0, 0, 0, 0.011)
+      ;
     }
 
     .totalHours-title {
@@ -114,17 +135,33 @@
 
     .piechart-wrapper {
         grid-area: piechart-wrapper;
-        background-color: #eee;
+        background-color: #f0f4f8;
         border-radius: 1rem;
         padding: 1rem;
+        box-shadow:
+        1px 0.2px 2.2px rgba(0, 0, 0, 0.04),
+        2.4px 0.5px 5.3px rgba(0, 0, 0, 0.029),
+        4.5px 1px 10px rgba(0, 0, 0, 0.024),
+        8px 1.8px 17.9px rgba(0, 0, 0, 0.02),
+        15px 3.3px 33.4px rgba(0, 0, 0, 0.016),
+        36px 8px 80px rgba(0, 0, 0, 0.011)
+      ;
     }
 
     .workingNow-wrapper {
         grid-area: workingNow-wrapper;
         display: flex;
-        background-color: #eee;
+        background-color: #f0f4f8;
         border-radius: 1rem;
         padding: 1rem;
+        box-shadow:
+        1px 0.2px 2.2px rgba(0, 0, 0, 0.04),
+        2.4px 0.5px 5.3px rgba(0, 0, 0, 0.029),
+        4.5px 1px 10px rgba(0, 0, 0, 0.024),
+        8px 1.8px 17.9px rgba(0, 0, 0, 0.02),
+        15px 3.3px 33.4px rgba(0, 0, 0, 0.016),
+        36px 8px 80px rgba(0, 0, 0, 0.011)
+      ;
     }
 
     .workingNow-list {
@@ -172,9 +209,17 @@
         grid-area: leaderboard-wrapper;
         display: flex;
         flex-direction: column;
-        background-color: #eee;
+        background-color: #f0f4f8;
         border-radius: 1rem;
         padding: 1rem;
+        box-shadow:
+        1px 0.2px 2.2px rgba(0, 0, 0, 0.04),
+        2.4px 0.5px 5.3px rgba(0, 0, 0, 0.029),
+        4.5px 1px 10px rgba(0, 0, 0, 0.024),
+        8px 1.8px 17.9px rgba(0, 0, 0, 0.02),
+        15px 3.3px 33.4px rgba(0, 0, 0, 0.016),
+        36px 8px 80px rgba(0, 0, 0, 0.011)
+      ;
     }
 
     .leaderboard-title {

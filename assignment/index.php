@@ -37,7 +37,7 @@ include("../db/dbh.inc.php");
 
                 <div class="assignment-container">
                     <div class="mainassignment-wrapper">
-                        <div class="info-wrapper title">
+                        <div class="info-wrapper">
                             <span class="title">Jouw geselecteerde opdrachten</span>
                         </div>
                         <?php
@@ -53,7 +53,7 @@ include("../db/dbh.inc.php");
                             $row = mysqli_fetch_assoc($result);
                             if (isset($row['count']) && $row['count'] == 0) {
                                 echo '<div class="mainassignment-item">';
-                                echo '<span class="mainassignment-title">Nog geen opdrachten geselecteerd</span>';
+                                echo '<div class="noassignment"><span>Nog geen opdrachten geselecteerd</span></div>';
                                 echo '</div>';
                             } else {
                                 $sql = "SELECT activity.*, assignment.assignmentName, client.clientId, client.clientFirstname, client.clientLastname FROM activity INNER JOIN assignment ON activity.assignmentId = assignment.assignmentId INNER JOIN client ON assignment.clientId = client.clientId WHERE activity.userId = ? AND activity.selected = TRUE";
@@ -104,12 +104,14 @@ include("../db/dbh.inc.php");
 
                     <div class="assignment-wrapper">
                         <form class="search-wrapper" method="post">
-                            <div class="info-wrapper">
+                            <div class="info-wrapper title-margin">
                                 <span>Kies een opdracht</span>
                             </div>
-                            <div class="search">
-                                <input type="text" name="searchAssignment" value="" onkeyup="this.setAttribute('value', this.value);">
-                                <label for="searchAssignment">Zoek naar opdracht naam of ID</label>
+                            <div class="search-container">
+                                <div class="search">
+                                    <input type="text" name="searchAssignment" value="" onkeyup="this.setAttribute('value', this.value);">
+                                    <label for="searchAssignment">Zoek naar opdracht naam of ID</label>
+                                </div>
                             </div>
                         </form>
 
