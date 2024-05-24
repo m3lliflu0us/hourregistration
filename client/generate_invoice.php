@@ -74,7 +74,7 @@ if ($row = $result->fetch_assoc()) {
 $pdf->SetFont('Arial', 'B', 11);
 $x = 110;
 $y = 50;
-$pdf->SetXY($x, $y);
+$pdf->SetXY($x, $y); 
 $pdf->Cell(100, 8, $client_name, 0, 0, '');
 $y += 4;
 $pdf->SetXY($x, $y);
