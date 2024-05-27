@@ -1,10 +1,13 @@
 <?php
+define('EURO',chr(128));
 session_start();
 
 if (!isset($_SESSION["userId"])) {
     header("location: ../user/login.php");
     exit();
 }
+
+
 
 $currentPage = 'invoice';
 
@@ -59,33 +62,61 @@ $pdf->SetFont('Arial', '', 11);
 $pdf->SetXY(122, 30);
 $pdf->Cell(60, 8, "Roermond, Limburg " . $date_fact, 0, 0, '');
 
-$observations = "No observations"; 
+$observations = "Aantal uren gewerkt aan de opdracht "; 
 $pdf->SetFont('Arial', 'BU', 10);
-$pdf->SetXY(5, 75);
-$pdf->Cell($pdf->GetStringWidth("Observations"), 0, "Observations", 0, "L");
+$pdf->SetXY(5, 82);
+$pdf->Cell($pdf->GetStringWidth("Omschrijving"), 0, "Omschrijving", 0, "L");
 $pdf->SetFont('Arial', '', 10);
-$pdf->SetXY(5, 78);
+$pdf->SetXY(5, 85);
 $pdf->MultiCell(190, 4, $observations, 0, "L");
 
 if ($row = $result->fetch_assoc()) {
-    $client_name = $row['clientFirstname'] . ' ' . $row['clientLastname'];
-    $company_name = $row['companyName'];
-    $company_address = $row['companyAddress'];
+    $receiver_name = $row['clientFirstname'] . ' ' . $row['clientLastname'];
+    $receiver_company = $row['companyName'];
+    $receiver_address = $row['companyAddress'];
+    
+    $sender_name = "Raf Masolijn";
+    $sender_company = "Gilde DevOps Solutions";
+    $sender_address = "Bredeweg 235";
 } else {
-    $client_name = $company_name = $company_address = "N/A";
+    $receiver_name = $receiver_company = $receiver_address = "N/A";
 }
 
-$pdf->SetFont('Arial', 'B', 11);
+
 $x = 110;
 $y = 50;
 $pdf->SetXY($x, $y); 
-$pdf->Cell(100, 8, $client_name, 0, 0, '');
+$pdf->SetFont('Arial', 'B', 11);
+$pdf->Cell(100, 8, "FACTUREREN AAN:", 0, 0, '');
 $y += 4;
 $pdf->SetXY($x, $y);
-$pdf->Cell(100, 8, $company_name, 0, 0, '');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(100, 8, $receiver_name, 0, 0, '');
 $y += 4;
 $pdf->SetXY($x, $y);
-$pdf->Cell(100, 8, $company_address, 0, 0, '');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(100, 8, $receiver_company, 0, 0, '');
+$y += 4;
+$pdf->SetXY($x, $y);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(100, 8, $receiver_address, 0, 0, '');
+
+// Sender Information
+$pdf->SetXY(5, $y - 11); 
+$pdf->SetFont('Arial', 'B', 11);
+$pdf->Cell(100, 8, "MIJN BEDRIJF:", 0, 0, '');
+$y += 4;
+$pdf->SetXY(5, $y - 11);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(100, 8, $sender_name, 0, 0, '');
+$y += 4;
+$pdf->SetXY(5, $y - 11);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(100, 8, $sender_company, 0, 0, '');
+$y += 4;
+$pdf->SetXY(5, $y - 11);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(100, 8, $sender_address, 0, 0, '');
 
 // Articles table header
 $pdf->SetLineWidth(0.2);
@@ -100,11 +131,13 @@ $pdf->Line(187, 95, 187, 213);
 // Add black line under "Formulering" header
 $pdf->SetDrawColor(0, 0, 0); // Set the border color to black
 $pdf->Line(5, 103, 205, 103);
-$pdf->Line(5, 142, 205, 142);
 
 $pdf->SetXY(1, 96);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(30, 8, "Omschrijving", 0, 0, 'C');
+$pdf->SetXY(34, 96);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(30, 8, "Naam", 0, 0, 'C');
 $pdf->SetXY(105, 96);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(13, 8, "Aantal", 0, 0, 'C');
@@ -143,40 +176,63 @@ while ($row = $result->fetch_assoc()) {
     $pdf->SetXY(7, $y + 9);
     $pdf->Cell(140, 5, $assignmentName, 0, 0, 'L');
     
+    $pdf->SetXY(44, $y + 9);
+    $pdf->Cell(13, 5, $userName, 0, 0, 'L');
+
     $pdf->SetXY(105, $y + 9);
     $pdf->Cell(13, 5, $totalHours, 0, 0, 'R');
     $pdf->SetXY(132, $y + 9);
     $pdf->Cell(18, 5, "12,50", 0, 0, 'R'); 
-    $pdf->SetXY(140, $y + 12);
-    $pdf->Cell(25, -1, "$", 0, 0, 'R'); 
+
     $pdf->SetXY(177, $y + 9);
-    $pdf->Cell(10, 5, $formattedTotalMoney, 0, 0, 'R'); 
+    $pdf->Cell(10, 5, EURO . $formattedTotalMoney, 0, 0, 'R');  
     $pdf->SetXY(187, $y + 9);
     $pdf->Cell(18, 5, "21%", 0, 0, 'R'); 
 
     $y += 6;
 }
 
+// Draw a line under the last row
+$finalY = $y + 9;
+$pdf->SetXY(5, $finalY);
+$pdf->Cell(200, 0, '', 'T'); // Draw a horizontal line
+
 // Format and display the total amount
 $formattedTotaal = number_format($totaal, 2, ',', '.');
 $formattedBTW = number_format($totaal * 0.21, 2, ',', '.');
 $totalPrice = number_format($totaal * 1.21, 2, ',', '.');
 
-// Display the BTW and the line
+// Display the Subtotaal
+
+$pdf->SetXY(155, $y + 9);
+$pdf->Cell(-1, 7, "Subtotaal", 0, 0, 'R'); 
 $pdf->SetXY(177, $y + 9);
-$pdf->Cell(10, 7, $formattedTotaal, 0, 0, 'R'); 
-$pdf->SetXY(140, $y + 9);
-$pdf->Cell(25, 7, "$", 0, 0, 'R'); 
+$pdf->Cell(10, 7, EURO . $formattedTotaal, 0, 0, 'R'); 
 
 // Add the line under the BTW
 $pdf->SetDrawColor(0, 0, 0);
 $pdf->Line(155, $y + 23, 205, $y + 23);
 
-// Display the total price
+// Display the 21% BTW
+
+$pdf->SetXY(155, $y + 17);
+$pdf->Cell(-1, 5, "BTW(21%)", 0, 0, 'R'); 
 $pdf->SetXY(177, $y + 17);
-$pdf->Cell(10, 5, $formattedBTW, 0, 0, 'R'); 
-$pdf->SetXY(140, $y + 17);
-$pdf->Cell(25, 5, "$", 0, 0, 'R'); 
+$pdf->Cell(10, 5, EURO . $formattedBTW, 0, 0, 'R'); 
+
+// Display the Totaal Bedrag
+$totalAmount = $totaal * 1.21;
+$formattedTotalAmount = number_format($totalAmount, 2, ',', '.');
+
+$pdf->SetXY(155, $y + 25);
+$pdf->Cell(-1, 7, "Totaal Bedrag", 0, 0, 'R'); 
+$pdf->SetXY(177, $y + 25);
+$pdf->Cell(10, 7, EURO . $formattedTotalAmount, 0, 0, 'R');
+
+$pdf->SetFont('Arial', '', 10);
+$pdf->SetXY(10, 282); // Adjust the coordinates as needed
+$pdf->Cell(0, 0, 'Betaling binnen 14 dagen op IBAN NL12 RABO 3456 789 10, onder vermelding van het factuurnummer.', 0, 1, 'L');
 
 $pdf->Output();
 ?>
+
