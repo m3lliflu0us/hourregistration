@@ -1,3 +1,13 @@
+SET
+  SQL_MODE = " NO_AUTO_VALUE_ON_ZERO ";
+
+START TRANSACTION;
+
+SET
+  time_zone = " + 02 :00 ";
+
+DROP TABLE IF EXISTS `activity`;
+
 CREATE TABLE IF NOT EXISTS `activity` (
   `activityId` int NOT NULL AUTO_INCREMENT,
   `assignmentId` int NOT NULL,
@@ -11,7 +21,9 @@ CREATE TABLE IF NOT EXISTS `activity` (
   PRIMARY KEY (`activityId`),
   KEY `assignmentId` (`assignmentId`),
   KEY `userId` (`userId`)
-) ENGINE = InnoDB AUTO_INCREMENT = 142 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 181 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `assignment`;
 
 CREATE TABLE IF NOT EXISTS `assignment` (
   `assignmentId` int NOT NULL AUTO_INCREMENT,
@@ -20,7 +32,9 @@ CREATE TABLE IF NOT EXISTS `assignment` (
   `assignmentDescription` varchar(255) NOT NULL,
   PRIMARY KEY (`assignmentId`),
   KEY `clientId` (`clientId`)
-) ENGINE = InnoDB AUTO_INCREMENT = 50 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 57 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `client`;
 
 CREATE TABLE IF NOT EXISTS `client` (
   `clientId` int NOT NULL AUTO_INCREMENT,
@@ -31,7 +45,57 @@ CREATE TABLE IF NOT EXISTS `client` (
   `companyName` varchar(255) DEFAULT NULL,
   `companyAddress` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`clientId`)
-) ENGINE = InnoDB AUTO_INCREMENT = 7 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+INSERT INTO
+  `client` (
+    `clientId`,
+    `clientFirstname`,
+    `clientLastname`,
+    `clientEmail`,
+    `clientPhoneNumber`,
+    `companyName`,
+    `companyAddress`
+  )
+VALUES
+  (
+    4,
+    'test',
+    'test',
+    'test@test.com',
+    '0600000000',
+    'test',
+    'test 21'
+  ),
+  (
+    5,
+    'test',
+    'test',
+    'test@test.com',
+    '0600000000',
+    'testtest',
+    'test 21'
+  ),
+  (
+    6,
+    'noway',
+    'test',
+    'test@test.com',
+    '0601289214',
+    'TEST',
+    'test'
+  ),
+  (
+    7,
+    'test',
+    'test',
+    'test@test.com',
+    '0602020202',
+    'test',
+    'test 6198 TE'
+  );
+
+DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE IF NOT EXISTS `user` (
   `userId` int NOT NULL AUTO_INCREMENT,
@@ -41,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `userPwd` varchar(255) NOT NULL,
   `userRole` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 INSERT INTO
   `user` (
@@ -58,7 +122,7 @@ VALUES
     'admin',
     'test',
     'test@admin.com',
-    '$2y$10$WYQRMGYoILE64CCe9XGAE.BbR.NFFeAjX.VYuck0TBniCQ9Xo9vfe',
+    '$2y$10$yzh/KuNN2ZhBtx9KKivlourPYbPKQFjVG2SyG7GXkySpQkE.bhppC',
     'administrator'
   ),
   (
@@ -84,6 +148,22 @@ VALUES
     'test@hybrid.com',
     '$2y$10$wPQrClQh52U3pDws3l8gKOnVlKEyhB6IITWRm6USCOxCDZI7eoxdC',
     'hybrid'
+  ),
+  (
+    5,
+    'test',
+    'test',
+    'test@test.com',
+    '$2y$10$RaDeNqppyAa79ASJoWjAK.St/QzRqk57JC.UMCEo0WzOLpwn2.zsG',
+    'administrator'
+  ),
+  (
+    6,
+    'bryce',
+    'bryce',
+    'bryce@bryce.vom',
+    '$2y$10$PruUhG.I3cFATzo6VOoIFOBmoYDmCAzApcdWDlXojn3KvE6lNUn1C',
+    'administrator'
   );
 
 ALTER TABLE
