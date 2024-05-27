@@ -19,13 +19,13 @@ $query = "
 SELECT a.activityId, a.totalTime, u.userFirstname, u.userLastname, c.clientFirstname, c.clientLastname, c.companyName, c.companyAddress, asgn.assignmentName,
     (SELECT SUM(a.totalTime)
           FROM activity a
-          WHERE a.clockedIn = 0 AND a.assignmentId = 59
+          WHERE a.clockedIn = 0 AND a.assignmentId = $assignmentId
     ) AS total
           FROM activity a
           JOIN user u ON a.userId = u.userId
           JOIN assignment asgn ON a.assignmentId = asgn.assignmentId
           JOIN client c ON asgn.clientId = c.clientId
-          WHERE a.clockedIn = 0 AND a.assignmentId = 59;"; 
+          WHERE a.clockedIn = 0 AND a.assignmentId = $assignmentId;"; 
 
 $result = $conn->query($query);
 
@@ -88,7 +88,7 @@ $pdf->SetXY($x, $y);
 $pdf->Cell(100, 8, $company_address, 0, 0, '');
 
 // Articles table header
-$pdf->SetLineWidth(0.1);
+$pdf->SetLineWidth(0.2);
 $pdf->SetDrawColor(255, 255, 255); // Set the border color to white
 $pdf->Rect(5, 95, 200, 118, "D");
 $pdf->Line(5, 105, 205, 105);
@@ -100,7 +100,7 @@ $pdf->Line(187, 95, 187, 213);
 // Add black line under "Formulering" header
 $pdf->SetDrawColor(0, 0, 0); // Set the border color to black
 $pdf->Line(5, 103, 205, 103);
-
+$pdf->Line(5, 142, 205, 142);
 
 $pdf->SetXY(1, 96);
 $pdf->SetFont('Arial', 'B', 8);
@@ -133,8 +133,8 @@ while ($row = $result->fetch_assoc()) {
     $totalHours = round($totalTime / 3600 / 0.5) * 0.5;
     $TotalMoney = $totalHours * 12.5;
     $totaal += $TotalMoney;
-    $TotalMoneyWithBTW = $totaal * 1.21;
-    $btw = $TotalMoneyWithBTW - $totaal;
+    $TotalMoneyWithBTW = $TotalMoney * 1.21;
+    $btw = $TotalMoneyWithBTW - $TotalMoney;
 
     // Format monetary values
     $formattedTotalMoney = number_format($TotalMoney, 2, ',', '.');
@@ -142,6 +142,7 @@ while ($row = $result->fetch_assoc()) {
 
     $pdf->SetXY(7, $y + 9);
     $pdf->Cell(140, 5, $assignmentName, 0, 0, 'L');
+    
     $pdf->SetXY(105, $y + 9);
     $pdf->Cell(13, 5, $totalHours, 0, 0, 'R');
     $pdf->SetXY(132, $y + 9);
@@ -153,24 +154,29 @@ while ($row = $result->fetch_assoc()) {
     $pdf->SetXY(187, $y + 9);
     $pdf->Cell(18, 5, "21%", 0, 0, 'R'); 
 
-    $pdf->Line(5, $y + 14, 205, $y + 14);
     $y += 6;
 }
 
 // Format and display the total amount
 $formattedTotaal = number_format($totaal, 2, ',', '.');
-$formattedTotalMoneyWithBTW = number_format($totaal * 1.21, 2, ',', '.');
-$formattedBTW = number_format($btw, 2, ',', '.');
+$formattedBTW = number_format($totaal * 0.21, 2, ',', '.');
+$totalPrice = number_format($totaal * 1.21, 2, ',', '.');
 
+// Display the BTW and the line
 $pdf->SetXY(177, $y + 9);
-$pdf->Cell(10, 5, $formattedTotaal, 0, 0, 'R'); 
+$pdf->Cell(10, 7, $formattedTotaal, 0, 0, 'R'); 
 $pdf->SetXY(140, $y + 9);
+$pdf->Cell(25, 7, "$", 0, 0, 'R'); 
+
+// Add the line under the BTW
+$pdf->SetDrawColor(0, 0, 0);
+$pdf->Line(155, $y + 23, 205, $y + 23);
+
+// Display the total price
+$pdf->SetXY(177, $y + 17);
+$pdf->Cell(10, 5, $formattedBTW, 0, 0, 'R'); 
+$pdf->SetXY(140, $y + 17);
 $pdf->Cell(25, 5, "$", 0, 0, 'R'); 
-
-$pdf->SetXY(177, $y + 9);
-$pdf->Cell(10, 15, $formattedBTW, 0, 0, 'R'); 
-$pdf->SetXY(140, $y + 9);
-$pdf->Cell(25, 15, "$", 0, 0, 'R'); 
 
 $pdf->Output();
 ?>
