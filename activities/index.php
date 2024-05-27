@@ -79,7 +79,11 @@ $result = $conn->query($sql);
               if ($totalTime == 0) {
                 continue;
               }
-              $totalTimeFormatted = gmdate("H:i:s", $totalTime);
+              // Calculate the total hours and round to the nearest half-hour increment
+              $totalHours = $totalTime / 3600;
+              $roundedHours = ceil($totalHours * 2) / 2; // Round up to nearest half-hour
+              $totalTimeFormatted = number_format($roundedHours, 1, '.', '') . " uur";
+              
               $firstName = ucfirst(strtolower($row["userFirstname"]));
               $lastName = ucfirst(strtolower($row["userLastname"]));
               echo "<tr><td>" . $firstName . " " . $lastName . "</td><td>" . $row["assignmentName"] . "</td><td>" . $row["assignmentDescription"] . "</td><td>" . $row["userId"] . "</td><td>" . $totalTimeFormatted . "</td></tr>";

@@ -20,10 +20,10 @@ include("../userincludes/userfunctions.inc.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klanten | Gilde DevOps</title>
-    <link rel="stylesheet" href="client.css">
+    <link rel="stylesheet" href="client1.css">
     <link rel="stylesheet" href="../assets/layout.css">
     <link rel="stylesheet" href="../assets/navbar.css">
-    <link rel="stylesheet" href="clientc.css">
+    
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -107,7 +107,6 @@ $(document).ready(function(){
                     }
                     ?>
                 </div>
-
             </div>
         </div>
     </main>
