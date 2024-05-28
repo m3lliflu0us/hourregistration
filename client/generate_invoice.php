@@ -42,7 +42,7 @@ $var_id_facture = $assignmentId;
 $pdf->AddPage();
 
 // Logo
-$pdf->Image('../logo-test.png', 10, 10, 80, 55);
+$pdf->Image('../img/logo2.png', 10, 10, 80, 55);
 
 // Page number
 $pdf->SetXY(120, 5);
