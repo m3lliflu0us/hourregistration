@@ -30,19 +30,19 @@ include("../userincludes/userfunctions.inc.php");
 $(document).ready(function(){
     $(".generate-invoice").click(function(){
         var clientId = $(this).data('client-id');
-        var assignmentId = $(this).data('assignment-id'); // Get assignmentId
+        var assignmentId = $(this).data('assignment-id');
         $.ajax({
             url: 'generate_invoice.php',
             type: 'post',
-            data: {clientId: clientId, assignmentId: assignmentId}, // Include assignmentId in data
+            data: {clientId: clientId, assignmentId: assignmentId},
             xhrFields: {
-                responseType: 'blob' // to handle a binary stream
+                responseType: 'blob' 
             },
             success: function(response){
                 var blob = new Blob([response], { type: 'application/pdf' });
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
-                link.download = "invoice_" + clientId + "_" + assignmentId + ".pdf"; // Include assignmentId in filename
+                link.download = "invoice_" + clientId + "_" + assignmentId + ".pdf"; 
                 link.click();
             },
             error: function() {
