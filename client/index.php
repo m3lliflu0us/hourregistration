@@ -82,7 +82,6 @@ $(document).ready(function(){
                     </form>
                 </div>
 
-                <div class="border"></div>
 
                 <div class="client-list-wrapper">
                     <?php
