@@ -38,7 +38,7 @@ $var_id_facture = $assignmentId;
 
 $pdf->AddPage();
 
-$pdf->Image('../logo-test.png', 10, 10, 80, 55);
+$pdf->Image('../img/logo2.png', 10, 10, 80, 55);
 
 $pdf->SetXY(120, 5);
 $pdf->SetFont('Arial', 'B', 12);
