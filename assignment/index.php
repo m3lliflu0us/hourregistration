@@ -36,10 +36,14 @@ include("../db/dbh.inc.php");
             <div class="dashboard-window">
 
                 <div class="assignment-container">
-                    <div class="mainassignment-wrapper">
-                        <div class="info-wrapper">
-                            <span class="title">Jouw geselecteerde opdrachten</span>
+                        <div class="title-left-wrapper">
+                            <span>Jouw geselecteerde opdrachten</span>
                         </div>
+                        <div class="title-right-wrapper">
+                            <span>Kies een opdracht</span>
+                        </div>
+
+                    <div class="mainassignment-wrapper">
                         <?php
                         $userId = $_SESSION['userId'];
                         $sql = "SELECT COUNT(*) AS count FROM activity WHERE userId = ? AND selected = TRUE";
@@ -104,9 +108,6 @@ include("../db/dbh.inc.php");
 
                     <div class="assignment-wrapper">
                         <form class="search-wrapper" method="post">
-                            <div class="info-wrapper title-margin">
-                                <span>Kies een opdracht</span>
-                            </div>
                             <div class="search-container">
                                 <div class="search">
                                     <input type="text" name="searchAssignment" value="" onkeyup="this.setAttribute('value', this.value);">

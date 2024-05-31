@@ -17,37 +17,70 @@
 }
 
 ::-webkit-scrollbar {
-   width: 6px;
-   border-radius: 10px;
- }
+    width: 6px;
+    border-radius: 10px;
+}
 
 ::-webkit-scrollbar-track {
-  background: #f0f4f8;
-  border-radius: 10px;
+    background: #f0f4f8;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ca2b69;
-  border-radius: 5px;
+    background: #ca2b69;
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b3255d;
-}   
+    background: #b3255d;
+}
 
 .assignment-container {
     display: grid;
-    align-content: center;
-    height: 100%;
-    grid-template-columns: auto auto;
-    border-radius: 16px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 75px 1.8fr;
+    gap: 0.5rem;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "title-left-wrapper title-right-wrapper"
+        "mainassignment-wrapper assignment-wrapper";
+}
+
+.mainassignment-wrapper {
+    grid-area: mainassignment-wrapper;
+}
+
+.assignment-wrapper {
+    grid-area: assignment-wrapper;
+}
+
+.title-left-wrapper {
+    grid-area: title-left-wrapper;
+}
+
+.title-right-wrapper {
+    grid-area: title-right-wrapper;
+}
+
+.title-left-wrapper,
+.title-right-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.title-right-wrapper,
+.title-left-wrapper span {
+    color: var(--txt-secondary);
+    font-weight: 600;
+    font-size: 38px;
 }
 
 .mainassignment-wrapper {
     display: grid;
     grid-template-rows: auto auto auto;
     width: 100%;
-    max-height: calc(100vh - 6rem);
+    max-height: calc(100vh - 8rem);
     height: calc(100vh - 6rem);
     overflow-y: auto;
     padding: 1rem 1rem 1.5rem 1rem;
@@ -134,7 +167,6 @@
 }
 
 .search-wrapper {
-    height: fit-content;
     margin: 0 0 2rem 0;
 }
 
@@ -311,6 +343,7 @@
     color: var(--txt-primary);
     background-color: var(--gilde-secondary);
     transition: var(--transition-primary);
+    cursor: not-allowed;
 }
 
 .assignment-button-disabled:hover .tooltip {
@@ -320,28 +353,12 @@
     text-wrap: wrap;
 }
 
-.info-wrapper {
-    text-wrap: wrap;
-    display: flex;
-    align-items: center;
-    height: 90px;
-}
-
-.info-wrapper span {
-    color: var(--txt-secondary);
-    font-weight: 600;
-    font-size: 38px;
-}
-
-.title-margin {
-    margin: 0 0 2rem 0;
-}
-
 .search {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+
 }
 
 .search-container {
@@ -351,6 +368,8 @@
     border-radius: 1rem;
     padding: 1rem;
     background-color: #f0f4f8;
+    min-height: 6rem;
+    height: 6rem;
 }
 
 .search input:focus {
