@@ -1,150 +1,147 @@
 :root {
-    --gilde-primary: #13355b;
-    --gilde-primary-hover: #23415f;
-    --gilde-secondary: #ca2b69;
-    --gilde-secondary-hover: #b3255d;
-    --gilde-tertiary-hover: #b3255e12;
-    --white-primary: #ffffff;
-    --white-secondary: #eeeeee;
-    --txt-primary: #ffffff;
-    --txt-secondary: #222222;
-    --txt-tertiary: #1f1f1f;
-    --txt: #00365e;
-    --shadow-color: #0000000e;
-    --transition-primary: ease-in-out 0.1s;
-    --shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 
-               0 6.7px 5.3px rgba(0, 0, 0, 0.048), 
-               0 12.5px 10px rgba(0, 0, 0, 0.06), 
-               0 22.3px 17.9px rgba(0, 0, 0, 0.072), 
-               0 41.8px 33.4px rgba(0, 0, 0, 0.086), 
-               0 100px 80px rgba(0, 0, 0, 0.12);
-  }
-  
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--gilde-secondary) var(--white-primary);
-    font-family: "Manrope", sans-serif;
-  }
-  
-  *::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-  }
-  
-  *::-webkit-scrollbar-track {
-    background: var(--white-primary);
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background-color: var(--gilde-secondary);
-    border-radius: 20px;
-    border: 3px solid var(--white-primary);
-  }
-  
+  --gilde-primary: #13355b;
+  --gilde-primary-hover: #23415f;
+  --gilde-secondary: #ca2b69;
+  --gilde-secondary-hover: #b3255d;
+  --gilde-tertiary-hover: #b3255e12;
+  --white-primary: #ffffff;
+  --white-secondary: #eeeeee;
+  --txt-primary: #ffffff;
+  --txt-secondary: #222222;
+  --txt-tertiary: #1f1f1f;
+  --txt: #00365e;
+  --shadow-color: #0000000e;
+  --transition-primary: ease-in-out 0.1s;
+  --shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ca2b69;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b3255d;
+}
+
+.activities-wrapper {
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 20px;
+  max-height: calc(100vh - 6rem);
+  height: calc(100vh - 6rem);
+  overflow-y: auto;
+}
+
+.data-table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #f0f4f8;
+  font-size: 18px;
+}
+
+.data-table th {
+  background-color: var(--gilde-secondary);
+  color: var(--txt-primary);
+}
+
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: 12px;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: var(--white-secondary);
+}
+
+.data-table tr:hover {
+  background-color: var(--gilde-tertiary-hover);
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 0 1rem 0;
+}
+
+.search input {
+  width: 100%;
+  height: 52px;
+  padding: 13px 15px;
+  font-size: 16px;
+  border-radius: 4px;
+  color: var(--txt-tertiary);
+  background-color: var(--white-primary);
+  outline: none;
+  border: 1px solid var(--txt-tertiary);
+  transition: border-color var(--transition-primary);
+}
+
+.search input:focus {
+  border-color: var(--gilde-secondary);
+}
+
+.search label {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  margin: 5.5px 0 0 0;
+  padding: 0.625rem 0;
+  color: var(--txt-tertiary);
+  transition: all var(--transition-primary);
+  cursor: text;
+  pointer-events: none;
+}
+
+.search input:focus~label,
+.search input:not([value=""])~label {
+  top: -0.8rem;
+  left: 10px;
+  color: var(--gilde-secondary);
+  font-size: 0.75rem;
+  background-color: var(--white-primary);
+  height: 10px;
+  padding: 0 5px;
+  cursor: default;
+}
+
+.search input:not([value=""])~label {
+  transition: top var(--transition-primary), font-size var(--transition-primary);
+}
+
+.search input:not(:focus)~label {
+  color: var(--txt-tertiary);
+}
+
+@media only screen and (max-width: 600px) {
   .activities-wrapper {
-    border-radius: 5px;
-    padding: 20px;
-    margin-top: 20px;
-    max-height: calc(100vh - 6rem);
-    height: calc(100vh - 6rem);
-    overflow-y: auto;
+    padding: 10px;
   }
-  
+
   .data-table {
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid #f0f4f8;
-    font-size: 18px;
-  }
-  
-  .data-table th {
-    background-color: var(--gilde-secondary);
-    color: var(--txt-primary);
-  }
-  
-  .data-table th,
-  .data-table td {
-    text-align: left;
-    padding: 12px;
-  }
-  
-  .data-table tr:nth-child(even) {
-    background-color: var(--white-secondary);
-  }
-  
-  .data-table tr:hover {
-    background-color: var(--gilde-tertiary-hover);
-  }
-  
-  .search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 0 0 1rem 0;
-  }
-  
-  .search input {
-    width: 100%;
-    height: 52px;
-    padding: 13px 15px;
     font-size: 16px;
-    border-radius: 4px;
-    color: var(--txt-tertiary);
-    background-color: var(--white-primary);
-    outline: none;
-    border: 1px solid var(--txt-tertiary);
-    transition: border-color var(--transition-primary);
   }
-  
-  .search input:focus {
-    border-color: var(--gilde-secondary);
+
+  .search input {
+    height: 42px;
+    font-size: 14px;
   }
-  
-  .search label {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    margin: 5.5px 0 0 0;
-    padding: 0.625rem 0;
-    color: var(--txt-tertiary);
-    transition: all var(--transition-primary);
-    cursor: text;
-    pointer-events: none;
-  }
-  
-  .search input:focus ~ label,
-  .search input:not([value=""]) ~ label {
-    top: -0.8rem;
-    left: 10px;
-    color: var(--gilde-secondary);
-    font-size: 0.75rem;
-    background-color: var(--white-primary);
-    height: 10px;
-    padding: 0 5px;
-    cursor: default;
-  }
-  
-  .search input:not([value=""]) ~ label {
-    transition: top var(--transition-primary), font-size var(--transition-primary);
-  }
-  
-  .search input:not(:focus) ~ label {
-    color: var(--txt-tertiary);
-  }
-  
-  @media only screen and (max-width: 600px) {
-    .activities-wrapper {
-      padding: 10px;
-    }
-  
-    .data-table {
-      font-size: 16px;
-    }
-  
-    .search input {
-      height: 42px;
-      font-size: 14px;
-    }
-  }
-  
+}

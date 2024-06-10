@@ -29,6 +29,25 @@ include("../db/dbh.inc.php")
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
 
+<script>
+    // JavaScript function to handle select change
+    function handleSelectChange(radio) {
+        // Get all radio buttons
+        var radios = document.querySelectorAll('.custom-select-option');
+        // Loop through radio buttons
+        for (var i = 0; i < radios.length; i++) {
+            // If the radio button is checked
+            if (radios[i].checked) {
+                // Add 'checked' class to the label
+                radios[i].nextElementSibling.classList.add('checked');
+            } else {
+                // Remove 'checked' class from the label
+                radios[i].nextElementSibling.classList.remove('checked');
+            }
+        }
+    }
+</script>
+
 <body>
     <main>
         <?php include("../assets/navbar.php") ?>
@@ -36,42 +55,49 @@ include("../db/dbh.inc.php")
         <div class="dashboard-wrapper">
             <div class="dashboard-window">
                 <div class="employee-container">
-                    <div class="employeetitle-wrapper">
+                    <div class="heading-wrapper">
                         Medewerkers
                     </div>
                     <div class="createassignment-wrapper">
                         <form action="../assignment/assignment.php" method="post">
-                            <div class="info-main">
+                            <div class="subheading-wrapper">
                                 <span>
                                     Creëer een opdracht
                                 </span>
                             </div>
-                            <div class="assignmentName">
+                            <div class="input">
                                 <input type="text" name="assignmentName" value="" onkeyup="this.setAttribute('value', this.value);">
                                 <label for="assignmentName">Opdracht Naam</label>
                             </div>
-                            <div class="assignmentDescription">
+                            <div class="input">
                                 <input type="text" name="assignmentDescription" value="" onkeyup="this.setAttribute('value', this.value);">
                                 <label for="assignmentDescription">Opdracht beschrijving</label>
                             </div>
-                            <div class="companyName">
-                                <label for="companyName">Bedrijfsnaam</label>
-                                <select name="companyName">
+                            <!-- Custom Select Dropdown with Animated Label -->
+                            <!-- Custom Select Dropdown with Animated Label -->
+                            <div class="custom-select-container" tabindex="1">
+                                <label for="custom-select" class="custom-select-label">Bedrijfsnaam</label>
+                                <div class="custom-select">
                                     <?php
                                     $result = mysqli_query($conn, "SELECT companyName FROM client");
+                                    $idCounter = 1;
                                     while ($row = mysqli_fetch_assoc($result)) {
-                                        echo "<option value='{$row['companyName']}'>{$row['companyName']}</option>";
+                                        $companyName = $row['companyName'];
+                                        echo "<input class='custom-select-option' name='companyName' type='radio' id='custom-opt$idCounter'>";
+                                        echo "<label for='custom-opt$idCounter' class='custom-option'>$companyName</label>";
+                                        $idCounter++;
                                     }
-
                                     ?>
-                                </select>
+                                </div>
                             </div>
-                            <div class="assignmentDeadline">
+
+
+                            <div class="input">
                                 <input type="date" id="deadline" name="deadline">
                                 <label for="deadline">Deadline:</label>
                             </div>
 
-                            <div class="create">
+                            <div class="submit-button">
                                 <input type="submit" name="createassignment" value="Creëer">
                             </div>
                         </form>
@@ -79,41 +105,39 @@ include("../db/dbh.inc.php")
 
                     <div class="createemployee-wrapper">
                         <form action="../userincludes/signup.inc.php" method="POST">
-                            <div class="info-main">
+                            <div class="subheading-wrapper">
                                 <span>
                                     Een account maken
                                 </span>
                             </div>
-                            <div class="fName">
+                            <div class="input">
                                 <input type="text" name="firstname" value="" onkeyup="this.setAttribute('value', this.value);">
                                 <label for="firstname">Voornaam</label>
                             </div>
 
-                            <div class="lName">
+                            <div class="input">
                                 <input type="text" name="lastname" value="" onkeyup="this.setAttribute('value', this.value);">
                                 <label for="lastname">Achternaam</label>
                             </div>
 
-                            <div class="eMail">
+                            <div class="input">
                                 <input type="text" name="email" value="" onkeyup="this.setAttribute('value', this.value);">
                                 <label for="email">E-mailadres</label>
                             </div>
 
                             <select name="role">
-                                <optgroup label="Rechten">
-                                    <option value="administrator">Administrator</option>
-                                    <option value="SD">SD</option>
-                                    <option value="ITSD">ITSD</option>
-                                    <option value="hybrid">Hybrid</option>
-                                </optgroup>
+                                <option value="administrator">Administrator</option>
+                                <option value="SD">SD</option>
+                                <option value="ITSD">ITSD</option>
+                                <option value="hybrid">Hybrid</option>
                             </select>
 
-                            <div class="pwd">
+                            <div class="input">
                                 <input type="password" name="pwd" value="" id="pwd" onkeyup="this.setAttribute('value', this.value);">
                                 <label for="pwd">Wachtwoord</label>
                             </div>
 
-                            <div class="pwd-rpt">
+                            <div class="input">
                                 <input type="password" name="pwdRepeat" value="" id="pwdRpt" onkeyup="this.setAttribute('value', this.value);">
                                 <label for="pwdRepeat">Herhaal wachtwoord</label>
                             </div>
@@ -152,7 +176,7 @@ document.querySelector('.firstname label').classList.add('error');</script>";
                                 <span class="checkMark"></span>
                             </label>
 
-                            <div class="Create">
+                            <div class="submit-button">
                                 <input type="submit" name="submit" value="Registreer">
                             </div>
                         </form>
@@ -174,18 +198,18 @@ document.querySelector('.firstname label').classList.add('error');</script>";
                         $conn->close();
                         ?>
 
-                        <div class="info-main list">
+                        <div class="subheading-wrapper">
                             <span>Alle werknemers</span>
                         </div>
 
                         <?php foreach ($users as $user) : ?>
                             <div class="employeelist-item">
                                 <div class="name">
-                                    <span>Naam: <?php echo $user['userFirstname']; ?></span>
+                                    <span><span class="bolder">Naam: </span><?php echo $user['userFirstname']; ?></span>
                                     <span><?php echo $user['userLastname']; ?></span>
                                 </div>
-                                <span>E-mail: <?php echo $user['userEmail']; ?></span>
-                                <span>Rechten: <?php echo $user['userRole']; ?></span>
+                                <span><span class="bolder">E-mail: </span><?php echo $user['userEmail']; ?></span>
+                                <span><span class="bolder">Rechten: </span><?php echo $user['userRole']; ?></span>
                             </div>
                         <?php endforeach; ?>
                     </div>
