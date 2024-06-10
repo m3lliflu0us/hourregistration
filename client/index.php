@@ -20,91 +20,135 @@ include("../userincludes/userfunctions.inc.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klanten | Gilde DevOps</title>
-    <link rel="stylesheet" href="client1.css">
+    <link rel="stylesheet" href="client.css">
     <link rel="stylesheet" href="../assets/layout.css">
     <link rel="stylesheet" href="../assets/navbar.css">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-    $(".generate-invoice").click(function(){
-        var clientId = $(this).data('client-id');
-        var assignmentId = $(this).data('assignment-id');
-        $.ajax({
-            url: 'generate_invoice.php',
-            type: 'post',
-            data: {clientId: clientId, assignmentId: assignmentId},
-            xhrFields: {
-                responseType: 'blob' 
-            },
-            success: function(response){
-                var blob = new Blob([response], { type: 'application/pdf' });
-                var link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = "invoice_" + clientId + "_" + assignmentId + ".pdf"; 
-                link.click();
-            },
-            error: function() {
-                alert('Error generating invoice');
-            }
+    $(document).ready(function() {
+        $(".invoice-button").click(function() {
+            var clientId = $(this).data('client-id');
+            var assignmentId = $(this).data('assignment-id');
+            $.ajax({
+                url: 'generate_invoice.php',
+                type: 'post',
+                data: {
+                    clientId: clientId,
+                    assignmentId: assignmentId
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function(response) {
+                    var blob = new Blob([response], {
+                        type: 'application/pdf'
+                    });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "invoice_" + clientId + "_" + assignmentId + ".pdf";
+                    link.click();
+                },
+                error: function() {
+                    alert('Error generating invoice');
+                }
+            });
         });
     });
-});
 </script>
+
 <body>
     <main>
         <?php include("../assets/navbar.php") ?>
 
         <div class="dashboard-wrapper">
             <div class="dashboard-window">
-                <div class="client-registration-wrapper">
-                    <form action="client.php" method="POST">
-                        <label for="clientFirstname">Klant voornaam</label>
-                        <input type="text" id="clientFirstname" name="clientFirstname">
+                <div class="client-container">
+                    <div class="title-wrapper">
+                        <span>Klanten</span>
+                    </div>
+                    <div class="client-registration-wrapper">
+                        <div class="subheading-wrapper">
+                            <span>Registreer een klant</span>
+                        </div>
+                        <form action="client.php" method="POST">
+                            <div class="input-container">
+                                <div class="input">
+                                    <input type="text" id="clientFirstname" name="clientFirstname" value="" onkeyup="this.setAttribute('value', this.value);">
+                                    <label for="clientFirstname">Klant voornaam</label>
+                                </div>
+                            </div>
 
-                        <label for="clientLastname">Klant achternaam</label>
-                        <input type="text" id="clientLastname" name="clientLastname">
+                            <div class="input-container">
+                                <div class="input">
+                                    <input type="text" id="clientLastname" name="clientLastname" value="" onkeyup="this.setAttribute('value', this.value);">
+                                    <label for="clientLastname">Klant achternaam</label>
+                                </div>
+                            </div>
 
-                        <label for="clientEmail">Klant E-mail</label>
-                        <input type="email" id="clientEmail" name="clientEmail">
+                            <div class="input-container">
+                                <div class="input">
+                                    <input type="email" id="clientEmail" name="clientEmail" value="" onkeyup="this.setAttribute('value', this.value);">
+                                    <label for="clientEmail">Klant E-mail</label>
+                                </div>
+                            </div>
 
-                        <label for="clientPhoneNumber">Telefoonnummer</label>
-                        <input type="text" id="clientPhoneNumber" name="clientPhoneNumber">
+                            <div class="input-container">
+                                <div class="input">
+                                    <input type="text" id="clientPhoneNumber" name="clientPhoneNumber" value="" onkeyup="this.setAttribute('value', this.value);">
+                                    <label for="clientPhoneNumber">Telefoonnummer</label>
+                                </div>
+                            </div>
 
-                        <label for="companyName">Bedrijfsnaam</label>
-                        <input type="text" id="companyName" name="companyName">
+                            <div class="input-container">
+                                <div class="input">
+                                    <input type="text" id="companyName" name="companyName" value="" onkeyup="this.setAttribute('value', this.value);">
+                                    <label for="companyName">Bedrijfsnaam</label>
+                                </div>
+                            </div>
 
-                        <label for="companyAddress">Adress(bedrijf)</label>
-                        <input type="text" id="companyAddress" name="companyAddress">
+                            <div class="input-container">
+                                <div class="input">
+                                    <input type="text" id="companyAddress" name="companyAddress" value="" onkeyup="this.setAttribute('value', this.value);">
+                                    <label for="companyAddress">Adress(bedrijf)</label>
+                                </div>
+                            </div>
 
-                        <input type="submit" value="Register Client">
-                    </form>
-                </div>
+                            <div class="submit-button">
+                                <input type="submit" value="Register Client">
+                            </div>
+                        </form>
+                    </div>
 
+                    <div class="client-list-wrapper">
+                        <div class="subheading-wrapper">
+                            <span>Klantenlijst</span>
+                        </div>
+                        <?php
+                        $sql = "SELECT client.clientFirstname, client.clientLastname, client.clientEmail, client.clientPhoneNumber, client.clientId, client.companyName, client.companyAddress, assignment.assignmentName, assignment.assignmentId FROM client LEFT JOIN assignment ON client.clientId = assignment.clientId";
+                        $result = $conn->query($sql);
 
-                <div class="client-list-wrapper">
-                    <?php
-                    $sql = "SELECT client.clientFirstname, client.clientLastname, client.clientEmail, client.clientPhoneNumber, client.clientId, client.companyName, client.companyAddress, assignment.assignmentName, assignment.assignmentId FROM client LEFT JOIN assignment ON client.clientId = assignment.clientId";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<div class='client-list-item'>";
-                            echo "Voornaam: " . $row["clientFirstname"] . "<br>";
-                            echo "Achternaam: " . $row["clientLastname"] . "<br>";
-                            echo "E-mailadres: " . $row["clientEmail"] . "<br>";
-                            echo "Telefoonnummer: " . $row["clientPhoneNumber"] . "<br>";
-                            echo "Bedrijfsnaam: " . $row["companyName"] . "<br>";
-                            echo "Adress(bedrijf): " . $row["companyAddress"] . "<br>";
-                            echo "Opdrachtnaam: " . $row["assignmentName"] . "<br>";
-                            echo "<button class='generate-invoice' data-client-id='". $row['clientId'] ."' data-assignment-id='". $row['assignmentId'] ."'>Factuur genereren</button>";
-                            echo "</div>";
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<div class='client-list-item'>";
+                                echo "<div class='client-list-item-information'><span><span class='bolder'>Voornaam: </span>" . $row["clientFirstname"] . "</span>";
+                                echo "<span><span class='bolder'>Achternaam: </span>" . $row["clientLastname"] . "</span>";
+                                echo "<span><span class='bolder'>E-mailadres: </span>" . $row["clientEmail"] . "</span>";
+                                echo "<span><span class='bolder'>Telefoonnummer: </span>" . $row["clientPhoneNumber"] . "</span>";
+                                echo "<span><span class='bolder'>Bedrijfsnaam: </span>" . $row["companyName"] . "</span>";
+                                echo "<span><span class='bolder'>Adress(bedrijf): </span>" . $row["companyAddress"] . "</span>";
+                                echo "<span><span class='bolder'>Opdrachtnaam: </span>" . $row["assignmentName"] . "</span></div>";
+                                echo "<div class='client-list-item-button'><div class='invoice-button-wrapper'><button class='invoice-button' data-client-id='" . $row['clientId'] . "' data-assignment-id='" . $row['assignmentId'] . "'>Factuur genereren</button></div></div>";
+                                echo "</div>";
+                            }
+                        } else {
+                            echo "Geen resultaten";
                         }
-                    } else {
-                        echo "Geen resultaten";
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>

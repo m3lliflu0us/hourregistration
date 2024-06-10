@@ -17,23 +17,23 @@
 }
 
 ::-webkit-scrollbar {
-   width: 6px;
-   border-radius: 10px;
- }
+    width: 6px;
+    border-radius: 10px;
+}
 
 ::-webkit-scrollbar-track {
-  background: #f0f4f8;
-  border-radius: 10px;
+    background: #f0f4f8;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ca2b69;
-  border-radius: 5px;
+    background: #ca2b69;
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b3255d;
-}   
+    background: #b3255d;
+}
 
 .assignment-container {
     padding: 1rem;
@@ -42,8 +42,14 @@
     align-content: center;
     height: 100%;
     grid-template-columns: auto auto;
-    border-radius: 16px;
     gap: 1rem;
+    box-shadow:
+    1.4px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+    3.3px 6.7px 5.3px rgba(0, 0, 0, 0.014),
+    6.3px 12.5px 10px rgba(0, 0, 0, 0.012),
+    11.2px 22.3px 17.9px rgba(0, 0, 0, 0.01),
+    20.9px 41.8px 33.4px rgba(0, 0, 0, 0.008),
+    50px 100px 80px rgba(0, 0, 0, 0.006);
 }
 
 .mainassignment-wrapper {
@@ -130,7 +136,7 @@
     width: 100%;
     max-height: calc(100vh - 6rem);
     height: calc(100vh - 6rem);
-    overflow-y: auto;    
+    overflow-y: auto;
 }
 
 .search-wrapper {
@@ -356,7 +362,6 @@
 .search input:focus {
     outline: none;
     border: 2px solid var(--gilde-secondary);
-    margin: 1px 1px 0 0px;
 }
 
 .search input {
