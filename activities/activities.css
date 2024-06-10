@@ -2,69 +2,64 @@
     scrollbar-width: thin;
     scrollbar-color: var(--gilde-secondary) var(--white-primary);
     font-family: "Manrope", sans-serif;
-  }
-  
-  *::-webkit-scrollbar {
-      width: 12px;
-      height: 12px;
-  }
-  
-  *::-webkit-scrollbar-track {
-      background: var(--white-primary);
-  }
-  
-  *::-webkit-scrollbar-thumb {
-      background-color: var(--gilde-secondary);
-      border-radius: 20px;
-      border: 3px solid var(--white-primary);
-  }
-  
-  .activities-wrapper {
-      border-radius: 5px;
-      padding: 20px;
-      margin-top: 20px;
-      max-height: calc(100vh - 6rem);
-      height: calc(100vh - 6rem);
-      overflow-y: auto;
-  }
+}
 
-  .data-table {
-      border-collapse: collapse;
-      width: 100%;
-      border: 1px solid #f0f4f8;
-      font-size: 18px;
-  }
-  
-  .data-table th {
-      background-color: #ca2b69;
-      color: white;
-  }
-  
-  .data-table th, .data-table td {
-      text-align: left;
-      padding: 12px;
-  }
-  
-  .data-table tr:nth-child(even) {
-      background-color: #f0f4f8;
-  }
-  
-  .data-table tr:hover {
-      background-color: #f0f4f8;
-  }
+*::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
 
-  .search {
+*::-webkit-scrollbar-track {
+    background: var(--white-primary);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--gilde-secondary);
+    border-radius: 20px;
+    border: 3px solid var(--white-primary);
+}
+
+.activities-wrapper {
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+    max-height: calc(100vh - 6rem);
+    height: calc(100vh - 6rem);
+    overflow-y: auto;
+}
+
+.data-table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #f0f4f8;
+    font-size: 18px;
+}
+
+.data-table th {
+    background-color: #ca2b69;
+    color: white;
+}
+
+.data-table th,
+.data-table td {
+    text-align: left;
+    padding: 12px;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f0f4f8;
+}
+
+.data-table tr:hover {
+    background-color: #f0f4f8;
+}
+
+.search {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     margin: 0 0 1rem 0;
-}
-
-.search input:focus {
-    outline: none;
-    border: 2px solid var(--gilde-secondary);
-    margin: 1px 1px 0 0px;
 }
 
 .search input {
@@ -77,10 +72,11 @@
     background-color: #ffffff;
     outline: none;
     border: 1px solid var(--txt-tertiary);
+    transition: border-color 0.3s ease;
 }
 
-.search {
-    position: relative;
+.search input:focus {
+    border-color: var(--gilde-secondary);
 }
 
 .search label {
@@ -90,7 +86,7 @@
     margin: 5.5px 0 0 0;
     padding: 0.625rem 0;
     color: var(--txt-tertiary);
-    transition: var(--transition-primary);
+    transition: all 0.3s ease;
     cursor: text;
     pointer-events: none;
 }
@@ -108,9 +104,24 @@
 }
 
 .search input:not([value=""])~label {
-    transition: 0.025 ease;
+    transition: top 0.3s ease, font-size 0.3s ease;
 }
 
 .search input:not(:focus)~label {
     color: var(--txt-tertiary);
+}
+
+@media only screen and (max-width: 600px) {
+    .activities-wrapper {
+        padding: 10px;
+    }
+
+    .data-table {
+        font-size: 16px;
+    }
+
+    .search input {
+        height: 42px;
+        font-size: 14px;
+    }
 }

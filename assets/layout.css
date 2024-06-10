@@ -18,6 +18,22 @@
     --shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
 }
 
+<<<<<<< HEAD
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.total,
+main {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.total {
+    padding-top: 2rem;
+=======
 
 
 .total {
@@ -36,16 +52,34 @@ main {
 
 html {
     max-height: 70vh;
+>>>>>>> 3b90b22d53ed558487e93513024dcd4758e2a2d5
 }
 
 .dashboard-wrapper {
     display: flex;
+<<<<<<< HEAD
+    justify-content: center;
+=======
     justify-content: flex-end;
 
+>>>>>>> 3b90b22d53ed558487e93513024dcd4758e2a2d5
 }
 
 .dashboard-window {
     background-color: var(--white-primary);
     width: 100%;
     border-radius: 1rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .total,
+    main {
+        padding: 0.5rem;
+    }
+    
+    .dashboard-window {
+        border-radius: 0;
+    }
 }
