@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="maint">
+    <div class="main">
         <div class="box-wrapper">
             <div class="left">
                 <div class="logo">
