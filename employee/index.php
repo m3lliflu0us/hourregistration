@@ -21,7 +21,7 @@ include("../db/dbh.inc.php")
     <meta charset="UTF-8">
     <meta name="viewport" lang="en" content="width=device-width, initial-scale=1.0">
     <title>Medewerkers | Gilde DevOps</title>
-    <link rel="stylesheet" href="employee.css">
+    <link rel="stylesheet" href="employee1.css">
     <link rel="stylesheet" href="../assets/layout.css">
     <link rel="stylesheet" href="../assets/navbar.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">

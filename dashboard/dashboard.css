@@ -46,9 +46,9 @@
         width: 100%;
         display: grid;
         grid-template-columns: 0.9fr 1.3fr 0.8fr;
-        grid-template-rows: 6rem 1.3fr 1.1fr 1.2fr;
+        grid-template-rows: 90px 1.3fr 1.1fr 1.2fr;
         grid-auto-columns: 1fr;
-        gap: 0.5rem;
+        gap: 1% 1%;
         grid-auto-flow: row;
         grid-template-areas:
             "title-wrapper title-wrapper title-wrapper"
