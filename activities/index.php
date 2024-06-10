@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION["userId"])) {
-  header("location: ../user/login.php");
+  header("Location: ../user/login.php");
   exit();
 }
 
@@ -25,7 +25,8 @@ $result = $conn->query($sql);
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" lang="en" content="width=device-width, initial-scale=1.0">
+  <!-- Removed duplicate lang attribute in meta tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Werkzaamheden | Gilde DevOps</title>
   <link rel="stylesheet" href="activities.css">
   <link rel="stylesheet" href="../assets/layout.css">
@@ -34,8 +35,8 @@ $result = $conn->query($sql);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <script>
-    function myFunction() {
-      var input, filter, table, tr, td, i, txtValue;
+    function searchFunction() {
+      var input, filter, table, tr, tdName, tdAssignment, tdUserId, i, txtValueName, txtValueAssignment, txtValueUserId;
       input = document.getElementById("myInput");
       filter = input.value.toUpperCase();
       table = document.getElementById("myTable");
@@ -45,7 +46,7 @@ $result = $conn->query($sql);
         tdName = tr[i].getElementsByTagName("td")[0];
         tdAssignment = tr[i].getElementsByTagName("td")[1];
         tdUserId = tr[i].getElementsByTagName("td")[3];
-        if (tdName || tdAssignment || tdUserId) {
+        if (tdName && tdAssignment && tdUserId) {
           txtValueName = tdName.textContent || tdName.innerText;
           txtValueAssignment = tdAssignment.textContent || tdAssignment.innerText;
           txtValueUserId = tdUserId.textContent || tdUserId.innerText;
@@ -58,23 +59,21 @@ $result = $conn->query($sql);
       }
     }
   </script>
+
 </head>
 
 <body>
   <main>
-    <?php include("../assets/navbar.php") ?>
+    <?php include("../assets/navbar.php"); ?>
 
     <div class="dashboard-wrapper">
       <div class="dashboard-window">
         <div class="activities-wrapper">
-
-
-
-
-
           <?php
           if ($result->num_rows > 0) {
-            echo "<div class='search'><input name='search' value='' type='text' id='myInput' onkeyup='this.setAttribute('value', this.value); myFunction();'>";
+            // Fixed the onkeyup attribute by escaping double quotes
+            echo "<div class='search'><input name='search' type='text' id='myInput' onkeyup=\"this.setAttribute('value', this.value); searchFunction();\">
+";
             echo '<label for="search">Zoek naar opdrachtnaam of ID</label></div>';
             echo "<table class='data-table' id='myTable'>";
             echo "<tr class='header'><th>Naam</th><th>Opdrachtnaam</th><th>Opdracht Omschrijving</th><th>Gebruiker ID</th><th>Totale tijd</th></tr>";
@@ -94,13 +93,14 @@ $result = $conn->query($sql);
             }
 
             echo "</table>";
+          } else {
+            // Added an else statement to handle the case when there are no results
+            echo "Geen activiteiten gevonden.";
           }
-
           ?>
         </div>
       </div>
     </div>
-
   </main>
 </body>
 

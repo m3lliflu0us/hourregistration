@@ -43,15 +43,12 @@
     height: 100%;
     grid-template-columns: auto auto;
     border-radius: 16px;
+    gap: 1rem;
 }
 
 .mainassignment-wrapper {
     display: grid;
     grid-template-rows: auto auto auto;
-<<<<<<< HEAD
-=======
-    width: 100%;
->>>>>>> parent of 282c1a3 (w)
     max-height: calc(100vh - 6rem);
     height: calc(100vh - 6rem);
     width: 100%;
@@ -133,8 +130,7 @@
     width: 100%;
     max-height: calc(100vh - 6rem);
     height: calc(100vh - 6rem);
-    overflow-y: auto;
-    border-right: 1px solid var(--gilde-primary);
+    overflow-y: auto;    
 }
 
 .search-wrapper {

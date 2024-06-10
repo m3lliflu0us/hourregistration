@@ -1,0 +1,177 @@
+:root {
+    --gilde-primary: #13355b;
+    --gilde-primary-hover: #23415f;
+    --gilde-secondary: #ca2b69;
+    --gilde-secondary-hover: #b3255d;
+    --gilde-tertiary-hover: #b3255e12;
+    --white-primary: #ffffff;
+    --white-secondary: #eeeeee;
+    --txt-primary: #ffffff;
+    --txt-secondary: #222222;
+    --txt-tertiary: #1f1f1f;
+    --txt: #00365e;
+    --shadow-color: #0000000e;
+    --transition-primary: ease-in-out 0.1s;
+}
+
+/* Custom Scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--gilde-secondary) var(--white-primary);
+}
+
+*::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--white-primary);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--gilde-secondary);
+    border-radius: 20px;
+    border: 3px solid var(--white-primary);
+}
+
+/* Employee Container */
+.employee-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 90px 1.8fr;
+    gap: 1rem;
+    padding: 1rem;
+    max-height: calc(100vh - 6rem);
+    height: calc(100vh - 6rem);
+}
+
+.employeetitle-wrapper {
+    grid-column: span 3;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 38px;
+    color: var(--txt-secondary);
+}
+
+/* Create Assignment and Employee Sections */
+.createassignment-wrapper,
+.createemployee-wrapper {
+    background-color: #f0f4f8;
+    border-radius: 1rem;
+    box-shadow: 1.4px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        3.3px 6.7px 5.3px rgba(0, 0, 0, 0.014),
+        6.3px 12.5px 10px rgba(0, 0, 0, 0.012),
+        11.2px 22.3px 17.9px rgba(0, 0, 0, 0.01),
+        20.9px 41.8px 33.4px rgba(0, 0, 0, 0.008),
+        50px 100px 80px rgba(0, 0, 0, 0.006);
+    ;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Employee List Section */
+.employeelist-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: calc(100vh - 2rem - 90px);
+    overflow-y: auto;
+    box-shadow: 1.4px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        3.3px 6.7px 5.3px rgba(0, 0, 0, 0.014),
+        6.3px 12.5px 10px rgba(0, 0, 0, 0.012),
+        11.2px 22.3px 17.9px rgba(0, 0, 0, 0.01),
+        20.9px 41.8px 33.4px rgba(0, 0, 0, 0.008),
+        50px 100px 80px rgba(0, 0, 0, 0.006);
+    ;
+}
+
+.employeelist-item {
+    background-color: #f0f4f8;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+/* General Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form .info-main {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--txt-secondary);
+}
+
+form input[type="text"],
+form input[type="date"],
+form input[type="password"],
+form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--txt-tertiary);
+    border-radius: 4px;
+    color: var(--txt-tertiary);
+    background-color: var(--white-primary);
+    outline: none;
+    transition: border-color var(--transition-primary);
+}
+
+form input[type="text"]:focus,
+form input[type="date"]:focus,
+form input[type="password"]:focus,
+form select:focus {
+    border-color: var(--gilde-secondary);
+}
+
+form label {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    color: var(--txt-secondary);
+}
+
+form .create,
+form .Create {
+    display: flex;
+    justify-content: center;
+}
+
+form .create input[type="submit"],
+form .Create input[type="submit"] {
+    background-color: var(--gilde-secondary);
+    color: var(--txt-primary);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color var(--transition-primary);
+}
+
+form .create input[type="submit"]:hover,
+form .Create input[type="submit"]:hover {
+    background-color: var(--gilde-secondary-hover);
+}
+
+/* Error Messages */
+.error-container {
+    color: #b3261e;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-container img {
+    height: 16px;
+}
+
+.list {
+    background-color: #f0f4f8;
+    border-radius: 1rem;
+    padding: 1rem;
+}
