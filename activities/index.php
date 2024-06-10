@@ -67,9 +67,14 @@ $result = $conn->query($sql);
     <div class="dashboard-wrapper">
       <div class="dashboard-window">
         <div class="activities-wrapper">
+
+
+
+
+
           <?php
           if ($result->num_rows > 0) {
-            echo "<div class='search'><input name='search' value='' type='text' id='myInput' onkeyup='this.setAttribute('value', this.value);' onkeyup='myFunction()'>";
+            echo "<div class='search'><input name='search' value='' type='text' id='myInput' onkeyup='this.setAttribute('value', this.value); myFunction();'>";
             echo '<label for="search">Zoek naar opdrachtnaam of ID</label></div>';
             echo "<table class='data-table' id='myTable'>";
             echo "<tr class='header'><th>Naam</th><th>Opdrachtnaam</th><th>Opdracht Omschrijving</th><th>Gebruiker ID</th><th>Totale tijd</th></tr>";
@@ -79,11 +84,10 @@ $result = $conn->query($sql);
               if ($totalTime == 0) {
                 continue;
               }
-              // Calculate the total hours and round to the nearest half-hour increment
               $totalHours = $totalTime / 3600;
-              $roundedHours = ceil($totalHours * 2) / 2; // Round up to nearest half-hour
+              $roundedHours = ceil($totalHours * 2) / 2;
               $totalTimeFormatted = number_format($roundedHours, 1, '.', '') . " uur";
-              
+
               $firstName = ucfirst(strtolower($row["userFirstname"]));
               $lastName = ucfirst(strtolower($row["userLastname"]));
               echo "<tr><td>" . $firstName . " " . $lastName . "</td><td>" . $row["assignmentName"] . "</td><td>" . $row["assignmentDescription"] . "</td><td>" . $row["userId"] . "</td><td>" . $totalTimeFormatted . "</td></tr>";

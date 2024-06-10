@@ -192,7 +192,7 @@ $formattedBTW = number_format($totaal * 0.21, 2, ',', '.');
 $totalPrice = number_format($totaal * 1.21, 2, ',', '.');
 
 $pdf->SetXY(155, $y + 9);
-$pdf->Cell(-1, 7, "Totaal (zonder btw)", 0, 0, 'R'); 
+$pdf->Cell(-1, 7, "Subtotaal", 0, 0, 'R'); 
 $pdf->SetXY(177, $y + 9);
 $pdf->Cell(10, 7, EURO . $formattedTotaal, 0, 0, 'R'); 
 
