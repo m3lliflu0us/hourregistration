@@ -53,6 +53,7 @@
             "columnchart-wrapper columnchart-wrapper leaderboard-wrapper"
             "piechart-wrapper workingNow-wrapper leaderboard-wrapper"
             "totalHours-wrapper activitychart-wrapper activitychart-wrapper";
+            height: calc(100vh - 4rem);
     }
 
     .title-wrapper {
@@ -152,6 +153,7 @@
         background-color: #f0f4f8;
         border-radius: 1rem;
         padding: 1rem;
+        overflow-y: auto;
         box-shadow:
         1px 0.2px 2.2px rgba(0, 0, 0, 0.04),
         2.4px 0.5px 5.3px rgba(0, 0, 0, 0.029),
@@ -210,6 +212,7 @@
         background-color: #f0f4f8;
         border-radius: 1rem;
         padding: 1rem;
+        overflow-y: auto;
         box-shadow:
         1px 0.2px 2.2px rgba(0, 0, 0, 0.04),
         2.4px 0.5px 5.3px rgba(0, 0, 0, 0.029),

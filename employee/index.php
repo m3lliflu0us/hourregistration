@@ -195,6 +195,12 @@ document.querySelector('.firstname label').classList.add('error');</script>";
                         } else {
                             echo "<div><span>0 results</span></div>";
                         }
+
+                        $highlightName = '';
+                        if (isset($_GET['highlight'])) {
+                            $highlightName = htmlspecialchars(urldecode($_GET['highlight']));
+                        }
+
                         $conn->close();
                         ?>
 
@@ -203,16 +209,16 @@ document.querySelector('.firstname label').classList.add('error');</script>";
                         </div>
 
                         <?php foreach ($users as $user) : ?>
-                            <div class="employeelist-item">
+                            <div class="employeelist-item <?php echo ($user['userFirstname'] . ' ' . $user['userLastname'] === $highlightName) ? 'highlighted' : ''; ?>">
                                 <div class="name">
-                                    <span><span class="bolder">Naam: </span><?php echo $user['userFirstname']; ?></span>
-                                    <span><?php echo $user['userLastname']; ?></span>
+                                    <span><span class="bolder">Naam: </span><?php echo htmlspecialchars($user['userFirstname']) . ' ' . htmlspecialchars($user['userLastname']); ?></span>
                                 </div>
-                                <span><span class="bolder">E-mail: </span><?php echo $user['userEmail']; ?></span>
-                                <span><span class="bolder">Rechten: </span><?php echo $user['userRole']; ?></span>
+                                <span><span class="bolder">E-mail: </span><?php echo htmlspecialchars($user['userEmail']); ?></span>
+                                <span><span class="bolder">Rechten: </span><?php echo htmlspecialchars($user['userRole']); ?></span>
                             </div>
                         <?php endforeach; ?>
                     </div>
+
 
                 </div>
             </div>

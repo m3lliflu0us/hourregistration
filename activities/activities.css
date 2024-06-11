@@ -1,25 +1,3 @@
-:root {
-  --gilde-primary: #13355b;
-  --gilde-primary-hover: #23415f;
-  --gilde-secondary: #ca2b69;
-  --gilde-secondary-hover: #b3255d;
-  --gilde-tertiary-hover: #b3255e12;
-  --white-primary: #ffffff;
-  --white-secondary: #eeeeee;
-  --txt-primary: #ffffff;
-  --txt-secondary: #222222;
-  --txt-tertiary: #1f1f1f;
-  --txt: #00365e;
-  --shadow-color: #0000000e;
-  --transition-primary: ease-in-out 0.1s;
-  --shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-    0 12.5px 10px rgba(0, 0, 0, 0.06),
-    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-    0 100px 80px rgba(0, 0, 0, 0.12);
-}
-
 ::-webkit-scrollbar {
   width: 6px;
   border-radius: 10px;
@@ -40,38 +18,81 @@
 }
 
 .activities-wrapper {
-  border-radius: 5px;
-  padding: 20px;
-  margin-top: 20px;
-  max-height: calc(100vh - 6rem);
-  height: calc(100vh - 6rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.2fr 0.2fr 2.6fr;
+  grid-auto-columns: 1fr;
+  gap: 1rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "heading-wrapper"
+    "search-wrapper"
+    "activities-item-wrapper";
+    padding: 1rem;
+    height: calc(100vh - 4rem);
+}
+
+.heading-wrapper {
+  grid-area: heading-wrapper;
+  display: flex;
+  align-items: center;
+  font-size: 38px;
+  font-weight: 600;
+}
+
+.search-wrapper {
+  grid-area: search-wrapper;
+  background-color: #f0f4f8;
+}
+
+.activities-item-wrapper {
+  grid-area: activities-item-wrapper;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
+  gap: 1rem;
 }
 
-.data-table {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #f0f4f8;
-  font-size: 18px;
+.activity-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f4f8;
+  padding: 1rem;
+  border-radius: 1rem;
 }
 
-.data-table th {
-  background-color: var(--gilde-secondary);
-  color: var(--txt-primary);
+.employee-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 1rem 0;
 }
 
-.data-table th,
-.data-table td {
-  text-align: left;
-  padding: 12px;
+.client-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 1rem 0;
 }
 
-.data-table tr:nth-child(even) {
-  background-color: var(--white-secondary);
+.assignment-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
-.data-table tr:hover {
-  background-color: var(--gilde-tertiary-hover);
+.subheading {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.bolder {
+  font-weight: 500;
+}
+
+.link {
+  color: var(--txt-tertiary);
+}
+
+.link:hover {
+  text-decoration: underline;
 }
 
 .search {
@@ -79,7 +100,20 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 0 0 1rem 0;
+}
+
+.search-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: #f0f4f8;
+}
+
+.search input:focus {
+  outline: none;
+  border: 2px solid var(--gilde-secondary);
 }
 
 .search input {
@@ -89,14 +123,13 @@
   font-size: 16px;
   border-radius: 4px;
   color: var(--txt-tertiary);
-  background-color: var(--white-primary);
+  background-color: #f0f4f8;
   outline: none;
   border: 1px solid var(--txt-tertiary);
-  transition: border-color var(--transition-primary);
 }
 
-.search input:focus {
-  border-color: var(--gilde-secondary);
+.search {
+  position: relative;
 }
 
 .search label {
@@ -106,7 +139,7 @@
   margin: 5.5px 0 0 0;
   padding: 0.625rem 0;
   color: var(--txt-tertiary);
-  transition: all var(--transition-primary);
+  transition: var(--transition-primary);
   cursor: text;
   pointer-events: none;
 }
@@ -117,31 +150,20 @@
   left: 10px;
   color: var(--gilde-secondary);
   font-size: 0.75rem;
-  background-color: var(--white-primary);
+  background-color: #f0f4f8;
   height: 10px;
   padding: 0 5px;
   cursor: default;
 }
 
 .search input:not([value=""])~label {
-  transition: top var(--transition-primary), font-size var(--transition-primary);
+  transition: 0.025 ease;
 }
 
 .search input:not(:focus)~label {
   color: var(--txt-tertiary);
 }
 
-@media only screen and (max-width: 600px) {
-  .activities-wrapper {
-    padding: 10px;
-  }
-
-  .data-table {
-    font-size: 16px;
-  }
-
-  .search input {
-    height: 42px;
-    font-size: 14px;
-  }
+button {
+  display: none;
 }

@@ -360,7 +360,7 @@ form {
 }
 
 .activelink .hover {
-    color: #cb2b6a !important; 
+    color: #cb2b6a !important;
 }
 
 .activelink .svg rect,
@@ -479,4 +479,12 @@ form {
     height: 100%;
     width: 5px;
     background: linear-gradient(to left, var(--gilde-primary), transparent);
+}
+
+img {
+    user-select: none;
+}
+
+.navbar-item span {
+    user-select: none;
 }
