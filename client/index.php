@@ -1,55 +1,52 @@
-<?php                                                                           
-session_start();                                                                           
-                                                                           
-if (!isset($_SESSION["userId"])) {                                                                           
-    header("location: ../user/login.php");                                                                           
-    exit();                                                                           
-}                                                                           
-                                                                           
-$currentPage = 'client';                                                                           
-                                                                           
-include("../db/dbh.inc.php");                                                                           
-include("../config.php");                                                                           
-include("../userincludes/userfunctions.inc.php");                                                                           
-                                                                           
-$highlightId = '';                                                                           
-if (isset($_GET['highlight'])) {                                                                           
-    $highlightId = htmlspecialchars(urldecode($_GET['highlight']));                                                                           
-}                                                                           
-?>                                                                           
- 
-<!DOCTYPE html> 
-<html lang="en"> 
- 
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Klanten | Gilde DevOps</title> 
-    <link rel="stylesheet" href="client.css"> 
-    <link rel="stylesheet" href="../assets/layout.css"> 
-    <link rel="stylesheet" href="../assets/navbar.css"> 
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"> 
- 
-    <style> 
-    </style> 
-</head> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
-<script> 
-    $(document).ready(function() { 
-        $(".invoice-button").click(function() {
+<?php
+session_start();
+
+if (!isset($_SESSION["userId"])) {
+    header("location: ../user/login.php");
+    exit();
+}
+
+$currentPage = 'client';
+
+include("../db/dbh.inc.php");
+include("../config.php");
+include("../userincludes/userfunctions.inc.php");
+
+$highlightId = '';
+if (isset($_GET['highlight'])) {
+    $highlightId = htmlspecialchars(urldecode($_GET['highlight']));
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klanten | Gilde DevOps</title>
+    <link rel="stylesheet" href="client.css">
+    <link rel="stylesheet" href="../assets/layout.css">
+    <link rel="stylesheet" href="../assets/navbar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".generate-invoice").click(function() {
             var clientId = $(this).data('client-id');
-            var assignmentId = $(this).data('assignment-id');
+            var assignmentId = $(this).data('assignment-id'); // Get assignmentId
             $.ajax({
                 url: 'generate_invoice.php',
                 type: 'post',
                 data: {
                     clientId: clientId,
                     assignmentId: assignmentId
-                },
+                }, // Include assignmentId in data
                 xhrFields: {
-                    responseType: 'blob'
+                    responseType: 'blob' // to handle a binary stream
                 },
                 success: function(response) {
                     var blob = new Blob([response], {
@@ -57,7 +54,7 @@ if (isset($_GET['highlight'])) {
                     });
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "invoice_" + clientId + "_" + assignmentId + ".pdf";
+                    link.download = "invoice_" + clientId + "_" + assignmentId + ".pdf"; // Include assignmentId in filename
                     link.click();
                 },
                 error: function() {
@@ -129,19 +126,10 @@ if (isset($_GET['highlight'])) {
                                 <input type="submit" value="Register Client">
                             </div>
                         </form>
-                        <?php 
-                        
-                        echo $_SESSION["userId"];
-
-                        ?>
                     </div>
                     <div class="client-list-wrapper">
-                        <div class="subheading-wrapper">
-                            <span>Alle klanten</span>
-                        </div>
                         <?php
-                        // Adjusted SQL query to select distinct clients without assignments
-                        $sql = "SELECT DISTINCT client.clientFirstname, client.clientLastname, client.clientEmail, client.clientPhoneNumber, client.clientId, client.companyName, client.companyAddress FROM client";
+                        $sql = "SELECT client.clientFirstname, client.clientLastname, client.clientEmail, client.clientPhoneNumber, client.clientId, client.companyName, client.companyAddress, assignment.assignmentName, assignment.assignmentId FROM client LEFT JOIN assignment ON client.clientId = assignment.clientId";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
@@ -154,17 +142,14 @@ if (isset($_GET['highlight'])) {
                                 echo "Bedrijfsnaam: " . $row["companyName"] . "<br>";
                                 echo "Adress(bedrijf): " . $row["companyAddress"] . "<br>";
                                 echo "Opdrachtnaam: " . $row["assignmentName"] . "<br>";
-                                echo "<button class='generate-invoice' data-client-id='". $row['clientId'] ."' data-assignment-id='". $row['assignmentId'] ."'>Factuur genereren</button>";
+                                echo "<button class='generate-invoice' data-client-id='" . $row['clientId'] . "' data-assignment-id='" . $row['assignmentId'] . "'>Factuur genereren</button>";
                                 echo "</div>";
                             }
                         } else {
                             echo "Geen resultaten";
                         }
-
-                        $conn->close();
                         ?>
                     </div>
-
                 </div>
             </div>
         </div>
