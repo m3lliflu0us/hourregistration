@@ -6,10 +6,6 @@ START TRANSACTION;
 SET
   time_zone = "+02:00";
 
-CREATE DATABASE IF NOT EXISTS `hourregistration` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-
-USE `hourregistration`;
-
 DROP TABLE IF EXISTS `activity`;
 
 CREATE TABLE IF NOT EXISTS `activity` (
@@ -62,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`messageId`),
   KEY `senderId` (`senderId`),
   KEY `recipientId` (`recipientId`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 84 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `user`;
 
@@ -73,8 +69,129 @@ CREATE TABLE IF NOT EXISTS `user` (
   `userEmail` varchar(100) NOT NULL,
   `userPwd` varchar(255) NOT NULL,
   `userRole` varchar(255) DEFAULT NULL,
+  `last_active` datetime DEFAULT NULL,
   PRIMARY KEY (`userId`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 14 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+INSERT INTO
+  `user` (
+    `userId`,
+    `userFirstname`,
+    `userLastname`,
+    `userEmail`,
+    `userPwd`,
+    `userRole`,
+    `last_active`
+  )
+VALUES
+  (
+    1,
+    'admin',
+    'test',
+    'test@admin.com',
+    '$2y$10$yzh/KuNN2ZhBtx9KKivlourPYbPKQFjVG2SyG7GXkySpQkE.bhppC',
+    'administrator',
+    '2024-06-17 09:16:42'
+  ),
+  (
+    2,
+    'sd',
+    'test',
+    'test@sd.com',
+    '$2y$10$CNsWDyr0znjScy1KnW08/uK6Wna9mjM4jxh38myst2eu4dGEcUsMq',
+    'SD',
+    '2024-06-17 09:17:07'
+  ),
+  (
+    3,
+    'itsd',
+    'test',
+    'test@itsd.com',
+    '$2y$10$U6k9xaY/7eKBoIpIZIyWQugYZ5PzV64jH0fntjFCL5dd9u8/6kvbS',
+    'ITSD',
+    NULL
+  ),
+  (
+    4,
+    'hybrid',
+    'test',
+    'test@hybrid.com',
+    '$2y$10$wPQrClQh52U3pDws3l8gKOnVlKEyhB6IITWRm6USCOxCDZI7eoxdC',
+    'hybrid',
+    NULL
+  ),
+  (
+    5,
+    'test',
+    'test',
+    'test@test.com',
+    '$2y$10$RaDeNqppyAa79ASJoWjAK.St/QzRqk57JC.UMCEo0WzOLpwn2.zsG',
+    'administrator',
+    NULL
+  ),
+  (
+    6,
+    'bryce',
+    'bryce',
+    'bryce@bryce.vom',
+    '$2y$10$PruUhG.I3cFATzo6VOoIFOBmoYDmCAzApcdWDlXojn3KvE6lNUn1C',
+    'administrator',
+    NULL
+  ),
+  (
+    8,
+    'test',
+    'test',
+    'test@faf.com',
+    '$2y$10$ByyjqSs6NjAaRE.Wib3zdORFrCLpCJYQ.UKVr1FqGePufK4DZmKc6',
+    'administrator',
+    NULL
+  ),
+  (
+    9,
+    'test',
+    'test',
+    'test@sdyufgdsuyf.com',
+    '$2y$10$A4b/VLTVKgv0V1ssHePLPeWFnceif05uQd.DO4Dw2FVHDeT0zYVNe',
+    'administrator',
+    NULL
+  ),
+  (
+    10,
+    'tet',
+    'tet',
+    'test@testtest.copm',
+    '$2y$10$cnkoXejDXyTwBfsxtE1n7eb9W/fbYLZ7wz62qKMS4/sqGQjQ77iNm',
+    'administrator',
+    NULL
+  ),
+  (
+    11,
+    'test',
+    'test',
+    '1@test.com',
+    '$2y$10$y4fZh1BCWnTHhgMVjPfc8u1vuPZHPEygt/SC2Xa/ONmcex8f3vc3C',
+    'administrator',
+    NULL
+  ),
+  (
+    12,
+    'test',
+    'test',
+    'test@testfsd.com',
+    '$2y$10$Xccc1OxHjB5Xfi9S9o0YM.3qDDfdneWiPg23dMXj2KEL2wqvuMV7i',
+    'administrator',
+    NULL
+  ),
+  (
+    13,
+    'admin',
+    'test',
+    'test@testadmin.com',
+    '$2y$10$gaVC3hWI.UMkpmFukRivRuHlf6NnjISS98VBiUqyWa/2deELs3NaG',
+    'administrator',
+    NULL
+  );
 
 ALTER TABLE
   `activity`
