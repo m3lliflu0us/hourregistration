@@ -1,43 +1,43 @@
-<?php
-session_start();
-
-if (!isset($_SESSION["userId"])) {
-    header("location: ../user/login.php");
-    exit();
-}
-
-$currentPage = 'client';
-
-include("../db/dbh.inc.php");
-include("../config.php");
-include("../userincludes/userfunctions.inc.php");
-
-$highlightId = '';
-if (isset($_GET['highlight'])) {
-    $highlightId = htmlspecialchars(urldecode($_GET['highlight']));
-}
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klanten | Gilde DevOps</title>
-    <link rel="stylesheet" href="client.css">
-    <link rel="stylesheet" href="../assets/layout.css">
-    <link rel="stylesheet" href="../assets/navbar.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-
-    <style>
-    </style>
-</head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
+<?php                                                                           
+session_start();                                                                           
+                                                                           
+if (!isset($_SESSION["userId"])) {                                                                           
+    header("location: ../user/login.php");                                                                           
+    exit();                                                                           
+}                                                                           
+                                                                           
+$currentPage = 'client';                                                                           
+                                                                           
+include("../db/dbh.inc.php");                                                                           
+include("../config.php");                                                                           
+include("../userincludes/userfunctions.inc.php");                                                                           
+                                                                           
+$highlightId = '';                                                                           
+if (isset($_GET['highlight'])) {                                                                           
+    $highlightId = htmlspecialchars(urldecode($_GET['highlight']));                                                                           
+}                                                                           
+?>                                                                           
+ 
+<!DOCTYPE html> 
+<html lang="en"> 
+ 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Klanten | Gilde DevOps</title> 
+    <link rel="stylesheet" href="client.css"> 
+    <link rel="stylesheet" href="../assets/layout.css"> 
+    <link rel="stylesheet" href="../assets/navbar.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"> 
+ 
+    <style> 
+    </style> 
+</head> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+<script> 
+    $(document).ready(function() { 
         $(".invoice-button").click(function() {
             var clientId = $(this).data('client-id');
             var assignmentId = $(this).data('assignment-id');
@@ -145,24 +145,20 @@ if (isset($_GET['highlight'])) {
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
-                            // Fetch the results into an associative array
                             while ($row = $result->fetch_assoc()) {
-                                $isHighlighted = ($highlightId === $row['clientId']) ? 'highlighted' : '';
-                                echo "<div class='client-list-item {$isHighlighted}'>";
-                                echo "<div class='client-list-item-information'>";
-                                echo "<span><span class='bolder'>Voornaam: </span>" . htmlspecialchars($row['clientFirstname']) . "</span>";
-                                echo "<span><span class='bolder'>Achternaam: </span>" . htmlspecialchars($row['clientLastname']) . "</span>";
-                                echo "<span><span class='bolder'>E-mailadres: </span>" . htmlspecialchars($row['clientEmail']) . "</span>";
-                                echo "<span><span class='bolder'>Telefoonnummer: </span>" . htmlspecialchars($row['clientPhoneNumber']) . "</span>";
-                                echo "<span><span class='bolder'>Bedrijfsnaam: </span>" . htmlspecialchars($row['companyName']) . "</span>";
-                                echo "<span><span class='bolder'>Adress(bedrijf): </span>" . htmlspecialchars($row['companyAddress']) . "</span>";
-                                echo "</div>";
-                                echo "<div class='client-list-item-button'>";
-                                echo "<button class='invoice-button' data-client-id='" . $row['clientId'] . "'>Factuur genereren</button>";
+                                echo "<div class='client-list-item'>";
+                                echo "Voornaam: " . $row["clientFirstname"] . "<br>";
+                                echo "Achternaam: " . $row["clientLastname"] . "<br>";
+                                echo "E-mailadres: " . $row["clientEmail"] . "<br>";
+                                echo "Telefoonnummer: " . $row["clientPhoneNumber"] . "<br>";
+                                echo "Bedrijfsnaam: " . $row["companyName"] . "<br>";
+                                echo "Adress(bedrijf): " . $row["companyAddress"] . "<br>";
+                                echo "Opdrachtnaam: " . $row["assignmentName"] . "<br>";
+                                echo "<button class='generate-invoice' data-client-id='". $row['clientId'] ."' data-assignment-id='". $row['assignmentId'] ."'>Factuur genereren</button>";
                                 echo "</div>";
                             }
                         } else {
-                            echo "<div><span>0 results</span></div>";
+                            echo "Geen resultaten";
                         }
 
                         $conn->close();
