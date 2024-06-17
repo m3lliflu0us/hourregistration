@@ -44,8 +44,13 @@
                 <img src="<?= IMG_URL ?>logo.svg" alt="">
             </a>
         </div>
+
+        <?php
+        if (isset($_SESSION["userRole"]) && $_SESSION["userRole"] == 'administrator' || 'SD' || 'ITSD' || 'hybrid') {
+            $isActive = isset($currentPage) && $currentPage == 'dashboard' ? 'activelink' : '';
+            echo '
         <div class="navbar-item">
-            <a class="' . $isActive . '" href="<?= BASE_URL ?>">
+                <a class="' . $isActive . '" href="' . BASE_URL . '">
                 <svg class="svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="4" y="4" width="6" height="7" rx="1" stroke="#ffffff" stroke-linejoin="round" />
                     <rect x="4" y="15" width="6" height="5" rx="1" stroke="#ffffff" stroke-linejoin="round" />
@@ -56,10 +61,15 @@
                     Dashboard
                 </span>
             </a>
-        </div>
+            </div>';
+        } ?>
 
-        <div class="navbar-item">   
-            <a class="' . $isActive . '" href="<?= BASE_URL ?>assignment/">
+        <?php
+        if (isset($_SESSION["userRole"]) && $_SESSION["userRole"] == 'administrator' || 'SD' || 'ITSD' || 'hybrid') {
+            $isActive = isset($currentPage) && $currentPage == 'assignment' ? 'activelink' : '';
+            echo '
+        <div class="navbar-item">
+                <a class="' . $isActive . '" href="' . BASE_URL . 'assignment/">
                 <svg class="svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="8.5" stroke="#ffffff" />
                     <path d="M16.5 12H12.25C12.1119 12 12 11.8881 12 11.75V8.5" stroke="#ffffff" stroke-linecap="round" />
@@ -68,7 +78,8 @@
                     Opdrachten
                 </span>
             </a>
-        </div>
+            </div>';
+        } ?>
 
         <?php
         if (isset($_SESSION["userRole"]) && $_SESSION["userRole"] == 'administrator') {
@@ -92,7 +103,7 @@
         } ?>
 
         <?php
-        if (isset($_SESSION["userRole"]) && $_SESSION["userRole"] == 'administrator') {
+        if (isset($_SESSION["userRole"]) && $_SESSION["userRole"] == 'administrator' || 'SD' || 'ITSD' || 'hybrid') {
             $isActive = isset($currentPage) && $currentPage == 'client' ? 'activelink' : '';
             echo '
             <div class="navbar-item overflow">
@@ -128,6 +139,29 @@
             </svg>
             <span class="hover">
                 Werkzaamheden
+            </span>
+        </a>
+    </div>';
+        }
+        ?>
+
+
+        <?php
+        if (isset($_SESSION["userRole"]) && $_SESSION["userRole"] == 'administrator' || 'SD' || 'ITSD' || 'hybrid') {
+            $isActive = isset($currentPage) && $currentPage == 'messenger' ? 'activelink' : '';
+            echo '
+    <div class="navbar-item overflow">
+        <a class="' . $isActive . '" href="' . BASE_URL . 'messenger/">
+            <svg class="svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 13V15C19 17.8284 19 19.2426 18.1213 20.1213C17.2426 21 15.8284 21 13 21H11C8.17157 21 6.75736 21 5.87868 20.1213C5 19.2426 5 17.8284 5 15V9C5 6.17157 5 4.75736 5.87868 3.87868C6.75736 3 8.17157 3 11 3H12" stroke="#ffffff" stroke-linecap="round" />
+                <path d="M18 3L18 9" stroke="#ffffff" stroke-linecap=   "round" />
+                <path d="M21 6L15 6" stroke="#ffffff" stroke-linecap="round" />
+                <path d="M9 13L15 13" stroke="#ffffff" stroke-linecap="round" />
+                <path d="M9 9L13 9" stroke="#ffffff" stroke-linecap="round" />
+                <path d="M9 17L13 17" stroke="#ffffff" stroke-linecap="round" />
+            </svg>
+            <span class="hover">
+                Berichten
             </span>
         </a>
     </div>';

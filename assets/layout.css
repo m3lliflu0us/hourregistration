@@ -40,6 +40,8 @@ main {
 .dashboard-wrapper {
     display: flex;
     justify-content: flex-end;
+    height: calc(100dvh - 4rem);
+
 }
 
 .dashboard-window {

@@ -115,9 +115,10 @@ include("../db/dbh.inc.php");
                             </div>
                         </form>
 
-                        <div class="assigmnent-item-wrapper">
+                        <div class="assignment-item-wrapper">
                             <?php
                             $inputText = $_POST['searchAssignment'] ?? '';
+                            $highlightId = $_GET['highlight'] ?? '';
 
                             if (!empty($inputText)) {
                                 $sql = "SELECT assignment.*, client.clientId FROM assignment INNER JOIN client ON assignment.clientId = client.clientId WHERE assignment.assignmentName LIKE ? OR assignment.assignmentId LIKE ?";
@@ -136,7 +137,9 @@ include("../db/dbh.inc.php");
                                 $result = $stmt->get_result();
 
                                 while ($row = $result->fetch_assoc()) {
-                                    echo '<div class="assignment-item">';
+                                    $highlightClass = ($row['assignmentId'] == $highlightId) ? 'highlight' : '';
+
+                                    echo '<div class="assignment-item ' . $highlightClass . '">';
                                     echo '<span class="assignment-title">' . htmlspecialchars($row['assignmentName']) . '</span>';
                                     echo '<div class="bottom">';
                                     echo '<div class="bottom-left">';
@@ -148,23 +151,23 @@ include("../db/dbh.inc.php");
 
                                     $sql = "SELECT * FROM activity WHERE userId = ? AND assignmentId = ? AND selected = TRUE";
                                     $stmt2 = $conn->prepare($sql);
-                                    if (!mysqli_stmt_prepare($stmt2, $sql)) {
+                                    if (!$stmt2) {
                                         echo "SQL error";
                                     } else {
-                                        mysqli_stmt_bind_param($stmt2, "ss", $_SESSION['userId'], $row['assignmentId']);
-                                        mysqli_stmt_execute($stmt2);
-                                        $result2 = mysqli_stmt_get_result($stmt2);
-                                        $row2 = mysqli_fetch_assoc($result2);
+                                        $stmt2->bind_param("ss", $_SESSION['userId'], $row['assignmentId']);
+                                        $stmt2->execute();
+                                        $result2 = $stmt2->get_result();
+                                        $row2 = $result2->fetch_assoc();
 
                                         $sql = "SELECT COUNT(*) AS count FROM activity WHERE userId = ? AND selected = TRUE";
                                         $stmt3 = $conn->prepare($sql);
-                                        if (!mysqli_stmt_prepare($stmt3, $sql)) {
+                                        if (!$stmt3) {
                                             echo "SQL error";
                                         } else {
-                                            mysqli_stmt_bind_param($stmt3, "s", $_SESSION['userId']);
-                                            mysqli_stmt_execute($stmt3);
-                                            $result3 = mysqli_stmt_get_result($stmt3);
-                                            $row3 = mysqli_fetch_assoc($result3);
+                                            $stmt3->bind_param("s", $_SESSION['userId']);
+                                            $stmt3->execute();
+                                            $result3 = $stmt3->get_result();
+                                            $row3 = $result3->fetch_assoc();
 
                                             $buttonClass = $row2 || $row3['count'] >= 6 ? 'assignment-button-disabled' : 'assignment-button';
                                             $tooltipText = $row2 ? 'Deze opdracht is al geselecteerd' : ($row3['count'] >= 6 ? 'Deselecteer eerst een opdracht' : 'Selecteer opdracht');
@@ -178,6 +181,7 @@ include("../db/dbh.inc.php");
                             }
                             ?>
                         </div>
+
                     </div>
                 </div>
 

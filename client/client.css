@@ -20,7 +20,7 @@
 .client-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 0.2fr 1.8fr;
+    grid-template-rows: 0.2fr 1.8fr;    
     grid-auto-columns: 1fr;
     gap: 1rem;
     grid-auto-flow: row;
@@ -95,7 +95,7 @@
 }
 
 .client-registration-wrapper .subheading-wrapper {
-    padding: 0 0 1rem 0;
+    padding: 0 0 2rem 0;
 }
 
 .client-list-wrapper .subheading-wrapper {
@@ -227,4 +227,48 @@
 
 .bolder {
     font-weight: 500;
+}
+
+.highlighted span {
+    color: var(--txt-primary);
+    font-weight: 500;
+}
+
+.highlighted .bolder {
+    font-weight: 600;
+}
+
+.highlighted {
+    animation: shake 0.5s linear infinite, pulse 2s infinite;
+    background-color: #ca2b69;
+    box-shadow: 0 0 0 #d55385;
+    position: relative;
+}
+
+.highlighted:hover {
+    animation: none;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: rotate(0.2deg);
+    }
+
+    50% {
+        transform: rotate(-0.2deg);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 #d5538577;
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px #d5538500;
+    }
 }

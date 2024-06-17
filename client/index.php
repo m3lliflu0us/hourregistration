@@ -11,6 +11,11 @@ $currentPage = 'client';
 include("../db/dbh.inc.php");
 include("../config.php");
 include("../userincludes/userfunctions.inc.php");
+
+$highlightId = '';
+if (isset($_GET['highlight'])) {
+    $highlightId = htmlspecialchars(urldecode($_GET['highlight']));
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +31,9 @@ include("../userincludes/userfunctions.inc.php");
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+    <style>
+    </style>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -121,34 +129,47 @@ include("../userincludes/userfunctions.inc.php");
                                 <input type="submit" value="Register Client">
                             </div>
                         </form>
-                    </div>
+                        <?php 
+                        
+                        echo $_SESSION["userId"];
 
+                        ?>
+                    </div>
                     <div class="client-list-wrapper">
                         <div class="subheading-wrapper">
-                            <span>Klantenlijst</span>
+                            <span>Alle klanten</span>
                         </div>
                         <?php
-                        $sql = "SELECT client.clientFirstname, client.clientLastname, client.clientEmail, client.clientPhoneNumber, client.clientId, client.companyName, client.companyAddress, assignment.assignmentName, assignment.assignmentId FROM client LEFT JOIN assignment ON client.clientId = assignment.clientId";
+                        // Adjusted SQL query to select distinct clients without assignments
+                        $sql = "SELECT DISTINCT client.clientFirstname, client.clientLastname, client.clientEmail, client.clientPhoneNumber, client.clientId, client.companyName, client.companyAddress FROM client";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
+                            // Fetch the results into an associative array
                             while ($row = $result->fetch_assoc()) {
-                                echo "<div class='client-list-item'>";
-                                echo "<div class='client-list-item-information'><span><span class='bolder'>Voornaam: </span>" . $row["clientFirstname"] . "</span>";
-                                echo "<span><span class='bolder'>Achternaam: </span>" . $row["clientLastname"] . "</span>";
-                                echo "<span><span class='bolder'>E-mailadres: </span>" . $row["clientEmail"] . "</span>";
-                                echo "<span><span class='bolder'>Telefoonnummer: </span>" . $row["clientPhoneNumber"] . "</span>";
-                                echo "<span><span class='bolder'>Bedrijfsnaam: </span>" . $row["companyName"] . "</span>";
-                                echo "<span><span class='bolder'>Adress(bedrijf): </span>" . $row["companyAddress"] . "</span>";
-                                echo "<span><span class='bolder'>Opdrachtnaam: </span>" . $row["assignmentName"] . "</span></div>";
-                                echo "<div class='client-list-item-button'><div class='invoice-button-wrapper'><button class='invoice-button' data-client-id='" . $row['clientId'] . "' data-assignment-id='" . $row['assignmentId'] . "'>Factuur genereren</button></div></div>";
+                                $isHighlighted = ($highlightId === $row['clientId']) ? 'highlighted' : '';
+                                echo "<div class='client-list-item {$isHighlighted}'>";
+                                echo "<div class='client-list-item-information'>";
+                                echo "<span><span class='bolder'>Voornaam: </span>" . htmlspecialchars($row['clientFirstname']) . "</span>";
+                                echo "<span><span class='bolder'>Achternaam: </span>" . htmlspecialchars($row['clientLastname']) . "</span>";
+                                echo "<span><span class='bolder'>E-mailadres: </span>" . htmlspecialchars($row['clientEmail']) . "</span>";
+                                echo "<span><span class='bolder'>Telefoonnummer: </span>" . htmlspecialchars($row['clientPhoneNumber']) . "</span>";
+                                echo "<span><span class='bolder'>Bedrijfsnaam: </span>" . htmlspecialchars($row['companyName']) . "</span>";
+                                echo "<span><span class='bolder'>Adress(bedrijf): </span>" . htmlspecialchars($row['companyAddress']) . "</span>";
+                                echo "</div>";
+                                echo "<div class='client-list-item-button'>";
+                                echo "<button class='invoice-button' data-client-id='" . $row['clientId'] . "'>Factuur genereren</button>";
+                                echo "</div>";
                                 echo "</div>";
                             }
                         } else {
-                            echo "Geen resultaten";
+                            echo "<div><span>0 results</span></div>";
                         }
+
+                        $conn->close();
                         ?>
                     </div>
+
                 </div>
             </div>
         </div>

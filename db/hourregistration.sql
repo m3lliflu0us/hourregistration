@@ -1,10 +1,14 @@
 SET
-  SQL_MODE = " NO_AUTO_VALUE_ON_ZERO ";
+  SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
 START TRANSACTION;
 
 SET
-  time_zone = " + 02 :00 ";
+  time_zone = "+02:00";
+
+CREATE DATABASE IF NOT EXISTS `hourregistration` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+USE `hourregistration`;
 
 DROP TABLE IF EXISTS `activity`;
 
@@ -21,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `activity` (
   PRIMARY KEY (`activityId`),
   KEY `assignmentId` (`assignmentId`),
   KEY `userId` (`userId`)
-) ENGINE = InnoDB AUTO_INCREMENT = 181 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 203 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `assignment`;
 
@@ -32,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `assignment` (
   `assignmentDescription` varchar(255) NOT NULL,
   PRIMARY KEY (`assignmentId`),
   KEY `clientId` (`clientId`)
-) ENGINE = InnoDB AUTO_INCREMENT = 57 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 59 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `client`;
 
@@ -45,55 +49,20 @@ CREATE TABLE IF NOT EXISTS `client` (
   `companyName` varchar(255) DEFAULT NULL,
   `companyAddress` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`clientId`)
-) ENGINE = InnoDB AUTO_INCREMENT = 9 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
-INSERT INTO
-  `client` (
-    `clientId`,
-    `clientFirstname`,
-    `clientLastname`,
-    `clientEmail`,
-    `clientPhoneNumber`,
-    `companyName`,
-    `companyAddress`
-  )
-VALUES
-  (
-    4,
-    'test',
-    'test',
-    'test@test.com',
-    '0600000000',
-    'test',
-    'test 21'
-  ),
-  (
-    5,
-    'test',
-    'test',
-    'test@test.com',
-    '0600000000',
-    'testtest',
-    'test 21'
-  ),
-  (
-    6,
-    'noway',
-    'test',
-    'test@test.com',
-    '0601289214',
-    'TEST',
-    'test'
-  ),
-  (
-    7,
-    'test',
-    'test',
-    'test@test.com',
-    '0602020202',
-    'test',
-    'test 6198 TE'
-  );
+DROP TABLE IF EXISTS `messages`;
+
+CREATE TABLE IF NOT EXISTS `messages` (
+  `messageId` int NOT NULL AUTO_INCREMENT,
+  `senderId` int NOT NULL,
+  `recipientId` int NOT NULL,
+  `messageText` text NOT NULL,
+  `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`messageId`),
+  KEY `senderId` (`senderId`),
+  KEY `recipientId` (`recipientId`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `user`;
 
@@ -105,66 +74,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `userPwd` varchar(255) NOT NULL,
   `userRole` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE = InnoDB AUTO_INCREMENT = 8 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
-INSERT INTO
-  `user` (
-    `userId`,
-    `userFirstname`,
-    `userLastname`,
-    `userEmail`,
-    `userPwd`,
-    `userRole`
-  )
-VALUES
-  (
-    1,
-    'admin',
-    'test',
-    'test@admin.com',
-    '$2y$10$yzh/KuNN2ZhBtx9KKivlourPYbPKQFjVG2SyG7GXkySpQkE.bhppC',
-    'administrator'
-  ),
-  (
-    2,
-    'sd',
-    'test',
-    'test@sd.com',
-    '$2y$10$CNsWDyr0znjScy1KnW08/uK6Wna9mjM4jxh38myst2eu4dGEcUsMq',
-    'SD'
-  ),
-  (
-    3,
-    'itsd',
-    'test',
-    'test@itsd.com',
-    '$2y$10$U6k9xaY/7eKBoIpIZIyWQugYZ5PzV64jH0fntjFCL5dd9u8/6kvbS',
-    'ITSD'
-  ),
-  (
-    4,
-    'hybrid',
-    'test',
-    'test@hybrid.com',
-    '$2y$10$wPQrClQh52U3pDws3l8gKOnVlKEyhB6IITWRm6USCOxCDZI7eoxdC',
-    'hybrid'
-  ),
-  (
-    5,
-    'test',
-    'test',
-    'test@test.com',
-    '$2y$10$RaDeNqppyAa79ASJoWjAK.St/QzRqk57JC.UMCEo0WzOLpwn2.zsG',
-    'administrator'
-  ),
-  (
-    6,
-    'bryce',
-    'bryce',
-    'bryce@bryce.vom',
-    '$2y$10$PruUhG.I3cFATzo6VOoIFOBmoYDmCAzApcdWDlXojn3KvE6lNUn1C',
-    'administrator'
-  );
+) ENGINE = InnoDB AUTO_INCREMENT = 14 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 ALTER TABLE
   `activity`
@@ -177,3 +87,10 @@ ALTER TABLE
   `assignment`
 ADD
   CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`clientId`) REFERENCES `client` (`clientId`);
+
+ALTER TABLE
+  `messages`
+ADD
+  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `user` (`userId`),
+ADD
+  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`recipientId`) REFERENCES `user` (`userId`);

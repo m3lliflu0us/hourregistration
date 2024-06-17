@@ -1,490 +1,490 @@
-:root {
-    user-select: text;
-    font-family: "Manrope", sans-serif;
-    --shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    --border-radius: 2rem;
-    --gilde-primary: #13355b;
-    --gilde-primary-hover: #23415f;
-    --gilde-secondary: #ca2b69;
-    --gilde-secondary-hover: #b3255d;
-    --gilde-tertiary-hover: #b3255e12;
-    --white-primary: #ffffff;
-    --white-secondary: #eeeeee;
-    --txt-primary: #ffffff;
-    --txt-secondary: #222222;
-    --txt-tertiary: #1f1f1f;
-    --txt: #00365e;
-    --shadow-color: #0000000e;
-    --transition-primary: ease-in-out 0.1s;
-    --shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
-}
-
-* {
-    box-sizing: border-box;
-    text-decoration: none;
-    color: var(--txt-tertiary);
-    font-family: "Manrope", sans-serif;
-}
-
-*::before {
-    box-sizing: inherit;
-}
-
-*::after {
-    box-sizing: inherit;
-}
-
-body {
-    background-color: var(--gilde-primary);
-    margin: 0;
-    padding: 0;
-}
-
-.navbar-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    width: 10rem;
-    gap: 5%;
-    margin: 0 0 0 1rem;
-}
-
-.button {
-    cursor: pointer;
-}
-
-.txt-secondary {
-    color: var(--txt-secondary);
-}
-
-a {
-    color: var(--txt-primary);
-}
-
-.input-wrapper {
-    display: none;
-    flex-basis: 50%;
-    flex-direction: column;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 20rem;
-    width: 20rem;
-    background-color: var(--white-primary);
-    border-radius: 28px;
-    min-height: 500px;
-    width: 400px;
-    padding: 10px;
-    box-shadow: var(--shadow);
-}
-
-.input-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
-}
-
-.input-content form input {
-    color: var(--txt-tertiary);
-}
-
-.inf {
-    margin: 22px 0 0 0;
-}
-
-.inf span {
-    color: var(--txt-secondary);
-    font-weight: 450;
-    font-size: 22px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-}
-
-.password input:focus,
-.email input:focus,
-.firstname input:focus,
-.lastname input:focus,
-.password-repeat input:focus {
-    outline: none;
-    border: 2px solid var(--gilde-secondary);
-    margin: 1px 1px 0 0px;
-}
-
-.email input,
-.password input,
-.firstname input,
-.lastname input,
-.password-repeat input {
-    width: 100%;
-    height: 52px;
-    padding: 13px 15px;
-    font-size: 16px;
-    margin: 1px 1px 0 1px;
-    border-radius: 4px;
-    color: var(--txt-tertiary);
-    background-color: #ffffff;
-    outline: none;
-    border: 1px solid var(--txt-tertiary);
-}
-
-.firstname,
-.lastname,
-.email,
-.password,
-.password-repeat {
-    position: relative;
-}
-
-.lastname,
-.margin,
-.password,
-.password-repeat {
-    margin: 24px 0 0 0;
-}
-
-.firstname label,
-.lastname label,
-.email label,
-.password label,
-.password-repeat label {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    margin: 5.5px 0 0 0;
-    padding: 0.625rem 0;
-    color: var(--txt-tertiary);
-    transition: var(--transition-primary);
-    cursor: text;
-    pointer-events: none;
-
-}
-
-.firstname input:focus~label,
-.firstname input:not([value=""])~label {
-    top: -0.8rem;
-    left: 10px;
-    color: var(--gilde-secondary);
-    font-size: 0.75rem;
-    background-color: #ffffff;
-    height: 10px;
-    padding: 0 5px;
-    cursor: default;
-}
-
-.lastname input:focus~label,
-.lastname input:not([value=""])~label {
-    top: -0.8rem;
-    left: 10px;
-    color: var(--gilde-secondary);
-    font-size: 0.75rem;
-    background-color: #ffffff;
-    height: 10px;
-    padding: 0 5px;
-    cursor: default;
-}
-
-.email input:focus~label,
-.email input:not([value=""])~label {
-    top: -0.8rem;
-    left: 10px;
-    color: var(--gilde-secondary);
-    font-size: 0.75rem;
-    background-color: #ffffff;
-    height: 10px;
-    padding: 0 5px;
-    cursor: default;
-}
-
-.password input:focus~label,
-.password input:not([value=""])~label {
-    top: -0.8rem;
-    left: 10px;
-    color: var(--gilde-secondary);
-    font-size: 0.75rem;
-    background-color: #ffffff;
-    height: 10px;
-    padding: 0 5px;
-    cursor: default;
-}
-
-.password-repeat input:focus~label,
-.password-repeat input:not([value=""])~label {
-    top: -0.8rem;
-    left: 10px;
-    color: var(--gilde-secondary);
-    font-size: 0.75rem;
-    background-color: #ffffff;
-    height: 10px;
-    padding: 0 5px;
-    cursor: default;
-}
-
-.firstname input:not([value=""])~label,
-.lastname input:not([value=""])~label,
-.email input:not([value=""])~label,
-.password input:not([value=""])~label,
-.password-repeat input:not([value=""])~label {
-    transition: 0.025 ease;
-}
-
-.firstname input:not(:focus)~label,
-.lastname input:not(:focus)~label,
-.email input:not(:focus)~label,
-.password input:not(:focus)~label,
-.password-repeat input:not(:focus)~label {
-    color: var(--txt-tertiary);
-}
-
-.error-container {
-    display: flex;
-    align-items: center;
-    padding: 10px 0 10px 0;
-}
-
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    height: 48px;
-    margin: 20px 0 0 0;
-}
-
-
-.checkbox-container input[type="checkbox"] {
-    display: none;
-}
-
-.checkbox-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 1px 0 0 35px;
-    max-width: 50%;
-}
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 21.6px;
-    width: 21.6px;
-    padding: 0 0 2.5px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.08s ease-in-out;
-    border-radius: 2.5px;
-    border: black solid 1px;
-}
-
-.checkbox-container input:checked~.checkmark {
-    background-color: var(--gilde-secondary);
-}
-
-.checkbox-container input:checked~.checkmark:after {
-    content: "";
-    width: 7px;
-    height: 12px;
-    border: solid var(--txt-primary);
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg);
-}
-
-.checkbox-container span {
-    color: var(--txt-tertiary);
-    text-wrap: nowrap;
-}
-
-.bottom {
-    margin: auto 0 0 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.submit input[type="submit"] {
-    border: none;
-    outline: none;
-    border-radius: 32px;
-    font-weight: 600;
-    font-size: 16px;
-    height: 48px;
-    width: 110px;
-    color: var(--txt-primary);
-    background-color: var(--gilde-secondary);
-    transition: var(--transition-primary);
-}
-
-.submit:hover input[type="submit"] {
-    background-color: var(--gilde-secondary-hover);
-    box-shadow: 0 1.8px 2.2px 1.8px var(--shadow-color);
-}
-
-.navbar-item {
-    display: flex;
-    align-items: center;
-    max-height: 2rem;
-    height: 2rem;
-}
-
-.navbar-item a,
-.navbar-item a span,
-.navbar-item span {
-    display: flex;
-    align-items: center;
-    transition: var(--transition-primary);
-    color: var(--txt-primary);
-}
-
-.hover {
-    display: flex;
-    align-items: center;
-    transition: var(--transition-primary);
-}
-
-.navbar-item:hover .hover,
-.navbar-item.active .hover {
-    color: #cb2b6a;
-    padding: 0 0 0 2%;
-}
-
-.activelink .hover {
-    color: #cb2b6a !important;
-}
-
-.activelink .svg rect,
-.activelink .svg path,
-.activelink .svg circle {
-    stroke: var(--gilde-secondary) !important;
-}
-
-.activelink .svg {
-    height: 36px !important;
-}
-
-.navbar-item:first-child img {
-    height: 50px;
-}
-
-.navbar-item .svg {
-    padding: 0 0.6rem 0 0;
-    height: 24px;
-    transition: var(--transition-primary);
-}
-
-.navbar-item:hover .svg,
-.navbar-item.active .svg {
-    height: 36px;
-}
-
-.navbar-item .svg rect,
-.navbar-item .svg path,
-.navbar-item .svg circle {
-    transition: var(--transition-primary);
-}
-
-.navbar-item:hover .svg rect,
-.navbar-item:hover .svg path,
-.navbar-item:hover .svg circle,
-.navbar-item.active .svg rect,
-.navbar-item.active .svg path,
-.navbar-item.active .svg circle {
-    stroke: #cb2b6a;
-}
-
-
-.navbar-item:first-child {
-    margin: 0 0 auto 0;
-}
-
-.navbar-item:last-child {
-    margin: auto 0 0 0;
-    text-wrap: nowrap;
-}
-
-.navbar-item:hover {
-    cursor: pointer;
-}
-
-.txt-secondary:hover {
-    cursor: text;
-}
-
-.popover-wrapper:hover {
-    cursor: default;
-}
-
-.popover-wrapper {
-    display: none;
-    position: absolute;
-    width: calc(10% - 30px);
-    height: 14%;
-    margin: 0 0 14rem 0;
-    background-color: var(--gilde-secondary);
-    padding: 8px 15px;
-    border-radius: 8px;
-}
-
-.popover-content {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10%;
-    height: 100%;
-    font-size: 14px;
-    max-width: 100%;
-}
-
-.divider {
-    height: 1px;
-    width: 100%;
-    margin: 2% 0;
-    background-color: var(--gilde-primary-hover);
-}
-
-.hover {
-    display: flex;
-    align-items: center;
-    transition: var(--transition-primary);
-}
-
-.navbar-item:hover .hover {
-    color: #cb2b6a;
-    padding: 0 0 0 2%;
-}
-
-.overflow {
-    position: relative;
-    overflow: hidden;
-    max-width: 100%;
-    width: 100%;
-}
-
-.overflow::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 5px;
-    background: linear-gradient(to left, var(--gilde-primary), transparent);
-}
-
-img {
-    user-select: none;
-}
-
-.navbar-item span {
-    user-select: none;
-}
+    :root {
+        user-select: text;
+        font-family: "Manrope", sans-serif;
+        --shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        --border-radius: 2rem;
+        --gilde-primary: #13355b;
+        --gilde-primary-hover: #23415f;
+        --gilde-secondary: #ca2b69;
+        --gilde-secondary-hover: #b3255d;
+        --gilde-tertiary-hover: #b3255e12;
+        --white-primary: #ffffff;
+        --white-secondary: #eeeeee;
+        --txt-primary: #ffffff;
+        --txt-secondary: #222222;
+        --txt-tertiary: #1f1f1f;
+        --txt: #00365e;
+        --shadow-color: #0000000e;
+        --transition-primary: ease-in-out 0.1s;
+        --shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+        box-sizing: border-box;
+        text-decoration: none;
+        color: var(--txt-tertiary);
+        font-family: "Manrope", sans-serif;
+    }
+
+    *::before {
+        box-sizing: inherit;
+    }
+
+    *::after {
+        box-sizing: inherit;
+    }
+
+    body {
+        background-color: var(--gilde-primary);
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 10rem;
+        gap: 5%;
+        margin: 0 0 0 1rem;
+    }
+
+    .button {
+        cursor: pointer;
+    }
+
+    .txt-secondary {
+        color: var(--txt-secondary);
+    }
+
+    a {
+        color: var(--txt-primary);
+    }
+
+    .input-wrapper {
+        display: none;
+        flex-basis: 50%;
+        flex-direction: column;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 20rem;
+        width: 20rem;
+        background-color: var(--white-primary);
+        border-radius: 28px;
+        min-height: 500px;
+        width: 400px;
+        padding: 10px;
+        box-shadow: var(--shadow);
+    }
+
+    .input-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .input-content form input {
+        color: var(--txt-tertiary);
+    }
+
+    .inf {
+        margin: 22px 0 0 0;
+    }
+
+    .inf span {
+        color: var(--txt-secondary);
+        font-weight: 450;
+        font-size: 22px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .password input:focus,
+    .email input:focus,
+    .firstname input:focus,
+    .lastname input:focus,
+    .password-repeat input:focus {
+        outline: none;
+        border: 2px solid var(--gilde-secondary);
+        margin: 1px 1px 0 0px;
+    }
+
+    .email input,
+    .password input,
+    .firstname input,
+    .lastname input,
+    .password-repeat input {
+        width: 100%;
+        height: 52px;
+        padding: 13px 15px;
+        font-size: 16px;
+        margin: 1px 1px 0 1px;
+        border-radius: 4px;
+        color: var(--txt-tertiary);
+        background-color: #ffffff;
+        outline: none;
+        border: 1px solid var(--txt-tertiary);
+    }
+
+    .firstname,
+    .lastname,
+    .email,
+    .password,
+    .password-repeat {
+        position: relative;
+    }
+
+    .lastname,
+    .margin,
+    .password,
+    .password-repeat {
+        margin: 24px 0 0 0;
+    }
+
+    .firstname label,
+    .lastname label,
+    .email label,
+    .password label,
+    .password-repeat label {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        margin: 5.5px 0 0 0;
+        padding: 0.625rem 0;
+        color: var(--txt-tertiary);
+        transition: var(--transition-primary);
+        cursor: text;
+        pointer-events: none;
+
+    }
+
+    .firstname input:focus~label,
+    .firstname input:not([value=""])~label {
+        top: -0.8rem;
+        left: 10px;
+        color: var(--gilde-secondary);
+        font-size: 0.75rem;
+        background-color: #ffffff;
+        height: 10px;
+        padding: 0 5px;
+        cursor: default;
+    }
+
+    .lastname input:focus~label,
+    .lastname input:not([value=""])~label {
+        top: -0.8rem;
+        left: 10px;
+        color: var(--gilde-secondary);
+        font-size: 0.75rem;
+        background-color: #ffffff;
+        height: 10px;
+        padding: 0 5px;
+        cursor: default;
+    }
+
+    .email input:focus~label,
+    .email input:not([value=""])~label {
+        top: -0.8rem;
+        left: 10px;
+        color: var(--gilde-secondary);
+        font-size: 0.75rem;
+        background-color: #ffffff;
+        height: 10px;
+        padding: 0 5px;
+        cursor: default;
+    }
+
+    .password input:focus~label,
+    .password input:not([value=""])~label {
+        top: -0.8rem;
+        left: 10px;
+        color: var(--gilde-secondary);
+        font-size: 0.75rem;
+        background-color: #ffffff;
+        height: 10px;
+        padding: 0 5px;
+        cursor: default;
+    }
+
+    .password-repeat input:focus~label,
+    .password-repeat input:not([value=""])~label {
+        top: -0.8rem;
+        left: 10px;
+        color: var(--gilde-secondary);
+        font-size: 0.75rem;
+        background-color: #ffffff;
+        height: 10px;
+        padding: 0 5px;
+        cursor: default;
+    }
+
+    .firstname input:not([value=""])~label,
+    .lastname input:not([value=""])~label,
+    .email input:not([value=""])~label,
+    .password input:not([value=""])~label,
+    .password-repeat input:not([value=""])~label {
+        transition: 0.025 ease;
+    }
+
+    .firstname input:not(:focus)~label,
+    .lastname input:not(:focus)~label,
+    .email input:not(:focus)~label,
+    .password input:not(:focus)~label,
+    .password-repeat input:not(:focus)~label {
+        color: var(--txt-tertiary);
+    }
+
+    .error-container {
+        display: flex;
+        align-items: center;
+        padding: 10px 0 10px 0;
+    }
+
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        height: 48px;
+        margin: 20px 0 0 0;
+    }
+
+
+    .checkbox-container input[type="checkbox"] {
+        display: none;
+    }
+
+    .checkbox-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 1px 0 0 35px;
+        max-width: 50%;
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 21.6px;
+        width: 21.6px;
+        padding: 0 0 2.5px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.08s ease-in-out;
+        border-radius: 2.5px;
+        border: black solid 1px;
+    }
+
+    .checkbox-container input:checked~.checkmark {
+        background-color: var(--gilde-secondary);
+    }
+
+    .checkbox-container input:checked~.checkmark:after {
+        content: "";
+        width: 7px;
+        height: 12px;
+        border: solid var(--txt-primary);
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+    }
+
+    .checkbox-container span {
+        color: var(--txt-tertiary);
+        text-wrap: nowrap;
+    }
+
+    .bottom {
+        margin: auto 0 0 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .submit input[type="submit"] {
+        border: none;
+        outline: none;
+        border-radius: 32px;
+        font-weight: 600;
+        font-size: 16px;
+        height: 48px;
+        width: 110px;
+        color: var(--txt-primary);
+        background-color: var(--gilde-secondary);
+        transition: var(--transition-primary);
+    }
+
+    .submit:hover input[type="submit"] {
+        background-color: var(--gilde-secondary-hover);
+        box-shadow: 0 1.8px 2.2px 1.8px var(--shadow-color);
+    }
+
+    .navbar-item {
+        display: flex;
+        align-items: center;
+        max-height: 2rem;
+        height: 2rem;
+    }
+
+    .navbar-item a,
+    .navbar-item a span,
+    .navbar-item span {
+        display: flex;
+        align-items: center;
+        transition: var(--transition-primary);
+        color: var(--txt-primary);
+    }
+
+    .hover {
+        display: flex;
+        align-items: center;
+        transition: var(--transition-primary);
+    }
+
+    .navbar-item:hover .hover,
+    .navbar-item.active .hover {
+        color: #cb2b6a;
+        padding: 0 0 0 2%;
+    }
+
+    .activelink .hover {
+        color: #cb2b6a !important;
+    }
+
+    .activelink .svg rect,
+    .activelink .svg path,
+    .activelink .svg circle {
+        stroke: var(--gilde-secondary) !important;
+    }
+
+    .activelink .svg {
+        height: 36px !important;
+    }
+
+    .navbar-item:first-child img {
+        height: 50px;
+    }
+
+    .navbar-item .svg {
+        padding: 0 0.6rem 0 0;
+        height: 24px;
+        transition: var(--transition-primary);
+    }
+
+    .navbar-item:hover .svg,
+    .navbar-item.active .svg {
+        height: 36px;
+    }
+
+    .navbar-item .svg rect,
+    .navbar-item .svg path,
+    .navbar-item .svg circle {
+        transition: var(--transition-primary);
+    }
+
+    .navbar-item:hover .svg rect,
+    .navbar-item:hover .svg path,
+    .navbar-item:hover .svg circle,
+    .navbar-item.active .svg rect,
+    .navbar-item.active .svg path,
+    .navbar-item.active .svg circle {
+        stroke: #cb2b6a;
+    }
+
+
+    .navbar-item:first-child {
+        margin: 0 0 auto 0;
+    }
+
+    .navbar-item:last-child {
+        margin: auto 0 0 0;
+        text-wrap: nowrap;
+    }
+
+    .navbar-item:hover {
+        cursor: pointer;
+    }
+
+    .txt-secondary:hover {
+        cursor: text;
+    }
+
+    .popover-wrapper:hover {
+        cursor: default;
+    }
+
+    .popover-wrapper {
+        display: none;
+        position: absolute;
+        width: calc(10% - 30px);
+        height: 14%;
+        margin: 0 0 14rem 0;
+        background-color: var(--gilde-secondary);
+        padding: 8px 15px;
+        border-radius: 8px;
+    }
+
+    .popover-content {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10%;
+        height: 100%;
+        font-size: 14px;
+        max-width: 100%;
+    }
+
+    .divider {
+        height: 1px;
+        width: 100%;
+        margin: 2% 0;
+        background-color: var(--gilde-primary-hover);
+    }
+
+    .hover {
+        display: flex;
+        align-items: center;
+        transition: var(--transition-primary);
+    }
+
+    .navbar-item:hover .hover {
+        color: #cb2b6a;
+        padding: 0 0 0 2%;
+    }
+
+    .overflow {
+        position: relative;
+        overflow: hidden;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .overflow::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 5px;
+        background: linear-gradient(to left, var(--gilde-primary), transparent);
+    }
+
+    img {
+        user-select: none;
+    }
+
+    .navbar-item span {
+        user-select: none;
+    }

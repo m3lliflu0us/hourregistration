@@ -26,7 +26,8 @@ ass.clientId,
 c.companyName,
 c.clientPhoneNumber,
 c.clientFirstname,
-c.clientLastname
+c.clientLastname,
+c.clientEmail
 FROM 
 activity a
 JOIN 
@@ -62,7 +63,8 @@ ass.clientId,
 c.companyName,
 c.clientPhoneNumber,
 c.clientFirstname,
-c.clientLastname
+c.clientLastname,
+c.clientEmail
 FROM 
 activity a
 JOIN 

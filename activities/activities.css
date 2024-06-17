@@ -28,8 +28,8 @@
     "heading-wrapper"
     "search-wrapper"
     "activities-item-wrapper";
-    padding: 1rem;
-    height: calc(100vh - 4rem);
+  padding: 1rem;
+  height: calc(100vh - 4rem);
 }
 
 .heading-wrapper {
