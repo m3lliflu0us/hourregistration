@@ -158,9 +158,7 @@ if (isset($_GET['highlight'])) {
                                 echo "<span><span class='bolder'>Adress(bedrijf): </span>" . htmlspecialchars($row['companyAddress']) . "</span>";
                                 echo "</div>";
                                 echo "<div class='client-list-item-button'>";
-                                echo "<button class='invoice-button' data-client-id='" . $row['clientId'] . "'>Factuur genereren</button>";
-                                echo "</div>";
-                                echo "</div>";
+                                echo "<div class='client-list-item-button'><div class='invoice-button-wrapper'><button class='invoice-button' data-client-id='" . $row['clientId'] . "' data-assignment-id='" . $row['assignmentId'] . "'>Factuur genereren</button></div></div>";                                echo "</div>";
                             }
                         } else {
                             echo "<div><span>0 results</span></div>";
